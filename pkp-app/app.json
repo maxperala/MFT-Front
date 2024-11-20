@@ -52,7 +52,8 @@
         {
           "fonts": ["./assets/fonts/Fair_Prosper.ttf"]
         }
-      ]
+      ],
+      "@maplibre/maplibre-react-native"
     ],
     "experiments": {
       "typedRoutes": true

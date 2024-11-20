@@ -1,33 +1,24 @@
-import { View, Text, StyleSheet } from "react-native";
-import MapView, { UrlTile, Region } from "react-native-maps";
-import { useState } from "react";
-
-// this will be integrated to backend ASAP
-const tileUrl = `URL WITH KEY HERE`;
-
-const initialRegion: Region = {
-  latitude: 61.49627200720432,
-  latitudeDelta: 0.0024941467711343535,
-  longitude: 23.731862215263078,
-  longitudeDelta: 0.0030575974175732767,
-};
+import { View, StyleSheet } from "react-native";
+import {
+  MapView,
+  Camera,
+  UserTrackingModes,
+  UserLocation,
+} from "@maplibre/maplibre-react-native";
+import { MAPTILER_API_KEY } from "@/config";
+// This api key is safe to expose for testing purposes. Production
+const mapStyleUrl = `https://api.maptiler.com/maps/a6fff3d6-a1f6-47a9-b3c1-b5bc485253e3/style.json?key=${MAPTILER_API_KEY}`;
 
 const MapViewer = () => {
-  const [region, setRegion] = useState<Region>(initialRegion);
-  const updateRegion = (region: Region) => {
-    console.log(region);
-    setRegion(region);
-  };
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        region={region}
-        onRegionChangeComplete={updateRegion}
-        showsPointsOfInterest={false}
-        showsUserLocation={true}
-      >
-        <UrlTile urlTemplate={tileUrl} shouldReplaceMapContent={true} />
+      <MapView style={styles.map} styleJSON={mapStyleUrl} compassEnabled={true}>
+        <Camera
+          followUserLocation={true}
+          followUserMode={UserTrackingModes.FollowWithHeading}
+          followZoomLevel={15}
+        />
+        <UserLocation renderMode="normal" />
       </MapView>
     </View>
   );
@@ -40,6 +31,7 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
     backgroundColor: "black",
+    alignContent: "stretch",
   },
   tileContainer: {
     flex: 1,
