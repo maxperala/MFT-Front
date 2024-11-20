@@ -3,16 +3,17 @@ import { View, StyleSheet, Image } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
+  withSpring,
 } from "react-native-reanimated";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const Compass = () => {
   const location = useSelector((state: RootState) => state.location);
-  const animatedRotation = useSharedValue(0);
+  const animatedRotation = useSharedValue<number>(0);
   useEffect(() => {
     if (location.coords?.heading)
-      animatedRotation.value = Math.round(location.coords?.heading);
+      animatedRotation.value = withSpring(Math.round(location.coords?.heading));
   }, [location]);
 
   const animationStyle = useAnimatedStyle(() => {
