@@ -7,6 +7,7 @@ const initialState: UserLocation = {
   coords: null,
   allowed: false,
   focused: true,
+  zoom: 15,
 };
 
 const locationSlice = createSlice({
@@ -22,9 +23,13 @@ const locationSlice = createSlice({
     setFocused(state, action: PayloadAction<boolean>) {
       return { ...state, focused: action.payload };
     },
+    setZoom(state, action: PayloadAction<number>) {
+      return { ...state, zoom: action.payload };
+    },
   },
 });
-export const { setAllowed, setLocation, setFocused } = locationSlice.actions;
+export const { setAllowed, setLocation, setFocused, setZoom } =
+  locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {
   return async (dispatch: AppDispatch) => {
@@ -38,6 +43,7 @@ export const setUserLocation = (location: Location) => {
       setLocation({
         lat: location.coords.latitude,
         lon: location.coords.longitude,
+        heading: location.coords.heading,
       })
     );
   };
@@ -46,6 +52,7 @@ export const setUserLocation = (location: Location) => {
 export const setFocusedOnUser = (status: boolean) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setFocused(status));
+    dispatch(setZoom(15));
   };
 };
 

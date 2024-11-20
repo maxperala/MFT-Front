@@ -26,17 +26,24 @@ const MapViewer = () => {
       setFocusedOnUser(e.nativeEvent.payload.followUserLocation as boolean)
     );
   };
+  const setFocused = () => {
+    dispatch(setFocusedOnUser(true));
+  };
 
   return (
     <View style={styles.container}>
       <MapView style={styles.map} styleJSON={mapStyleUrl} compassEnabled={true}>
         <Camera
           followUserLocation={location.focused}
-          followUserMode={UserTrackingMode.FollowWithCourse}
-          followZoomLevel={15}
+          followUserMode={UserTrackingMode.FollowWithHeading}
+          followZoomLevel={location.zoom}
           onUserTrackingModeChange={updateFollow}
         />
-        <UserLocation renderMode="normal" onUpdate={updateLocation} />
+        <UserLocation
+          renderMode="normal"
+          onUpdate={updateLocation}
+          onPress={setFocused}
+        />
       </MapView>
     </View>
   );

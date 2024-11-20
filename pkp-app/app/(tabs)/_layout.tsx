@@ -10,8 +10,8 @@ const naviLayout = () => {
         tabBarStyle: {
           backgroundColor: colors.main_red,
         },
-        tabBarActiveTintColor: colors.white,
-        tabBarInactiveTintColor: colors.grey,
+        tabBarActiveTintColor: colors.yellow,
+        tabBarInactiveTintColor: colors.white,
       }}
     >
       <Tabs.Screen

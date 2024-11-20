@@ -1,13 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
 import colors from "@/colors";
-import { getLoadedFonts } from "expo-font";
 
 const Header = () => {
-  const fonts = getLoadedFonts();
-  console.log(fonts);
   return (
     <View style={style.container}>
-      <Text style={style.text}>Pyynikinharju</Text>
+      <Text style={style.text}>Tahmela</Text>
     </View>
   );
 };
@@ -15,14 +12,18 @@ const Header = () => {
 const style = StyleSheet.create({
   container: {
     height: 90,
-    alignItems: "center",
-    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    justifyContent: "center",
+    flexDirection: "row",
+
     backgroundColor: colors.main_red,
   },
   text: {
     fontSize: 30,
     color: colors.white,
     paddingBottom: 2,
+    paddingLeft: 8,
+    paddingRight: 8,
     fontFamily: "Fair-Prosper",
   },
 });
