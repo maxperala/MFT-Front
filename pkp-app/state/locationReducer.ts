@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserLocation, Location } from "@/types";
+import { Coords, UserLocation } from "@/types";
 import { AppDispatch } from "./store";
+import { Location } from "@maplibre/maplibre-react-native";
+
 const initialState: UserLocation = {
-  lat: 0,
-  lon: 0,
+  coords: null,
   allowed: false,
   focused: true,
 };
@@ -13,14 +14,13 @@ const locationSlice = createSlice({
   initialState,
   reducers: {
     setAllowed(state, action: PayloadAction<boolean>) {
-      state.allowed = action.payload;
+      return { ...state, allowed: action.payload };
     },
-    setLocation(state, action: PayloadAction<{ lat: number; lon: number }>) {
-      state.lat = action.payload.lat;
-      state.lon = action.payload.lon;
+    setLocation(state, action: PayloadAction<Coords>) {
+      state.coords = action.payload;
     },
     setFocused(state, action: PayloadAction<boolean>) {
-      state.focused = action.payload;
+      return { ...state, focused: action.payload };
     },
   },
 });
@@ -34,7 +34,12 @@ export const setLocationAccess = (status: boolean) => {
 
 export const setUserLocation = (location: Location) => {
   return async (dispatch: AppDispatch) => {
-    dispatch(setLocation(location));
+    dispatch(
+      setLocation({
+        lat: location.coords.latitude,
+        lon: location.coords.longitude,
+      })
+    );
   };
 };
 
