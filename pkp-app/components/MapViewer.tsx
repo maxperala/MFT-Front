@@ -36,7 +36,6 @@ const MapViewer = () => {
   };
 
   const updateHeading = (e: GeoJSON.Feature<GeoJSON.Point, RegionPayload>) => {
-    console.log(e);
     dispatch(setMapHeading(e.properties.heading));
   };
 
@@ -45,7 +44,7 @@ const MapViewer = () => {
       <MapView
         style={styles.map}
         styleJSON={mapStyleUrl}
-        compassEnabled={true}
+        compassEnabled={false}
         onRegionIsChanging={updateHeading}
       >
         <Camera
