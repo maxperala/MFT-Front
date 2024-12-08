@@ -1,10 +1,22 @@
-import { View, Text } from "react-native";
-
+import { View, YStack, Text, Button } from "tamagui";
+import { Linking } from "react-native";
 // VIP
 const noLocationScreen = () => {
+  const handleOpenSettings = () => {
+    Linking.openSettings();
+  };
+
   return (
-    <View>
-      <Text>This app requires location prevlidges to use...</Text>
+    <View
+      flex={1}
+      alignItems="center"
+      backgroundColor="white"
+      justifyContent="center"
+    >
+      <YStack flex={1} alignItems="center" justifyContent="center" gap="$2">
+        <Text>This app requires location prevlidges to use...</Text>
+        <Button onPress={handleOpenSettings}>Settings</Button>
+      </YStack>
     </View>
   );
 };
