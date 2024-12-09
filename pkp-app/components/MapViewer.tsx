@@ -1,10 +1,13 @@
 import { View, StyleSheet } from "react-native";
+import { Postcard } from "@/types";
+import Marker from "./Marker";
 import {
   MapView,
   Camera,
   UserTrackingModes,
   UserLocation,
   UserTrackingMode,
+  MarkerView,
 } from "@maplibre/maplibre-react-native";
 import { MAPTILER_API_KEY } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +25,12 @@ const mapStyleUrl = `https://api.maptiler.com/maps/a6fff3d6-a1f6-47a9-b3c1-b5bc4
 const MapViewer = () => {
   const dispatch: AppDispatch = useDispatch();
   const location = useSelector((store: RootState) => store.location);
+  const cardData = useSelector((state: RootState) => state.cardData);
+  let cards: Postcard[] = [];
+  if (cardData.cards) {
+    cards = cardData.cards;
+  }
+
   const updateLocation = (loc: Location) => {
     dispatch(setUserLocation(loc));
   };
@@ -58,6 +67,17 @@ const MapViewer = () => {
           onUpdate={updateLocation}
           onPress={setFocused}
         />
+        {cards.map((card) => {
+          return (
+            <MarkerView
+              coordinate={[card.location.lon, card.location.lat]}
+              key={card.id}
+              anchor={{ x: 0.5, y: 1.0 }}
+            >
+              <Marker card={card} />
+            </MarkerView>
+          );
+        })}
       </MapView>
     </View>
   );

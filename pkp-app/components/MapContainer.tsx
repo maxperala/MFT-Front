@@ -1,14 +1,12 @@
 import { View, StyleSheet } from "react-native";
 import MapViewer from "./MapViewer";
 import Compass from "./Compass";
-
 const MapContainer = () => {
   return (
     <View style={style.container}>
       <View style={style.compassContainer}>
         <Compass />
       </View>
-
       <MapViewer />
     </View>
   );

@@ -31,4 +31,22 @@ export interface ErrorResponseData {
   error: string[];
 }
 
+export interface Postcard {
+  location: {
+    lat: number;
+    lon: number;
+  };
+  title: string;
+  description: string;
+  author: string;
+  degree: number;
+  url: string;
+  id: string;
+}
+
+export interface PostcardsState {
+  cards: Postcard[] | null;
+  active: Postcard | null;
+}
+
 export type LoginResponse = User | ErrorResponseData;

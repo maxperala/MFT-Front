@@ -1,12 +1,14 @@
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import { AppState } from "react-native";
+import { AppState, View, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/state/store";
 import NoLocationScreen from "./error_screens/no_location";
 import RegisterScreen from "./register";
 import { getUser } from "@/state/userReducer";
 import { getLocationStatus } from "@/utils/location/locationUtils";
+import CardSheet from "@/components/CardSheet";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -39,11 +41,20 @@ const App = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <GestureHandlerRootView style={style.container}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <CardSheet />
+    </GestureHandlerRootView>
   );
 };
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;

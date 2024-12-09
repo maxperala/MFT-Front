@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import locationReducer from "./locationReducer";
 import userReducer from "./userReducer";
+import cardsReducer from "./cardsReducer";
 
 const store = configureStore({
   reducer: {
     location: locationReducer,
     account: userReducer,
+    cardData: cardsReducer,
   },
 });
 

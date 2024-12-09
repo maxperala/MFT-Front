@@ -10,13 +10,15 @@
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "expo lint",
-    "dev": "expo run:ios --device"
+    "dev": "expo run:ios --device",
+    "prebuild": "expo prebuild --platform ios"
   },
   "jest": {
     "preset": "jest-expo"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
+    "@gorhom/bottom-sheet": "^5.0.6",
     "@maplibre/maplibre-react-native": "^10.0.0-alpha.26",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-navigation/bottom-tabs": "^7.0.0",
@@ -24,6 +26,7 @@
     "@reduxjs/toolkit": "^2.3.0",
     "@tamagui/babel-plugin": "^1.116.15",
     "@tamagui/config": "^1.116.15",
+    "@tamagui/sheet": "^1.120.0",
     "axios": "^1.7.7",
     "expo": "^52.0.17",
     "expo-blur": "~14.0.1",
