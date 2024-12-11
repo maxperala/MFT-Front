@@ -1,5 +1,5 @@
 // I'm using Tampere.Finland brand colors from Visit Tampere
-const colors = {
+export const colors = {
   main_red: "#AE1E20",
   light_warm_red: "#eb5e58",
   warm_red: "#c83e36",
