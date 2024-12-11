@@ -6,6 +6,7 @@ import { setActiveCard } from "@/state/cardsReducer";
 
 const Marker = (props: { card: Postcard }) => {
   const dispatch: AppDispatch = useDispatch();
+
   const onOpen = () => {
     dispatch(setActiveCard(props.card));
   };
@@ -13,7 +14,7 @@ const Marker = (props: { card: Postcard }) => {
     <View style={style.container}>
       <Pressable style={style.btn} onPress={onOpen}>
         <Image
-          source={require("@/assets/images/location-pin.png")}
+          source={require("@/assets/images/marker-x.png")}
           style={style.marker}
         ></Image>
       </Pressable>
@@ -27,17 +28,11 @@ const style = StyleSheet.create({
     justifyContent: "center",
   },
   marker: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     resizeMode: "contain",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 3.84,
-    elevation: 5,
+
+    opacity: 0.9,
   },
   btn: {
     width: "100%",

@@ -1,7 +1,6 @@
 import { AppDispatch, RootState } from "@/state/store";
 import { useDispatch, useSelector } from "react-redux";
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
-import { Text } from "tamagui";
 import { StyleSheet } from "react-native";
 import { useEffect, useRef } from "react";
 import { setActive } from "@/state/cardsReducer";
@@ -16,6 +15,15 @@ const CardSheet = () => {
     dispatch(setActive(null));
   };
 
+  // This is necessary. I don't know why but it is
+  const setModalPos = (index: number) => {
+    console.log(index);
+    if (index != 1) {
+      sheetRef.current?.close();
+      closeModal();
+    }
+  };
+
   useEffect(() => {
     if (card) {
       sheetRef.current?.snapToIndex(1);
@@ -24,14 +32,19 @@ const CardSheet = () => {
 
   return (
     <BottomSheet
-      snapPoints={["50%", "90%"]}
+      snapPoints={["90%"]}
       onClose={closeModal}
+      onChange={setModalPos}
       index={-1}
       ref={sheetRef}
-      bottomInset={20}
-      detached={true}
+      detached={false}
       enablePanDownToClose
-      handleStyle={{ backgroundColor: colors.white, borderRadius: 15 }}
+      handleStyle={{
+        backgroundColor: colors.amber,
+        borderTopLeftRadius: 14,
+        borderTopRightRadius: 14,
+        marginBottom: 1,
+      }}
     >
       <BottomSheetView style={styles.container}>
         <CardView card={card ? card : null}></CardView>
@@ -45,7 +58,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
     zIndex: 100,
-    paddingBottom: 10,
   },
 });
 

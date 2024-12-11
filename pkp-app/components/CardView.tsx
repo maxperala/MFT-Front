@@ -1,6 +1,7 @@
 import { Postcard } from "@/types";
-import { XStack, YStack, Text, Image } from "tamagui";
+import { YStack, Text, Image } from "tamagui";
 import { colors } from "@/colors";
+import CardDescription from "./DescriptionTabs";
 
 const CardView = ({ card }: { card: Postcard | null }) => {
   if (!card) return;
@@ -8,10 +9,10 @@ const CardView = ({ card }: { card: Postcard | null }) => {
     <YStack
       flex={1}
       padding="$4"
+      paddingTop="$2"
       backgroundColor={colors.amber}
       alignItems="center"
       gap="$4"
-      borderRadius="$4"
     >
       <Text
         fontSize="$8"
@@ -26,11 +27,13 @@ const CardView = ({ card }: { card: Postcard | null }) => {
           uri: card.url,
         }}
         width="100%"
-        height="50%"
+        height="40%"
         borderRadius="$4"
         aspectRatio={1}
+        borderColor="white"
+        borderWidth="$1"
       />
-      <Text fontSize="$4">{card.description}</Text>
+      <CardDescription card={card} />
     </YStack>
   );
 };

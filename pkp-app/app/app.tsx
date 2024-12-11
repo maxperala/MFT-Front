@@ -9,6 +9,7 @@ import { getUser } from "@/state/userReducer";
 import { getLocationStatus } from "@/utils/location/locationUtils";
 import CardSheet from "@/components/CardSheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import LoadingScreen from "./loading-screen";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,7 +34,7 @@ const App = () => {
     );
   }, []);
 
-  if (!account.user) {
+  if (!account.user && !account.loading) {
     return <RegisterScreen />;
   }
   if (!location.allowed) {
@@ -47,6 +48,7 @@ const App = () => {
         <Stack.Screen name="+not-found" />
       </Stack>
       <CardSheet />
+      <LoadingScreen />
     </GestureHandlerRootView>
   );
 };

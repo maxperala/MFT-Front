@@ -8,6 +8,7 @@ const initialState: UserLocation = {
   allowed: false,
   focused: true,
   zoom: 15,
+  mapLoading: true,
 };
 
 const locationSlice = createSlice({
@@ -41,10 +42,20 @@ const locationSlice = createSlice({
         };
       }
     },
+    setMapLoading(state, action: PayloadAction<boolean>) {
+      console.log("FINISHED");
+      return { ...state, mapLoading: action.payload };
+    },
   },
 });
-export const { setAllowed, setLocation, setFocused, setZoom, setHeading } =
-  locationSlice.actions;
+export const {
+  setAllowed,
+  setLocation,
+  setFocused,
+  setZoom,
+  setHeading,
+  setMapLoading,
+} = locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {
   return async (dispatch: AppDispatch) => {

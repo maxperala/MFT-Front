@@ -9,6 +9,7 @@ export interface UserLocation {
   focused: boolean;
   coords: Coords | null;
   zoom: number;
+  mapLoading: boolean;
 }
 
 export interface User {
@@ -25,6 +26,7 @@ export interface NewUser {
 
 export interface AccountState {
   user: User | null;
+  loading: boolean;
 }
 
 export interface ErrorResponseData {
@@ -47,6 +49,11 @@ export interface Postcard {
 export interface PostcardsState {
   cards: Postcard[] | null;
   active: Postcard | null;
+}
+
+export interface LoadingStatus {
+  mapLoading: boolean;
+  loginLoading: boolean;
 }
 
 export type LoginResponse = User | ErrorResponseData;
