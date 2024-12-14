@@ -9,7 +9,6 @@ const LoadingScreen = () => {
   const mapLoading = useSelector(
     (state: RootState) => state.location.mapLoading
   );
-
   if (!userLoading && !mapLoading) return null;
 
   return (

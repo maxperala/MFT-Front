@@ -1,11 +1,24 @@
-import { AppDispatch } from "@/state/store";
+import { AppDispatch, RootState } from "@/state/store";
 import { Postcard } from "@/types";
 import { Image, View, Text, StyleSheet, Pressable } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setActiveCard } from "@/state/cardsReducer";
 
 const Marker = (props: { card: Postcard }) => {
   const dispatch: AppDispatch = useDispatch();
+  const discovered = useSelector(
+    (state: RootState) => state.account.user?.unlocked
+  );
+  if (discovered && !discovered.includes(props.card.id)) {
+    return (
+      <View style={style.container}>
+        <Image
+          source={require("@/assets/images/marker-x.png")}
+          style={style.marker}
+        ></Image>
+      </View>
+    );
+  }
 
   const onOpen = () => {
     dispatch(setActiveCard(props.card));

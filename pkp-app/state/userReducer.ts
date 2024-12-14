@@ -1,9 +1,17 @@
-import { AccountState, User, NewUser, ErrorResponseData } from "@/types";
+import {
+  AccountState,
+  User,
+  NewUser,
+  ErrorResponseData,
+  Postcard,
+  Coords,
+} from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL } from "@/config";
 import { AppDispatch } from "./store";
+import { calculateDistance } from "@/utils/location/locationUtils";
 
 const initialState: AccountState = {
   user: null,
@@ -20,10 +28,17 @@ const userReducer = createSlice({
     setLoading(state, action: PayloadAction<boolean>) {
       return { ...state, loading: action.payload };
     },
+    setUnlocked(state, action: PayloadAction<string[]>) {
+      console.log("STATE", state);
+      if (state.user) {
+        return { ...state, user: { ...state.user, unlocked: action.payload } };
+      }
+      return state;
+    },
   },
 });
 
-export const { setUser, setLoading } = userReducer.actions;
+export const { setUser, setLoading, setUnlocked } = userReducer.actions;
 
 export const getUser = () => {
   return async (dispatch: AppDispatch) => {
@@ -34,14 +49,19 @@ export const getUser = () => {
       return;
     }
     const savedUser: NewUser = JSON.parse(loginData);
-    const resp = await axios.post(`${BACKEND_URL}/users/login`, savedUser);
-    const data: User | ErrorResponseData = resp.data;
-    if ("error" in data) {
+    try {
+      const resp = await axios.post(`${BACKEND_URL}/users/login`, savedUser);
+      const data: User = resp.data;
+      dispatch(setUser(data));
       dispatch(setLoading(false));
-      throw new Error(`Failed to login: ${data.error[0]}`);
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        dispatch(setLoading(false));
+        throw new Error(e.response?.data.error);
+      }
+      console.log(e);
+      dispatch(setLoading(false));
     }
-    dispatch(setUser(data));
-    dispatch(setLoading(false));
   };
 };
 
@@ -64,6 +84,46 @@ export const createUser = (user: NewUser) => {
     );
     dispatch(setUser(data));
     dispatch(setLoading(false));
+  };
+};
+
+export const discoverCards = (
+  cards: Postcard[],
+  location: Coords,
+  token: string
+) => {
+  return async (dispatch: AppDispatch) => {
+    for (const card of cards) {
+      const distance = calculateDistance(
+        {
+          lat: card.location.lat,
+          lon: card.location.lon,
+          heading: card.degree,
+        },
+        location
+      );
+      console.log(distance);
+      if (distance < 20) {
+        try {
+          const resp = await axios.post(
+            `${BACKEND_URL}/postcards/unlocked/${card.id}`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          dispatch(setUnlocked(resp.data.unlocked));
+        } catch (e) {
+          if (e instanceof AxiosError) {
+            console.log(e);
+            throw new Error(e.response?.data.error[0]);
+          }
+          console.log(e);
+        }
+      }
+    }
   };
 };
 

@@ -1,7 +1,10 @@
 import { View, StyleSheet } from "react-native";
 import MapViewer from "./MapViewer";
 import Compass from "./Compass";
+import { useDiscover } from "@/utils/hooks";
+
 const MapContainer = () => {
+  useDiscover();
   return (
     <View style={style.container}>
       <View style={style.compassContainer}>

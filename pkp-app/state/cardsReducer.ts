@@ -1,6 +1,6 @@
 import { AppDispatch } from "@/state/store";
 import { ErrorResponseData, Postcard, PostcardsState } from "@/types";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -26,17 +26,22 @@ export const { setCards, setActive } = cardsReducer.actions;
 
 export const getCards = (token: string) => {
   return async (dispatch: AppDispatch) => {
-    const resp = await axios.get(`${BACKEND_URL}/postcards`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data: Postcard[] | ErrorResponseData = resp.data;
-    if ("error" in data) {
-      throw new Error(`Failed fetching postcards, ${data.error[0]}`);
+    try {
+      const resp = await axios.get(`${BACKEND_URL}/postcards`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data: Postcard[] = resp.data;
+      console.log(data);
+      dispatch(setCards(data));
+    } catch (e) {
+      if (e instanceof AxiosError && "error" in e.response?.data) {
+        throw new Error(
+          `Failed fetching postcards, ${e.response?.data.error[0]}`
+        );
+      }
     }
-    console.log(data);
-    dispatch(setCards(data));
   };
 };
 

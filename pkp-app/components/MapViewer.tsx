@@ -1,11 +1,10 @@
 import { View, StyleSheet } from "react-native";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Postcard } from "@/types";
 import Marker from "./Marker";
 import {
   MapView,
   Camera,
-  UserTrackingModes,
   UserLocation,
   UserTrackingMode,
   MarkerView,
@@ -77,7 +76,7 @@ const MapViewer = () => {
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        styleJSON={mapStyleUrl}
+        styleURL={mapStyleUrl}
         compassEnabled={false}
         onRegionIsChanging={updateHeadingAndZoom}
         onDidFinishRenderingMapFully={setMapReady}

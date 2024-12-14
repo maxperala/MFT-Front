@@ -20,7 +20,7 @@ const CardView = ({ card }: { card: Postcard | null }) => {
         fontFamily="Fair-Prosper"
         textDecorationLine="underline"
       >
-        {card.title}
+        {card.title_fi}
       </Text>
       <Image
         source={{

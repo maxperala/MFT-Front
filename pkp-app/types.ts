@@ -17,6 +17,7 @@ export interface User {
   username: string;
   lvl: string;
   token: string;
+  unlocked: string[];
 }
 
 export interface NewUser {
@@ -38,10 +39,14 @@ export interface Postcard {
     lat: number;
     lon: number;
   };
-  title: string;
-  description: string;
-  author: string;
+  title_fi: string;
+  title_en: string;
+  description_fi: string;
+  description_en: string;
+  source: string;
   degree: number;
+  year: string;
+  photographer: string;
   url: string;
   id: string;
 }
