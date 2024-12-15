@@ -62,3 +62,11 @@ export interface LoadingStatus {
 }
 
 export type LoginResponse = User | ErrorResponseData;
+
+export type ToastType = "discover" | "notification" | null;
+
+export interface ToastState {
+  type: ToastType;
+  message: string | null;
+  active: boolean;
+}

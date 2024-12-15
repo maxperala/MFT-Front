@@ -33,7 +33,6 @@ export const getCards = (token: string) => {
         },
       });
       const data: Postcard[] = resp.data;
-      console.log(data);
       dispatch(setCards(data));
     } catch (e) {
       if (e instanceof AxiosError && "error" in e.response?.data) {

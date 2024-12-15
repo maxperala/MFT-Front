@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import { AppState, View, StyleSheet } from "react-native";
+import { AppState, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/state/store";
 import NoLocationScreen from "./error_screens/no_location";
@@ -8,8 +8,10 @@ import RegisterScreen from "./register";
 import { getUser } from "@/state/userReducer";
 import { getLocationStatus } from "@/utils/location/locationUtils";
 import CardSheet from "@/components/CardSheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import LoadingScreen from "./loading-screen";
+import { ToastProvider, ToastViewport } from "@tamagui/toast";
+import ToastView from "@/components/Toast";
+import { setToast } from "@/state/toastReducer";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,6 +34,14 @@ const App = () => {
         };
       }
     );
+    // This is for testing the toast
+    dispatch(
+      setToast({
+        type: "discover",
+        message: "New location discovered",
+        active: true,
+      })
+    );
   }, []);
 
   if (!account.user && !account.loading) {
@@ -42,14 +52,17 @@ const App = () => {
   }
 
   return (
-    <GestureHandlerRootView style={style.container}>
+    <ToastProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
       <CardSheet />
       <LoadingScreen />
-    </GestureHandlerRootView>
+
+      <ToastView />
+      <ToastViewport flexDirection="column" top={38} left={0} right={0} />
+    </ToastProvider>
   );
 };
 

@@ -14,7 +14,9 @@ const noLocationScreen = () => {
       justifyContent="center"
     >
       <YStack flex={1} alignItems="center" justifyContent="center" gap="$2">
-        <Text>This app requires location prevlidges to use...</Text>
+        <Text color="black">
+          This app requires location prevlidges to use...
+        </Text>
         <Button onPress={handleOpenSettings}>Settings</Button>
       </YStack>
     </View>

@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL } from "@/config";
 import { AppDispatch } from "./store";
 import { calculateDistance } from "@/utils/location/locationUtils";
+import { setActive, setToast } from "./toastReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -115,6 +116,14 @@ export const discoverCards = (
             }
           );
           dispatch(setUnlocked(resp.data.unlocked));
+          dispatch(setActive(false));
+          dispatch(
+            setToast({
+              type: "discover",
+              message: "New location discovered",
+              active: true,
+            })
+          );
         } catch (e) {
           if (e instanceof AxiosError) {
             console.log(e);
