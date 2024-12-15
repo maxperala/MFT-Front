@@ -4,3 +4,9 @@ export const MAPTILER_API_KEY = "h6APfvFtOjPAHL29TYsK";
 export const BACKEND_URL = "http://192.168.1.112:3001/api";
 
 export const CDN_URL = "http://192.168.1.112:8000";
+
+// These are the bounds for the mappack and the mapview. Point is to force the user to use locally available tiles to limit the api requests.
+export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
+  [24.246317, 61.666422],
+  [23.311911, 61.416604],
+];

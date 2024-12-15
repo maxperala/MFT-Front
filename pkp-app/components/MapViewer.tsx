@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useRef, useState } from "react";
 import { Postcard } from "@/types";
 import Marker from "./Marker";
@@ -10,7 +10,7 @@ import {
   MarkerView,
 } from "@maplibre/maplibre-react-native";
 import { CameraRef } from "@maplibre/maplibre-react-native/javascript/components/Camera";
-import { MAPTILER_API_KEY } from "@/config";
+import { BOUNDS, MAPTILER_API_KEY } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { Location } from "@maplibre/maplibre-react-native";
@@ -33,6 +33,12 @@ const MapViewer = () => {
   const cardData = useSelector((state: RootState) => state.cardData);
   const cameraRef = useRef<CameraRef>(null);
   const [zoomLevel, setZoomLevel] = useState(0);
+  const centerCoordinate = [61.49582, 23.727992];
+  const defaultSettings = {
+    centerCoordinate,
+    zoomLevel: 16,
+    animationDuration: 2000,
+  };
 
   let cards: Postcard[] = [];
   if (cardData.cards) {
@@ -40,11 +46,7 @@ const MapViewer = () => {
   }
 
   const setCameraToDefault = () => {
-    cameraRef.current?.setCamera({
-      centerCoordinate: [61.49582, 23.727992],
-      zoomLevel: 16,
-      animationDuration: 2000,
-    });
+    cameraRef.current?.setCamera(defaultSettings);
   };
 
   const updateLocation = (loc: Location) => {
@@ -69,7 +71,7 @@ const MapViewer = () => {
 
   const setMapReady = () => {
     dispatch(setMapLoading(false));
-    setCameraToDefault();
+    //setCameraToDefault();
   };
 
   return (
@@ -87,6 +89,10 @@ const MapViewer = () => {
           followZoomLevel={location.zoom}
           onUserTrackingModeChange={updateFollow}
           ref={cameraRef}
+          maxBounds={{ ne: BOUNDS[0], sw: BOUNDS[1] }}
+          minZoomLevel={11}
+          maxZoomLevel={20}
+          defaultSettings={defaultSettings}
         />
         <UserLocation
           renderMode="normal"

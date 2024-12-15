@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import MapViewer from "./MapViewer";
 import Compass from "./Compass";
 import { useDiscover } from "@/utils/hooks";

@@ -2,13 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Coords, UserLocation } from "@/types";
 import { AppDispatch } from "./store";
 import { Location } from "@maplibre/maplibre-react-native";
+import { checkMapExists, downloadMap } from "@/utils/offlineMaps";
 
 const initialState: UserLocation = {
   coords: null,
   allowed: false,
-  focused: true,
+  focused: false,
   zoom: 15,
   mapLoading: true,
+  packExists: true,
 };
 
 const locationSlice = createSlice({
@@ -46,6 +48,9 @@ const locationSlice = createSlice({
       console.log("FINISHED");
       return { ...state, mapLoading: action.payload };
     },
+    setPackExists(state, action: PayloadAction<boolean>) {
+      return { ...state, packExists: action.payload };
+    },
   },
 });
 export const {
@@ -55,6 +60,7 @@ export const {
   setZoom,
   setHeading,
   setMapLoading,
+  setPackExists,
 } = locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {
@@ -85,6 +91,23 @@ export const setFocusedOnUser = (status: boolean) => {
 export const setMapHeading = (heading: number) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setHeading(heading));
+  };
+};
+
+export const setupMapPack = () => {
+  return async (dispatch: AppDispatch) => {
+    if (await checkMapExists()) {
+      dispatch(setPackExists(true));
+      return;
+    }
+    try {
+      const success = await downloadMap();
+      if (success) {
+        dispatch(setPackExists(true));
+      }
+    } catch (e) {
+      return;
+    }
   };
 };
 

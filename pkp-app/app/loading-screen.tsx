@@ -9,7 +9,10 @@ const LoadingScreen = () => {
   const mapLoading = useSelector(
     (state: RootState) => state.location.mapLoading
   );
-  if (!userLoading && !mapLoading) return null;
+  const packExists = useSelector(
+    (state: RootState) => state.location.packExists
+  );
+  if (!userLoading && !mapLoading && packExists) return null;
 
   return (
     <View style={style.container}>

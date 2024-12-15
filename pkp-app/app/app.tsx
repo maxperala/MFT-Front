@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import { useEffect } from "react";
-import { AppState, StyleSheet } from "react-native";
+import { AppState } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/state/store";
 import NoLocationScreen from "./error_screens/no_location";
@@ -12,6 +12,7 @@ import LoadingScreen from "./loading-screen";
 import { ToastProvider, ToastViewport } from "@tamagui/toast";
 import ToastView from "@/components/Toast";
 import { setToast } from "@/state/toastReducer";
+import { offlineManager } from "@maplibre/maplibre-react-native";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -65,11 +66,5 @@ const App = () => {
     </ToastProvider>
   );
 };
-
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

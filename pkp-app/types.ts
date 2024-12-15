@@ -10,6 +10,7 @@ export interface UserLocation {
   coords: Coords | null;
   zoom: number;
   mapLoading: boolean;
+  packExists: boolean;
 }
 
 export interface User {
