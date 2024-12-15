@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { Coords } from "@/types";
 import { calculateDistance } from "@/utils/location/locationUtils";
 import { discoverCards } from "@/state/userReducer";
 
+// This is a problem. Causes unecessary rerenders. I will deal with this.
 export const useDiscover = () => {
   const location = useSelector((state: RootState) => state.location.coords);
   const discovered = useSelector(
@@ -17,14 +18,13 @@ export const useDiscover = () => {
     () => allCards?.filter((card) => !discovered?.includes(card.id)) || [],
     [allCards, discovered]
   );
-  const [prev, setPrev] = useState<Coords>({ lat: 0, lon: 0, heading: 0 });
+  const prev = useRef<Coords>({ lat: 0, lon: 0, heading: 0 });
   const dispatch: AppDispatch = useDispatch();
-  if (!undiscovered.length) return;
   useEffect(() => {
     if (location && token && undiscovered) {
-      const dist = calculateDistance(location, prev);
+      const dist = calculateDistance(location, prev.current);
       if (dist < 10) return;
-      setPrev(location);
+      prev.current = location;
       dispatch(discoverCards(undiscovered, location, token));
     }
   }, [location, token, undiscovered]);

@@ -6,6 +6,7 @@ import { useEffect, useMemo, useRef } from "react";
 import { setActive } from "@/state/cardsReducer";
 import CardView from "./CardView";
 import { colors } from "@/colors";
+import { Spinner } from "tamagui";
 
 const CardSheet = () => {
   const card = useSelector((state: RootState) => state.cardData.active);
@@ -40,7 +41,12 @@ const CardSheet = () => {
       }}
     >
       <BottomSheetView style={styles.container}>
-        <CardView />
+        {card ? (
+          <CardView card={card} />
+        ) : (
+          <Spinner size="large" color={colors.yellow} />
+        )}
+        ;
       </BottomSheetView>
     </BottomSheetModal>
   );

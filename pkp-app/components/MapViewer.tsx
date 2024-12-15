@@ -29,7 +29,7 @@ const mapStyleUrl = `https://api.maptiler.com/maps/a6fff3d6-a1f6-47a9-b3c1-b5bc4
 
 const MapViewer = () => {
   const dispatch: AppDispatch = useDispatch();
-  const location = useSelector((store: RootState) => store.location);
+  const focused = useSelector((store: RootState) => store.location.focused);
   const cardData = useSelector((state: RootState) => state.cardData);
   const cameraRef = useRef<CameraRef>(null);
   const [zoomLevel, setZoomLevel] = useState(0);
@@ -84,9 +84,9 @@ const MapViewer = () => {
         onDidFinishRenderingMapFully={setMapReady}
       >
         <Camera
-          followUserLocation={location.focused}
+          followUserLocation={focused}
           followUserMode={UserTrackingMode.FollowWithHeading}
-          followZoomLevel={location.zoom}
+          followZoomLevel={12}
           onUserTrackingModeChange={updateFollow}
           ref={cameraRef}
           maxBounds={{ ne: BOUNDS[0], sw: BOUNDS[1] }}

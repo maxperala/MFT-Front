@@ -16,7 +16,7 @@ import { offlineManager } from "@maplibre/maplibre-react-native";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const location = useSelector((state: RootState) => state.location);
+  const location = useSelector((state: RootState) => state.location.allowed);
   const account = useSelector((state: RootState) => state.account);
 
   // Gets the user and location status in the beginning. Adds a listener so that when user goes to change location perms in settings the app knows :))
@@ -48,7 +48,7 @@ const App = () => {
   if (!account.user && !account.loading) {
     return <RegisterScreen />;
   }
-  if (!location.allowed) {
+  if (!location) {
     return <NoLocationScreen />;
   }
 

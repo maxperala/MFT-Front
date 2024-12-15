@@ -24,7 +24,7 @@ Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 const MapViewerMapbox = () => {
   const dispatch: AppDispatch = useDispatch();
   const mapRef = useRef<Mapbox.Camera>(null);
-  const location = useSelector((store: RootState) => store.location);
+  const focused = useSelector((store: RootState) => store.location.focused);
   const cardData = useSelector((state: RootState) => state.cardData);
   const [zoomLevel, setZoomLevel] = useState(0);
   const centerCoordinate = [61.49582, 23.727992];
@@ -71,7 +71,7 @@ const MapViewerMapbox = () => {
         onDidFinishLoadingStyle={setMapReady}
       >
         <Mapbox.Camera
-          followUserLocation={location.focused}
+          followUserLocation={focused}
           followUserMode={UserTrackingMode.Follow}
           maxBounds={{ ne: BOUNDS[0], sw: BOUNDS[1] }}
           zoomLevel={10}

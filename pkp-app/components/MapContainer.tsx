@@ -6,6 +6,7 @@ import { useDiscover } from "@/utils/hooks";
 
 const MapContainer = () => {
   useDiscover();
+  console.log("rendered");
   return (
     <View style={style.container}>
       <View style={style.compassContainer}>
