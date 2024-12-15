@@ -45,7 +45,6 @@ const locationSlice = createSlice({
       }
     },
     setMapLoading(state, action: PayloadAction<boolean>) {
-      console.log("FINISHED");
       return { ...state, mapLoading: action.payload };
     },
     setPackExists(state, action: PayloadAction<boolean>) {

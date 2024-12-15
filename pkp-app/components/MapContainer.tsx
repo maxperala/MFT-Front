@@ -1,4 +1,5 @@
 import { View, StyleSheet, Image } from "react-native";
+import MapViewerMapbox from "./MapViewerMapbox";
 import MapViewer from "./MapViewer";
 import Compass from "./Compass";
 import { useDiscover } from "@/utils/hooks";
@@ -10,7 +11,7 @@ const MapContainer = () => {
       <View style={style.compassContainer}>
         <Compass />
       </View>
-      <MapViewer />
+      <MapViewerMapbox />
     </View>
   );
 };
