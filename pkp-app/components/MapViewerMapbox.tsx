@@ -5,7 +5,7 @@ import Marker from "./Marker";
 import { BOUNDS } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-import colors, { color } from "@/colors";
+import colors from "@/colors";
 import Mapbox, { UserTrackingMode } from "@rnmapbox/maps";
 import {
   setFocusedOnUser,
@@ -84,7 +84,7 @@ const MapViewerMapbox = () => {
           />
         </Mapbox.UserLocation>
 
-        {zoomLevel > 12
+        {zoomLevel > 14
           ? cards.map((card) => {
               return (
                 <Mapbox.MarkerView

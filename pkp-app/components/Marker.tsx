@@ -1,6 +1,7 @@
 import { AppDispatch, RootState } from "@/state/store";
 import { Postcard } from "@/types";
-import { Image, View, Text, StyleSheet, Pressable } from "react-native";
+import { Image, View, StyleSheet, Pressable } from "react-native";
+import { Text } from "tamagui";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCard } from "@/state/cardsReducer";
 import { useMemo } from "react";
@@ -29,11 +30,16 @@ const Marker = (props: { card: Postcard }) => {
   };
   return (
     <View style={style.container}>
-      <Pressable style={style.btn} onPress={onOpen}>
-        <Image
-          source={require("@/assets/images/discovered-marker.png")}
-          style={style.discMarker}
-        ></Image>
+      <Pressable onPress={onOpen}>
+        <View style={style.textImageContainer}>
+          <Image
+            source={require("@/assets/images/discovered-marker.png")}
+            style={style.discMarker}
+          ></Image>
+          <Text fontFamily="Fair-Prosper" color="black" fontSize="$1">
+            {props.card.title_fi}
+          </Text>
+        </View>
       </Pressable>
     </View>
   );
@@ -59,6 +65,11 @@ const style = StyleSheet.create({
     width: 50,
     height: 50,
     resizeMode: "contain",
+  },
+  textImageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

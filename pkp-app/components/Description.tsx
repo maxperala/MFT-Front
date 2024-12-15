@@ -1,5 +1,5 @@
 import { Postcard } from "@/types";
-import { ScrollView, Paragraph, SizableText, YGroup } from "tamagui";
+import { ScrollView, Text, YGroup } from "tamagui";
 
 const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
   return (
@@ -11,22 +11,36 @@ const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
     >
       <YGroup gap="$2">
         <YGroup.Item>
-          <SizableText fontWeight="bold">Year: {card.year}</SizableText>
+          <Text
+            fontWeight="bold"
+            color="black"
+            fontFamily="SpecialElite-Regular"
+          >
+            Year: {card.year}
+          </Text>
         </YGroup.Item>
         <YGroup.Item>
-          <SizableText fontWeight="bold">
+          <Text
+            fontWeight="bold"
+            color="black"
+            fontFamily="SpecialElite-Regular"
+          >
             Photographer: {card.photographer}
-          </SizableText>
+          </Text>
         </YGroup.Item>
         <YGroup.Item>
-          <SizableText fontWeight="bold">
+          <Text
+            fontWeight="bold"
+            color="black"
+            fontFamily="SpecialElite-Regular"
+          >
             Image Source: {card.source}
-          </SizableText>
+          </Text>
         </YGroup.Item>
         <YGroup.Item>
-          <Paragraph color="black">
+          <Text color="black" fontFamily="SpecialElite-Regular">
             {lang === "fi" ? card.description_fi : card.description_en}
-          </Paragraph>
+          </Text>
         </YGroup.Item>
       </YGroup>
     </ScrollView>

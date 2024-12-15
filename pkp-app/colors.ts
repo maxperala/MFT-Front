@@ -7,7 +7,7 @@ export const colors = {
   white: "#fff",
   grey: "#686872",
   yellow: "#f4d240",
-  amber: "#e8b455",
+  amber: "#c29a48",
   blue: "#29549a",
 };
 

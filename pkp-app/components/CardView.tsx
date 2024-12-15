@@ -1,10 +1,13 @@
-import { Postcard } from "@/types";
 import { YStack, Text, Image } from "tamagui";
 import { colors } from "@/colors";
 import CardDescription from "./DescriptionTabs";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
+import { Spinner } from "tamagui";
 
-const CardView = ({ card }: { card: Postcard | null }) => {
-  if (!card) return;
+const CardView = () => {
+  const card = useSelector((state: RootState) => state.cardData.active);
+  if (!card) return <Spinner size="large" color={colors.yellow} />;
   return (
     <YStack
       flex={1}
@@ -33,7 +36,7 @@ const CardView = ({ card }: { card: Postcard | null }) => {
         borderColor="white"
         borderWidth="$1"
       />
-      <CardDescription card={card} />
+      <CardDescription />
     </YStack>
   );
 };

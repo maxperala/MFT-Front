@@ -103,7 +103,7 @@ export const discoverCards = (
         },
         location
       );
-      console.log(distance);
+
       if (distance < 20) {
         try {
           const resp = await axios.post(

@@ -1,12 +1,15 @@
-import { Postcard } from "@/types";
 import { styled, Text } from "tamagui";
 import { Tabs } from "tamagui";
 import { colors } from "@/colors";
 import { useState } from "react";
 import Description from "./Description";
+import { RootState } from "@/state/store";
+import { useSelector } from "react-redux";
 
-const CardDescription = ({ card }: { card: Postcard }) => {
+const CardDescription = () => {
   const [tab, setTab] = useState("en");
+  const card = useSelector((state: RootState) => state.cardData.active);
+  if (!card) return null;
   return (
     <Tabs
       defaultValue="en"
@@ -22,7 +25,7 @@ const CardDescription = ({ card }: { card: Postcard }) => {
       <Tabs.List>
         <StyledTab value="en" active={tab === "en"}>
           <Text
-            fontFamily="Fair-Prosper"
+            fontFamily="SpecialElite-Regular"
             textDecorationLine={tab === "en" ? "underline" : "none"}
           >
             English
@@ -30,7 +33,7 @@ const CardDescription = ({ card }: { card: Postcard }) => {
         </StyledTab>
         <StyledTab value="fi" active={tab === "fi"}>
           <Text
-            fontFamily="Fair-Prosper"
+            fontFamily="SpecialElite-Regular"
             textDecorationLine={tab === "fi" ? "underline" : "none"}
           >
             Suomi
