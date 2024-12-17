@@ -5,7 +5,7 @@ import { Coords } from "@/types";
 import { calculateDistance } from "@/utils/location/locationUtils";
 import { discoverCards } from "@/state/userReducer";
 
-// This is a problem. Causes unecessary rerenders. I will deal with this.
+// This is a problem. Causes unecessary rerenders. I will deal with this. FIXED, THIS IS DEPRICIATED!!
 export const useDiscover = () => {
   const location = useSelector((state: RootState) => state.location.coords);
   const discovered = useSelector(

@@ -6,13 +6,19 @@ import {
   Postcard,
   Coords,
 } from "@/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  createSlice,
+  PayloadAction,
+  ThunkAction,
+} from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL } from "@/config";
-import { AppDispatch } from "./store";
+import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationUtils";
 import { setActive, setToast } from "./toastReducer";
+import { setPrev } from "./locationReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -88,12 +94,32 @@ export const createUser = (user: NewUser) => {
   };
 };
 
-export const discoverCards = (
-  cards: Postcard[],
-  location: Coords,
-  token: string
-) => {
-  return async (dispatch: AppDispatch) => {
+export const discoverCards = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  AnyAction
+> => {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const location = state.location.coords;
+    const prev = state.location.prev;
+    const discovered = state.account.user?.unlocked;
+    const token = state.account.user?.token;
+    if (!location || !prev || !discovered || !token) return;
+    const calcDis = calculateDistance(location, prev);
+    if (calcDis < 5) {
+      setPrev(location);
+      return;
+    }
+    const cards = state.cardData.cards?.filter(
+      (card) => !discovered?.includes(card.id)
+    );
+    if (!cards) {
+      dispatch(setPrev(location));
+      return;
+    }
+
     for (const card of cards) {
       const distance = calculateDistance(
         {
@@ -133,6 +159,7 @@ export const discoverCards = (
         }
       }
     }
+    dispatch(setPrev(location));
   };
 };
 

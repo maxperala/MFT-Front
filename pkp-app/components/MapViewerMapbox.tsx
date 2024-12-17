@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Postcard } from "@/types";
 import Marker from "./Marker";
 import { BOUNDS } from "@/config";
@@ -15,42 +15,39 @@ import {
 } from "@/state/locationReducer";
 import { Location } from "@rnmapbox/maps";
 
-// This api key is safe to expose for testing purposes. Production
-import { MAPBOX_PUBLIC_KEY, MAPTIER_STYLE_URL } from "@/config";
-import { RegionPayload } from "@rnmapbox/maps/lib/typescript/src/components/MapView";
+// These are public api keys, and can be exposed. They just provide access to the right style of map
+import {
+  MAPBOX_PUBLIC_KEY,
+  MAPBOX_STYLE_URL,
+  centerCoordinate,
+} from "@/config";
+import { discoverCards } from "@/state/userReducer";
 
 Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 
 const MapViewerMapbox = () => {
   const dispatch: AppDispatch = useDispatch();
   const mapRef = useRef<Mapbox.Camera>(null);
+  const ready = useSelector((state: RootState) => state.location.mapLoading);
   const focused = useSelector((store: RootState) => store.location.focused);
-  const cardData = useSelector((state: RootState) => state.cardData);
+  const cards = useSelector((state: RootState) => state.cardData.cards);
   const [zoomLevel, setZoomLevel] = useState(0);
-  const centerCoordinate = [61.49582, 23.727992];
   const defaultSettings: Mapbox.CameraStop = {
-    centerCoordinate,
+    centerCoordinate: centerCoordinate,
     zoomLevel: 10,
-    animationDuration: 2000,
   };
-
-  let cards: Postcard[] = [];
-  if (cardData.cards) {
-    cards = cardData.cards;
-  }
 
   const updateLocation = (loc: Location) => {
     dispatch(setUserLocation(loc));
+    dispatch(discoverCards());
   };
 
   const setFocused = () => {
     dispatch(setFocusedOnUser(true));
   };
 
-  const updateHeadingAndZoom = (
-    e: GeoJSON.Feature<GeoJSON.Point, RegionPayload>
-  ) => {
-    setZoomLevel(e.properties.zoomLevel);
+  const updateHeadingAndZoom = (e: Mapbox.MapState) => {
+    setZoomLevel(e.properties.zoom);
     dispatch(setMapHeading(e.properties.heading));
   };
 
@@ -62,13 +59,13 @@ const MapViewerMapbox = () => {
     <View style={styles.container}>
       <Mapbox.MapView
         style={styles.map}
-        styleURL={MAPTIER_STYLE_URL}
+        styleURL={MAPBOX_STYLE_URL}
         compassEnabled={false}
         // Compass won't disable on iOS, so I hid it
         compassPosition={{ top: -50, left: -50 }}
         scaleBarEnabled={false}
-        onRegionIsChanging={updateHeadingAndZoom}
-        onDidFinishLoadingStyle={setMapReady}
+        onDidFinishLoadingMap={setMapReady}
+        onCameraChanged={updateHeadingAndZoom}
       >
         <Mapbox.Camera
           followUserLocation={focused}
@@ -76,15 +73,15 @@ const MapViewerMapbox = () => {
           maxBounds={{ ne: BOUNDS[0], sw: BOUNDS[1] }}
           zoomLevel={10}
           ref={mapRef}
+          centerCoordinate={centerCoordinate}
         />
-        <Mapbox.UserLocation onUpdate={updateLocation} onPress={setFocused}>
+        <Mapbox.UserLocation onUpdate={updateLocation}>
           <Mapbox.LocationPuck
-            scale={1}
-            pulsing={{ isEnabled: true, color: colors.warm_red }}
+            pulsing={{ isEnabled: true, color: colors.light_warm_red }}
           />
         </Mapbox.UserLocation>
 
-        {zoomLevel > 14
+        {zoomLevel > 14 && cards
           ? cards.map((card) => {
               return (
                 <Mapbox.MarkerView

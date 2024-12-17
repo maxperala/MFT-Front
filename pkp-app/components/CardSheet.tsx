@@ -28,7 +28,7 @@ const CardSheet = () => {
       snapPoints={snapPoints}
       onClose={closeModal}
       index={-1}
-      bottomInset={10}
+      bottomInset={5}
       ref={sheetRef}
       detached={true}
       enablePanDownToClose
@@ -46,7 +46,6 @@ const CardSheet = () => {
         ) : (
           <Spinner size="large" color={colors.yellow} />
         )}
-        ;
       </BottomSheetView>
     </BottomSheetModal>
   );

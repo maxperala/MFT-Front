@@ -3,13 +3,10 @@ import { Tabs } from "tamagui";
 import { colors } from "@/colors";
 import { useState } from "react";
 import Description from "./Description";
-import { RootState } from "@/state/store";
-import { useSelector } from "react-redux";
+import { Postcard } from "@/types";
 
-const CardDescription = () => {
+const CardDescription = ({ card }: { card: Postcard }) => {
   const [tab, setTab] = useState("en");
-  const card = useSelector((state: RootState) => state.cardData.active);
-  if (!card) return null;
   return (
     <Tabs
       defaultValue="en"

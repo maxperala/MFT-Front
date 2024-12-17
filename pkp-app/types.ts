@@ -8,6 +8,7 @@ export interface UserLocation {
   allowed: boolean;
   focused: boolean;
   coords: Coords | null;
+  prev: Coords | null;
   zoom: number;
   mapLoading: boolean;
   packExists: boolean;
