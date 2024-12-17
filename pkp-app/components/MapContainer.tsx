@@ -3,7 +3,6 @@ import MapViewerMapbox from "./MapViewerMapbox";
 import Compass from "./Compass";
 
 const MapContainer = () => {
-  console.log("rendered");
   return (
     <View style={style.container}>
       <View style={style.compassContainer}>

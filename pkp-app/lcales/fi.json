@@ -1,0 +1,12 @@
+{
+  "title": "Muistoja Tampereelta",
+  "map": "Kartta",
+  "collection": "Kokoelma",
+  "settings": "Asetukset",
+  "year": "Vuosi",
+  "photographer": "Valokuvaaja",
+  "no_location_message": "Tämä sovellus vaatii pääsyn sijaintiisi toimiakseen",
+  "not_found": "Pahoittelut, tätä sivua ei ole olemassa. Käynnistä sovellus uudelleen.",
+  "source": "Lähde",
+  "discovered_message": "Uusi kohde avattu"
+}

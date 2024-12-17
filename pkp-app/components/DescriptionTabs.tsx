@@ -5,7 +5,14 @@ import { useState } from "react";
 import Description from "./Description";
 import { Postcard } from "@/types";
 
-const CardDescription = ({ card }: { card: Postcard }) => {
+// NO LONGER NEEDED SINCE WE USE LOCALES AND LOCALIZATION. I WILL LEAVE IT HERE FOR NOW :)
+const CardDescription = ({
+  card,
+  lang,
+}: {
+  card: Postcard;
+  lang: "en" | "fi";
+}) => {
   const [tab, setTab] = useState("en");
   return (
     <Tabs

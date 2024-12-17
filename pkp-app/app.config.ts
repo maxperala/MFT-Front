@@ -80,6 +80,7 @@ export default {
           RNMapboxMapsDownloadToken: process.env.MAPBOX_SECRET,
         },
       ],
+      "expo-localization",
     ],
     experiments: {
       typedRoutes: true,

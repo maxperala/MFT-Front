@@ -1,11 +1,4 @@
-import {
-  AccountState,
-  User,
-  NewUser,
-  ErrorResponseData,
-  Postcard,
-  Coords,
-} from "@/types";
+import { AccountState, User, NewUser, ErrorResponseData } from "@/types";
 import {
   AnyAction,
   createSlice,

@@ -7,7 +7,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import colors from "@/colors";
 // The compass has a problem, when we cross heading 360 and back to 0, it backtracks instead of going forward. But since it looks cool I will ingore for now
 const Compass = () => {
   const location = useSelector((state: RootState) => state.location);

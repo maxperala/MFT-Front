@@ -10,6 +10,7 @@ export const colors = {
   amber: "#c29a48",
   blue: "#29549a",
   dirty_white: "#f2f1e9",
+  black: "black",
 };
 
 export const colorsTamagui = {

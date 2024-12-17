@@ -2,8 +2,10 @@ import { Tabs } from "expo-router";
 import colors from "@/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Header from "@/components/Header";
+import { useTranslation } from "react-i18next";
 
 const naviLayout = () => {
+  const { t } = useTranslation();
   return (
     <Tabs
       screenOptions={{
@@ -18,7 +20,7 @@ const naviLayout = () => {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Map",
+          title: t("map"),
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="map" color={color} size={size} />;
           },
@@ -28,7 +30,7 @@ const naviLayout = () => {
       <Tabs.Screen
         name="collection"
         options={{
-          title: "Collection",
+          title: t("collection"),
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="bookmarks" color={color} size={size} />;
           },
@@ -37,7 +39,7 @@ const naviLayout = () => {
       <Tabs.Screen
         name="settings"
         options={{
-          title: "Settings",
+          title: t("settings"),
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="settings" color={color} size={size} />;
           },

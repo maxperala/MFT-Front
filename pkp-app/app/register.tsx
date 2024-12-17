@@ -1,10 +1,10 @@
 import { View } from "tamagui";
-import colors, { colorsTamagui } from "@/colors";
+import colors from "@/colors";
 import RegisterForm from "@/components/RegisterForm";
 
 const RegisterScreen = () => {
   return (
-    <View flex={1} backgroundColor={colorsTamagui.background.primary}>
+    <View flex={1} backgroundColor={colors.amber}>
       <View flex={1 / 2} />
       <View
         flex={1 / 2}

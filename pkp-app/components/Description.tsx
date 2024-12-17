@@ -1,12 +1,14 @@
 import colors from "@/colors";
 import { Postcard } from "@/types";
+import { useTranslation } from "react-i18next";
 import { ScrollView, Text, YGroup } from "tamagui";
 
-const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
+const Description = ({ card }: { card: Postcard }) => {
+  const { t, i18n } = useTranslation();
   return (
     <ScrollView
       padding="$3"
-      maxHeight={300}
+      maxHeight={350}
       backgroundColor={colors.dirty_white}
       borderRadius="$4"
     >
@@ -17,7 +19,7 @@ const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
             color="black"
             fontFamily="SpecialElite-Regular"
           >
-            Year: {card.year}
+            {t("year")}: {card.year}
           </Text>
         </YGroup.Item>
         <YGroup.Item>
@@ -26,7 +28,7 @@ const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
             color="black"
             fontFamily="SpecialElite-Regular"
           >
-            Photographer: {card.photographer}
+            {t("photographer")}: {card.photographer}
           </Text>
         </YGroup.Item>
         <YGroup.Item>
@@ -36,7 +38,7 @@ const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
             fontFamily="SpecialElite-Regular"
             paddingBottom="$3"
           >
-            Image Source: {card.source}
+            {t("source")}: {card.source}
           </Text>
         </YGroup.Item>
         <YGroup.Item>
@@ -46,7 +48,7 @@ const Description = ({ card, lang }: { card: Postcard; lang: "fi" | "en" }) => {
             lineHeight="$4"
             fontSize="$4"
           >
-            {lang === "fi" ? card.description_fi : card.description_en}
+            {i18n.language === "fi" ? card.description_fi : card.description_en}
           </Text>
         </YGroup.Item>
       </YGroup>

@@ -1,0 +1,12 @@
+{
+  "title": "Memories from Tampere",
+  "map": "Map",
+  "collection": "Collection",
+  "settings": "Settings",
+  "year": "Year",
+  "photographer": "Photographer",
+  "no_location_message": "This app requires location prevlidges to use",
+  "not_found": "Apologies, this page does not exist. Please restart the App.",
+  "source": "Source",
+  "discovered_message": "A new location was discovered"
+}

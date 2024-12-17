@@ -1,9 +1,11 @@
-import { YStack, Text, Image, ScrollView } from "tamagui";
+import { YStack, Text, Image } from "tamagui";
 import { colors } from "@/colors";
-import CardDescription from "./DescriptionTabs";
 import { Postcard } from "@/types";
+import Description from "./Description";
+import { useTranslation } from "react-i18next";
 
 const CardView = ({ card }: { card: Postcard }) => {
+  const { i18n } = useTranslation();
   return (
     <YStack
       flex={1}
@@ -18,13 +20,12 @@ const CardView = ({ card }: { card: Postcard }) => {
         fontWeight="bold"
         fontFamily="Fair-Prosper"
         textDecorationLine="underline"
-        position="absolute"
-        paddingTop="$5"
-        color="black"
-        opacity={0.5}
+        paddingTop="$1"
+        color={colors.white}
+        opacity={1}
         zIndex={10}
       >
-        {card.title_fi}
+        {i18n.language === "fi" ? card.title_fi : card.title_en}
       </Text>
       <Image
         source={{
@@ -37,7 +38,7 @@ const CardView = ({ card }: { card: Postcard }) => {
         borderColor="white"
         borderWidth="$1"
       />
-      <CardDescription card={card} />
+      <Description card={card} />
     </YStack>
   );
 };

@@ -9,9 +9,10 @@ export const MAPBOX_STYLE_URL =
 export const CDN_URL = "http://192.168.1.112:8000";
 
 // These are the bounds for the mappack and the mapview. Point is to force the user to use locally available tiles to limit the api requests. UPDATE: local not possible :(
+// Pretty good box. When zoomed fully out it's about the centrum of Tampere.
 export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
-  [24.246317, 61.75], // Extended northward
-  [23.311911, 61.333], // Extended southward
+  [24.246317, 61.78], // North boundary remains the same
+  [23.311911, 61.25], // Extended further south
 ];
 
 export const centerCoordinate = [23.73252, 61.49613];
