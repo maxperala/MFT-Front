@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef } from "react";
 import { Coords } from "@/types";
 import { calculateDistance } from "@/utils/location/locationUtils";
 import { discoverCards } from "@/state/userReducer";
+import * as Location from "expo-location";
+import { setLocation } from "@/state/locationReducer";
 
 // This is a problem. Causes unecessary rerenders. I will deal with this. FIXED, THIS IS DEPRICIATED!!
 export const useDiscover = () => {
@@ -28,4 +30,44 @@ export const useDiscover = () => {
       dispatch(discoverCards(undiscovered, location, token));
     }
   }, [location, token, undiscovered]);
+};
+
+export const useLocation = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const locationSub = useRef<Location.LocationSubscription | null>(null);
+  const allowed = useSelector((state: RootState) => state.location.allowed);
+  const startLocationUpdates = async () => {
+    try {
+      locationSub.current = await Location.watchPositionAsync(
+        {
+          accuracy: Location.Accuracy.High,
+          timeInterval: 2000,
+          distanceInterval: 5,
+        },
+        (loc) => {
+          dispatch(
+            setLocation({
+              lat: loc.coords.latitude,
+              lon: loc.coords.longitude,
+            })
+          );
+        }
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    if (allowed) {
+      startLocationUpdates();
+    }
+
+    return () => {
+      if (locationSub.current) {
+        locationSub.current.remove();
+        locationSub.current = null;
+      }
+    };
+  }, [allowed, dispatch]);
 };

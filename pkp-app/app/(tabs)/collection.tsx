@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-const Achievements = () => {
+const Collection = () => {
   return (
     <View>
       <Text>To be developed...</Text>
@@ -8,4 +8,4 @@ const Achievements = () => {
   );
 };
 
-export default Achievements;
+export default Collection;

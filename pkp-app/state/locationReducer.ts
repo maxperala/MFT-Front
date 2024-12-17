@@ -79,6 +79,12 @@ export const setLocationAccess = (status: boolean) => {
   };
 };
 
+/**
+ * Currently, this throttling with Prev, is not necessary since we use expo-location which handles it already.
+ * But the plan is to switch to mapbox location when bug is fixed, so I keep it here anyways.
+ * The calculation is not too costly.
+ *
+ */
 export const setUserLocation = (
   location: Location
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {

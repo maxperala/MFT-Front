@@ -11,7 +11,7 @@ const Header = () => {
 
 const style = StyleSheet.create({
   container: {
-    height: 90,
+    height: 45,
     alignItems: "flex-end",
     justifyContent: "center",
     flexDirection: "row",

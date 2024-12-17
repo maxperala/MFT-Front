@@ -14,4 +14,4 @@ export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
   [23.311911, 61.333], // Extended southward
 ];
 
-export const centerCoordinate = [23.779114, 61.541513];
+export const centerCoordinate = [23.73252, 61.49613];

@@ -9,6 +9,7 @@ const naviLayout = () => {
       screenOptions={{
         tabBarStyle: {
           backgroundColor: colors.main_red,
+          height: 80,
         },
         tabBarActiveTintColor: colors.yellow,
         tabBarInactiveTintColor: colors.white,
@@ -25,11 +26,11 @@ const naviLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="achievements"
+        name="collection"
         options={{
-          title: "Achievements",
+          title: "Collection",
           tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="trophy" color={color} size={size} />;
+            return <Ionicons name="bookmarks" color={color} size={size} />;
           },
         }}
       />

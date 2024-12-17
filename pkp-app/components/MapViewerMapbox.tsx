@@ -1,19 +1,18 @@
 import { View, StyleSheet } from "react-native";
-import { useEffect, useRef, useState } from "react";
-import { Postcard } from "@/types";
+import { useRef, useState } from "react";
 import Marker from "./Marker";
 import { BOUNDS } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
-import colors from "@/colors";
-import Mapbox, { UserTrackingMode } from "@rnmapbox/maps";
-import {
-  setFocusedOnUser,
-  setUserLocation,
-  setMapHeading,
-  setMapLoading,
-} from "@/state/locationReducer";
-import { Location } from "@rnmapbox/maps";
+import Mapbox from "@rnmapbox/maps";
+import { useLocation } from "@/utils/hooks";
+import { setMapHeading, setMapLoading } from "@/state/locationReducer";
+/**
+ * There is an issue with the Mapbox library version 10.1.33 and ios 17.X currently.
+ * The user location causes an error and weird behaviour. So we use expo-location for the actual location
+ * functionality of the app trough useLocation custom hook. But we can still render the Mapbox.LocationPuck component, without errors
+ * so we use that. Idk how it is working while UserLocation is not, but we use it like this for now.
+ */
 
 // These are public api keys, and can be exposed. They just provide access to the right style of map
 import {
@@ -21,7 +20,8 @@ import {
   MAPBOX_STYLE_URL,
   centerCoordinate,
 } from "@/config";
-import { discoverCards } from "@/state/userReducer";
+import { isEnabled } from "react-native/Libraries/Performance/Systrace";
+import colors from "@/colors";
 
 Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 
@@ -32,18 +32,10 @@ const MapViewerMapbox = () => {
   const focused = useSelector((store: RootState) => store.location.focused);
   const cards = useSelector((state: RootState) => state.cardData.cards);
   const [zoomLevel, setZoomLevel] = useState(0);
+  useLocation();
   const defaultSettings: Mapbox.CameraStop = {
     centerCoordinate: centerCoordinate,
-    zoomLevel: 10,
-  };
-
-  const updateLocation = (loc: Location) => {
-    dispatch(setUserLocation(loc));
-    dispatch(discoverCards());
-  };
-
-  const setFocused = () => {
-    dispatch(setFocusedOnUser(true));
+    zoomLevel: 13,
   };
 
   const updateHeadingAndZoom = (e: Mapbox.MapState) => {
@@ -53,6 +45,7 @@ const MapViewerMapbox = () => {
 
   const setMapReady = () => {
     dispatch(setMapLoading(false));
+    mapRef.current?.setCamera(defaultSettings);
   };
 
   return (
@@ -68,20 +61,12 @@ const MapViewerMapbox = () => {
         onCameraChanged={updateHeadingAndZoom}
       >
         <Mapbox.Camera
-          followUserLocation={focused}
-          followUserMode={UserTrackingMode.Follow}
           maxBounds={{ ne: BOUNDS[0], sw: BOUNDS[1] }}
-          zoomLevel={10}
           ref={mapRef}
-          centerCoordinate={centerCoordinate}
+          defaultSettings={defaultSettings}
         />
-        <Mapbox.UserLocation onUpdate={updateLocation}>
-          <Mapbox.LocationPuck
-            pulsing={{ isEnabled: true, color: colors.light_warm_red }}
-          />
-        </Mapbox.UserLocation>
 
-        {zoomLevel > 14 && cards
+        {zoomLevel > 13 && cards
           ? cards.map((card) => {
               return (
                 <Mapbox.MarkerView
@@ -93,6 +78,9 @@ const MapViewerMapbox = () => {
               );
             })
           : null}
+        <Mapbox.LocationPuck
+          pulsing={{ isEnabled: true, color: colors.light_warm_red }}
+        />
       </Mapbox.MapView>
     </View>
   );

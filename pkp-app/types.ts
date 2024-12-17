@@ -1,7 +1,7 @@
 export interface Coords {
   lat: number;
   lon: number;
-  heading: number | undefined;
+  heading?: number | undefined;
 }
 
 export interface UserLocation {
