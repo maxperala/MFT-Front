@@ -69,6 +69,7 @@ export default {
           fonts: [
             "./assets/fonts/Fair_Prosper.ttf",
             "./assets/fonts/SpecialElite-Regular.ttf",
+            "./assets/fonts/Montserrat.ttf",
           ],
         },
       ],

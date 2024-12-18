@@ -20,6 +20,7 @@ export interface User {
   lvl: string;
   token: string;
   unlocked: string[];
+  packs: string[];
 }
 
 export interface NewUser {
@@ -51,6 +52,7 @@ export interface Postcard {
   photographer: string;
   url: string;
   id: string;
+  pack: string;
 }
 
 export interface PostcardsState {
@@ -71,4 +73,16 @@ export interface ToastState {
   type: ToastType;
   message: string | null;
   active: boolean;
+}
+
+export interface Pack {
+  id: string;
+  name: string;
+  name_fi: string;
+  image_url: string;
+  paid: boolean;
+}
+
+export interface PackState {
+  packs: Pack[];
 }

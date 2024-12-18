@@ -29,16 +29,21 @@ const userReducer = createSlice({
       return { ...state, loading: action.payload };
     },
     setUnlocked(state, action: PayloadAction<string[]>) {
-      console.log("STATE", state);
       if (state.user) {
         return { ...state, user: { ...state.user, unlocked: action.payload } };
       }
       return state;
     },
+    setUnlockedPacks(state, action: PayloadAction<string[]>) {
+      if (state.user) {
+        return { ...state, user: { ...state.user, packs: action.payload } };
+      }
+    },
   },
 });
 
-export const { setUser, setLoading, setUnlocked } = userReducer.actions;
+export const { setUser, setLoading, setUnlocked, setUnlockedPacks } =
+  userReducer.actions;
 
 export const getUser = () => {
   return async (dispatch: AppDispatch) => {
@@ -53,6 +58,7 @@ export const getUser = () => {
       const resp = await axios.post(`${BACKEND_URL}/users/login`, savedUser);
       const data: User = resp.data;
       dispatch(setUser(data));
+
       dispatch(setLoading(false));
     } catch (e) {
       if (e instanceof AxiosError) {
@@ -69,7 +75,6 @@ export const createUser = (user: NewUser) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setLoading(true));
     let resp;
-    console.log("DATA SENT", user);
     resp = await axios.post(`${BACKEND_URL}/users/register`, user);
 
     const data: User | ErrorResponseData = resp.data;
@@ -83,6 +88,7 @@ export const createUser = (user: NewUser) => {
       JSON.stringify({ username: data.username, secret_code: user.secret_code })
     );
     dispatch(setUser(data));
+
     dispatch(setLoading(false));
   };
 };

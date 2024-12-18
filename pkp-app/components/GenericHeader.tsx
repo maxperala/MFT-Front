@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
 import colors from "@/colors";
 
-const Header = () => {
+const GenericHeader = ({ title }: { title: string }) => {
   return (
     <View style={style.container}>
-      <Text style={style.text}>Pyynikki</Text>
+      <Text style={style.text}>{title}</Text>
     </View>
   );
 };
@@ -25,4 +25,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default Header;
+export default GenericHeader;

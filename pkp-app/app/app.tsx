@@ -13,6 +13,7 @@ import { ToastProvider, ToastViewport } from "@tamagui/toast";
 import ToastView from "@/components/Toast";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import colors from "@/colors";
+import { getAllPacks } from "@/state/packsReducer";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -37,6 +38,12 @@ const App = () => {
       }
     );
   }, []);
+  // This is to fetch all the packs. I would do it in the user thunk actions but then it forms a require cycle.
+  useEffect(() => {
+    if (account.user) {
+      dispatch(getAllPacks());
+    }
+  }, [account]);
 
   if (!account.user && !account.loading) {
     return <RegisterScreen />;

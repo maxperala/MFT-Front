@@ -3,6 +3,7 @@ import colors from "@/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
+import GenericHeader from "@/components/GenericHeader";
 
 const naviLayout = () => {
   const { t } = useTranslation();
@@ -34,6 +35,17 @@ const naviLayout = () => {
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="bookmarks" color={color} size={size} />;
           },
+          header: () => <GenericHeader title={t("collection")} />,
+        }}
+      />
+      <Tabs.Screen
+        name="store"
+        options={{
+          title: t("store"),
+          tabBarIcon: ({ color, size }) => {
+            return <Ionicons name="cart" color={color} size={size} />;
+          },
+          header: () => <GenericHeader title={t("store")} />,
         }}
       />
       <Tabs.Screen
@@ -43,6 +55,7 @@ const naviLayout = () => {
           tabBarIcon: ({ color, size }) => {
             return <Ionicons name="settings" color={color} size={size} />;
           },
+          header: () => <GenericHeader title={t("settings")} />,
         }}
       />
     </Tabs>

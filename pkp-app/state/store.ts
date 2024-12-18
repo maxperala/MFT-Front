@@ -3,6 +3,7 @@ import locationReducer from "./locationReducer";
 import userReducer from "./userReducer";
 import cardsReducer from "./cardsReducer";
 import toastReducer from "./toastReducer";
+import packsReducer from "./packsReducer";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     account: userReducer,
     cardData: cardsReducer,
     toast: toastReducer,
+    packs: packsReducer,
   },
 });
 

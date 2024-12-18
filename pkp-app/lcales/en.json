@@ -8,5 +8,12 @@
   "no_location_message": "This app requires location prevlidges to use",
   "not_found": "Apologies, this page does not exist. Please restart the App.",
   "source": "Source",
-  "discovered_message": "A new location was discovered"
+  "discovered_message": "A new location was discovered",
+  "store": "Store",
+  "locations": "Locations",
+  "owned": "In use",
+  "purchase": "Purchase",
+  "price": "Price",
+  "free": "Free",
+  "claim": "Claim"
 }
