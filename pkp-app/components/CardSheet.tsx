@@ -5,7 +5,7 @@ import { StyleSheet } from "react-native";
 import { useEffect, useMemo, useRef } from "react";
 import { setActive } from "@/state/cardsReducer";
 import CardView from "./CardView";
-import { colors } from "@/colors";
+import { colors_new, colors } from "@/colors";
 import { Spinner } from "tamagui";
 
 const CardSheet = () => {
@@ -33,7 +33,7 @@ const CardSheet = () => {
       detached={true}
       enablePanDownToClose
       handleStyle={{
-        backgroundColor: colors.amber,
+        backgroundColor: colors_new.beige,
         borderTopLeftRadius: 14,
         borderTopRightRadius: 14,
         marginBottom: 1,

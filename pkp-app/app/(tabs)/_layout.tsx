@@ -1,5 +1,6 @@
 import { Tabs } from "expo-router";
-import colors from "@/colors";
+import { StyleSheet } from "react-native";
+import colors, { colors_new } from "@/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
@@ -13,9 +14,12 @@ const naviLayout = () => {
         tabBarStyle: {
           backgroundColor: colors.main_red,
           height: 80,
+          shadowOffset: { width: 1, height: -3 },
+          shadowRadius: 3,
+          shadowOpacity: 0.3,
         },
-        tabBarActiveTintColor: colors.yellow,
-        tabBarInactiveTintColor: colors.white,
+        tabBarActiveTintColor: colors_new.gold,
+        tabBarInactiveTintColor: colors_new.dirty_white,
       }}
     >
       <Tabs.Screen

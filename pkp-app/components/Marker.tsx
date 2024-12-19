@@ -68,6 +68,7 @@ const style = StyleSheet.create({
   },
   textImageContainer: {
     flex: 1,
+    opacity: 0.8,
     justifyContent: "center",
     alignItems: "center",
   },

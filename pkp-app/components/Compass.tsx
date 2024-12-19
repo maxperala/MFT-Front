@@ -47,13 +47,16 @@ const style = StyleSheet.create({
     position: "absolute",
     width: 80,
     height: 80,
-    opacity: 0.8,
+    opacity: 0.7,
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.6,
+    shadowRadius: 2,
   },
   needle: {
     position: "absolute",
     width: 80,
     height: 80,
-    opacity: 0.8,
+    opacity: 0.9,
   },
 });
 

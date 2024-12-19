@@ -13,6 +13,22 @@ export const colors = {
   black: "black",
 };
 
+// The current palette is kinda ... bad. So we try these new colors to standardize across the app
+export const colors_new = {
+  black: "#001219",
+  teal: "#005F73",
+  bright_teal: "#0A9396",
+  light_blue: "#94D2BD",
+  beige: "#E9D8A6",
+  yellow: "#EE9B00",
+  brown: "#CA6702",
+  gold: "#f4d240",
+  orange: "#BB3E03",
+  red: "#AE2012",
+  dark_red: "#9B2226",
+  dirty_white: "#f2f1e9",
+};
+
 export const colorsTamagui = {
   background: {
     primary: "#FF6F61", // Soft Coral

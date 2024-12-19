@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
-import colors from "@/colors";
+import colors, { colors_new } from "@/colors";
 
 const GenericHeader = ({ title }: { title: string }) => {
   return (
@@ -15,13 +15,19 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
+    shadowOffset: { width: 1, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: 0.3,
 
-    backgroundColor: colors.main_red,
+    backgroundColor: colors_new.red,
   },
   text: {
-    fontSize: 28,
-    color: colors.white,
+    fontSize: 26,
+    color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
+    shadowOffset: { width: 1, height: 3 },
+    shadowRadius: 3,
+    shadowOpacity: 0.3,
   },
 });
 

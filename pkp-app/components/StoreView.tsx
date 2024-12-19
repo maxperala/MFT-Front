@@ -1,4 +1,4 @@
-import colors from "@/colors";
+import colors, { colors_new } from "@/colors";
 import { unlockPack } from "@/state/packsReducer";
 import { AppDispatch, RootState } from "@/state/store";
 import { Pack } from "@/types";
@@ -15,7 +15,7 @@ const props: CardProps = {
   height: "30%",
   width: "100%",
   bordered: true,
-  backgroundColor: colors.warm_red,
+  backgroundColor: colors_new.dark_red,
   shadowOffset: { width: 1, height: 2 },
   shadowOpacity: 0.5,
   shadowRadius: 2,
@@ -33,54 +33,58 @@ const StoreView = () => {
     dispatch(unlockPack(pack.id));
   };
 
-  const storeCards = packs.map((pack) => (
-    <Card {...props} key={pack.id}>
-      <Card.Header padded>
-        <Text fontFamily="Fair-Prosper" fontSize="$6" color={colors.white}>
-          {i18n.language === "fi" ? pack.name_fi : pack.name}
-        </Text>
-      </Card.Header>
-      <Card.Footer padded>
-        <XStack
-          gap="$5"
-          justifyContent="flex-end"
-          alignItems="center"
-          flex={1}
-          padding="$4"
-        >
-          <YStack marginRight="$10">
-            <Text fontFamily="Montserrat" fontSize="$8">
-              {t("price")}:
-            </Text>
-            <Text fontFamily="Montserrat" fontSize="$6">
-              {pack.paid ? "4,99" : t("free")}
-            </Text>
-          </YStack>
+  const storeCards = packs.map((pack) => {
+    const unclocked = unlockedPacks && unlockedPacks.includes(pack.id);
+    const paid = pack.paid;
+    return (
+      <Card {...props} key={pack.id}>
+        <Card.Header padded>
+          <Text fontFamily="Fair-Prosper" fontSize="$6" color={colors.white}>
+            {i18n.language === "fi" ? pack.name_fi : pack.name}
+          </Text>
+        </Card.Header>
+        <Card.Footer padded>
+          <XStack
+            gap="$5"
+            justifyContent="flex-start"
+            alignItems="center"
+            flex={1}
+            padding="$3"
+          >
+            <YStack marginRight="$10" justifyContent="center">
+              <Text fontFamily="Montserrat" fontSize="$8">
+                {t("price")}:
+              </Text>
+              <Text fontFamily="Montserrat" fontSize="$6">
+                {pack.paid ? "4,99" : t("free")}
+              </Text>
+            </YStack>
 
-          {unlockedPacks && unlockedPacks.includes(pack.id) ? (
-            <Text color={colors.white} fontFamily="Montserrat" fontSize="$5">
-              {t("owned")}
-            </Text>
-          ) : (
             <Button
-              backgroundColor={colors.yellow}
+              backgroundColor={unclocked ? colors_new.teal : colors_new.brown}
               animation="100ms"
-              onPress={() => redeem(pack)}
+              disabled={unclocked}
+              borderWidth="$0.25"
+              borderColor={colors_new.beige}
             >
-              <Text fontFamily="Montserrat" color={colors.black} fontSize="$6">
-                {pack.paid ? t("purchase") : t("claim")}
+              <Text
+                fontFamily="Montserrat"
+                color={colors_new.dirty_white}
+                fontSize="$6"
+              >
+                {unclocked ? t("owned") : paid ? t("purchase") : t("claim")}
               </Text>
             </Button>
-          )}
-        </XStack>
-      </Card.Footer>
-    </Card>
-  ));
+          </XStack>
+        </Card.Footer>
+      </Card>
+    );
+  });
 
   return (
     <YStack
       padding="$2"
-      backgroundColor={colors.amber}
+      backgroundColor={colors_new.dirty_white}
       width="100%"
       height="100%"
       alignItems="center"
