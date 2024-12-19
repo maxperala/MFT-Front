@@ -86,3 +86,7 @@ export interface Pack {
 export interface PackState {
   packs: Pack[];
 }
+
+export interface PictureUrlState {
+  url: string | null;
+}

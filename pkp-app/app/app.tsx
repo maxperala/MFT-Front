@@ -14,6 +14,7 @@ import ToastView from "@/components/Toast";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import colors from "@/colors";
 import { getAllPacks } from "@/state/packsReducer";
+import FullScreenImage from "@/components/FullScreenImage";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -60,6 +61,7 @@ const App = () => {
           <Stack.Screen name="+not-found" />
         </Stack>
         <CardSheet />
+        <FullScreenImage />
         <LoadingScreen />
 
         <ToastView />

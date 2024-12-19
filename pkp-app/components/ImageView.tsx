@@ -1,10 +1,16 @@
 import { colors_new } from "@/colors";
+import { setPicture } from "@/state/pictureReducer";
 import { Postcard } from "@/types";
 
 import { TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 import { Image, YStack, Text } from "tamagui";
 
 const ImageView = ({ card }: { card: Postcard }) => {
+  const dispatch = useDispatch();
+  const setFullScreen = () => {
+    dispatch(setPicture(card.url));
+  };
   return (
     <YStack
       width="90%"
@@ -20,23 +26,25 @@ const ImageView = ({ card }: { card: Postcard }) => {
       paddingLeft="$0"
       paddingRight="$0"
     >
-      <Image
-        source={{
-          uri: card.url,
-        }}
-        flex={1}
-        borderRadius="$0"
-        aspectRatio={1}
-      />
-      <Text
-        color={colors_new.black}
-        fontFamily="Fair-Prosper"
-        alignSelf="flex-end"
-        marginRight="$5"
-        opacity={0.8}
-      >
-        {card.photographer} {card.year}
-      </Text>
+      <TouchableOpacity onPress={setFullScreen}>
+        <Image
+          source={{
+            uri: card.url,
+          }}
+          flex={1}
+          borderRadius="$0"
+          aspectRatio={1}
+        />
+        <Text
+          color={colors_new.black}
+          fontFamily="Fair-Prosper"
+          alignSelf="flex-end"
+          marginRight="$5"
+          opacity={0.8}
+        >
+          {card.photographer} {card.year}
+        </Text>
+      </TouchableOpacity>
     </YStack>
   );
 };
