@@ -15,5 +15,8 @@
   "purchase": "Osta",
   "price": "Hinta",
   "free": "Ilmainen",
-  "claim": "Lunasta"
+  "claim": "Lunasta",
+  "username": "Käyttäjänimi",
+  "allow_access": "Salli sijainnin käyttö",
+  "register": "Rekisteröidy"
 }

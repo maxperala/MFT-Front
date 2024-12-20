@@ -2,20 +2,22 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "pkp-app",
-    slug: "pkp-app",
+    name: "Memories from Tampere",
+    slug: "memories-from-tampere",
     version: "1.0.0",
     orientation: "portrait",
+    owner: "maxperala",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
       supportsTablet: true,
-      bundleIdentifier: "com.maxperala.pkp-app",
+      bundleIdentifier: "com.maxperala.mft",
       infoPlist: {
         NSAppTransportSecurity: {
           NSAllowsArbitraryLoads: true,
+          NSAllowsLocalNetworking: true,
         },
       },
     },
@@ -85,6 +87,9 @@ export default {
     ],
     experiments: {
       typedRoutes: true,
+    },
+    extra: {
+      eas: { projectId: "cf4c528f-5c1b-423b-9272-17bac71f2ba5" },
     },
   },
 };
