@@ -1,20 +1,28 @@
-import { Image, YStack, H2, Spinner } from "tamagui";
-import { colors } from "@/colors";
-import { useTranslation } from "react-i18next";
+import { Image, YStack, Spinner } from "tamagui";
+import { colors_new } from "@/colors";
 
 const LoadingView = () => {
-  const { t } = useTranslation();
   return (
-    <YStack flex={1} alignItems="center" justifyContent="center">
+    <YStack
+      position="absolute"
+      width="100%"
+      height="100%"
+      alignItems="center"
+      justifyContent="flex-start"
+    >
       <Image
         source={{
-          uri: require("@/assets/images/marker-x.png"),
+          uri: require("@/assets/images/logo.png"),
         }}
-        width="100"
-        height="100"
+        width="60%"
+        height="50%"
+        marginTop="$13"
+        shadowOffset={{ width: 0, height: 2 }}
+        shadowOpacity={0.3}
+        shadowRadius={6}
       />
-      <H2 color={colors.white}>{t("title")}</H2>
-      <Spinner size="large" color={colors.amber} />
+
+      <Spinner size="large" color={colors_new.beige} />
     </YStack>
   );
 };

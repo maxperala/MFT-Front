@@ -20,6 +20,7 @@ const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useSelector((state: RootState) => state.location.allowed);
   const account = useSelector((state: RootState) => state.account);
+
   const insets = useSafeAreaInsets();
   // Gets the user and location status in the beginning. Adds a listener so that when user goes to change location perms in settings the app knows :))
   useEffect(() => {
@@ -63,7 +64,6 @@ const App = () => {
         <CardSheet />
         <FullScreenImage />
         <LoadingScreen />
-
         <ToastView />
         <ToastViewport flexDirection="column" top={38} left={0} right={0} />
       </View>

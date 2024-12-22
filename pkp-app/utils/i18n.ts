@@ -2,8 +2,8 @@ import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { getLocales } from "expo-localization";
 
-import fi from "@/lcales/fi.json";
-import en from "@/lcales/en.json";
+import fi from "@/locales/fi.json";
+import en from "@/locales/en.json";
 
 const resources = {
   fi: { translation: fi },
