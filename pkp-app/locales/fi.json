@@ -18,5 +18,8 @@
   "claim": "Lunasta",
   "username": "Käyttäjänimi",
   "allow_access": "Salli sijainnin käyttö",
-  "register": "Rekisteröidy"
+  "register": "Rekisteröidy",
+  "distance": "Etäisyys",
+  "undiscovered": "Piilotettu kohde",
+  "back": "Takaisin"
 }

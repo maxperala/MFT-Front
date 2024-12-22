@@ -15,6 +15,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import colors from "@/colors";
 import { getAllPacks } from "@/state/packsReducer";
 import FullScreenImage from "@/components/FullScreenImage";
+import BackNavigator from "@/components/BackNavigator";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -59,6 +60,10 @@ const App = () => {
       <View style={[style.app, { paddingTop: insets.top }]}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="postcard/[id]"
+            options={{ header: () => <BackNavigator /> }}
+          />
           <Stack.Screen name="+not-found" />
         </Stack>
         <CardSheet />

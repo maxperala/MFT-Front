@@ -1,11 +1,7 @@
-import { View, Text } from "react-native";
+import CollectionView from "@/components/CollectionView";
 
 const Collection = () => {
-  return (
-    <View>
-      <Text>To be developed...</Text>
-    </View>
-  );
+  return <CollectionView />;
 };
 
 export default Collection;

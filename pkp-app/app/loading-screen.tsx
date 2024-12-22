@@ -12,7 +12,7 @@ const LoadingScreen = () => {
   if (!mapLoading && !userLoading) return null;
   return (
     <View width="100%" height="100%">
-      <LoadingView />;
+      <LoadingView />
     </View>
   );
 };

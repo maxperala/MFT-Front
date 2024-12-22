@@ -25,6 +25,7 @@ export const colors_new = {
   gold: "#f4d240",
   orange: "#BB3E03",
   red: "#AE2012",
+  light_red: "#eb5e58",
   dark_red: "#9B2226",
   dirty_white: "#f2f1e9",
 };

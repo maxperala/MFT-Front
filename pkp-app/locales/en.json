@@ -18,5 +18,8 @@
   "claim": "Claim",
   "username": "Username",
   "allow_access": "Allow location access",
-  "register": "Register"
+  "register": "Register",
+  "distance": "Distance",
+  "undiscovered": "Undiscovered location",
+  "back": "Back"
 }
