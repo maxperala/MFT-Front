@@ -11,7 +11,6 @@ import { BACKEND_URL } from "@/config";
 import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationUtils";
 import { setActive, setToast } from "./toastReducer";
-import { setPrev } from "./locationReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -102,20 +101,13 @@ export const discoverCards = (): ThunkAction<
   return async (dispatch, getState) => {
     const state = getState();
     const location = state.location.coords;
-    const prev = state.location.prev;
     const discovered = state.account.user?.unlocked;
     const token = state.account.user?.token;
-    if (!location || !prev || !discovered || !token) return;
-    const calcDis = calculateDistance(location, prev);
-    if (calcDis < 5) {
-      setPrev(location);
-      return;
-    }
+    if (!location || !discovered || !token) return;
     const cards = state.cardData.cards?.filter(
       (card) => !discovered?.includes(card.id)
     );
     if (!cards) {
-      dispatch(setPrev(location));
       return;
     }
 
@@ -129,7 +121,7 @@ export const discoverCards = (): ThunkAction<
         location
       );
 
-      if (distance < 20) {
+      if (distance < 80) {
         try {
           const resp = await axios.post(
             `${BACKEND_URL}/postcards/unlocked/${card.id}`,

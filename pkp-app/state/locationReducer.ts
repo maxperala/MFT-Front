@@ -12,7 +12,6 @@ import { checkMapExists, downloadMap } from "@/utils/offlineMaps";
 
 const initialState: UserLocation = {
   coords: null,
-  prev: null,
   allowed: false,
   focused: false,
   zoom: 10,
@@ -57,9 +56,6 @@ const locationSlice = createSlice({
     setPackExists(state, action: PayloadAction<boolean>) {
       return { ...state, packExists: action.payload };
     },
-    setPrev(state, action: PayloadAction<Coords>) {
-      return { ...state, prev: action.payload };
-    },
   },
 });
 export const {
@@ -70,7 +66,6 @@ export const {
   setHeading,
   setMapLoading,
   setPackExists,
-  setPrev,
 } = locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {
@@ -88,8 +83,7 @@ export const setLocationAccess = (status: boolean) => {
 export const setUserLocation = (
   location: Location
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
-  return async (dispatch, getState) => {
-    const oldLoc = getState().location.coords;
+  return async (dispatch, _getState) => {
     dispatch(
       setLocation({
         lat: location.coords.latitude,
@@ -97,17 +91,6 @@ export const setUserLocation = (
         heading: location.coords.heading,
       })
     );
-    if (oldLoc) {
-      dispatch(setPrev(oldLoc));
-    } else {
-      dispatch(
-        setPrev({
-          lat: location.coords.latitude,
-          lon: location.coords.longitude,
-          heading: location.coords.heading,
-        })
-      );
-    }
   };
 };
 

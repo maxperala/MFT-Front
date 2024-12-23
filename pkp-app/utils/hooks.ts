@@ -7,7 +7,7 @@ import { discoverCards } from "@/state/userReducer";
 import * as Location from "expo-location";
 import { setLocation } from "@/state/locationReducer";
 
-// This is a problem. Causes unecessary rerenders. I will deal with this. FIXED, THIS IS DEPRICIATED!!
+// This is a problem. Causes unecessary rerenders. I will deal with this. FIXED, THIS IS DEPRICATED!!
 export const useDiscover = () => {
   const location = useSelector((state: RootState) => state.location.coords);
   const discovered = useSelector(
@@ -51,6 +51,7 @@ export const useLocation = () => {
               lon: loc.coords.longitude,
             })
           );
+          dispatch(discoverCards());
         }
       );
     } catch (e) {

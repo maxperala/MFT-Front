@@ -7,7 +7,7 @@ export default {
     version: "1.0.0",
     orientation: "portrait",
     owner: "maxperala",
-    icon: "./assets/images/icon.png",
+    icon: "./assets/images/logo_bg.jpg",
     scheme: "myapp",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
@@ -44,10 +44,10 @@ export default {
       [
         "expo-splash-screen",
         {
-          image: "./assets/images/splash-icon.png",
+          image: "./assets/images/logo.png",
           imageWidth: 200,
           resizeMode: "contain",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#AE2012",
         },
       ],
       [
