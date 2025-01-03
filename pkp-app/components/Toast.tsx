@@ -2,7 +2,7 @@ import { AppDispatch, RootState } from "@/state/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "@tamagui/toast";
 import { setToast } from "@/state/toastReducer";
-import { colors } from "@/colors";
+import { colors_new } from "@/colors";
 import { Text, View, Image } from "tamagui";
 import { useEffect } from "react";
 import * as Haptics from "expo-haptics";
@@ -37,8 +37,10 @@ const ToastView = () => {
       exitStyle={{ x: -20, opacity: 0 }}
       x={0}
       duration={3000}
-      backgroundColor={colors.amber}
-      borderColor={colors.white}
+      backgroundColor={
+        toastData.type === "discover" ? colors_new.gold : colors_new.dark_red
+      }
+      borderColor={colors_new.dirty_white}
       borderWidth="$0.5"
       shadowColor="black"
       shadowOffset={{ width: 2, height: 4 }}
@@ -52,20 +54,25 @@ const ToastView = () => {
         alignItems="center"
         gap="$2"
       >
-        <Image
-          source={{
-            uri: require("@/assets/images/discovered-marker.png"),
-          }}
-          width="50"
-          height="50"
-        />
+        {toastData.type === "discover" ? (
+          <Image
+            source={{
+              uri: require("@/assets/images/discovered-marker.png"),
+            }}
+            width="50"
+            height="50"
+          />
+        ) : null}
+
         <View>
           <Toast.Title>
             <Text fontSize="$4" fontFamily="SpecialElite-Regular">
-              {t("discovered_message")}
+              {toastData.type === "discover"
+                ? t("discovered_message")
+                : t("error_occurred")}
             </Text>
           </Toast.Title>
-          <Toast.Description color={colors.white}>
+          <Toast.Description color={colors_new.dirty_white}>
             <Text fontSize="$5" fontFamily="SpecialElite-Regular">
               {toastData.message}
             </Text>

@@ -11,8 +11,10 @@ export const CDN_URL = "https://pkp-backend.fly.dev/";
 // These are the bounds for the mappack and the mapview. Point is to force the user to use locally available tiles to limit the api requests. UPDATE: local not possible :(
 // Pretty good box. When zoomed fully out it's about the centrum of Tampere.
 export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
-  [24.246317, 61.78], // North boundary remains the same
-  [23.311911, 61.25], // Extended further south
+  [24.246317, 61.78],
+  [23.311911, 61.25],
 ];
 
 export const centerCoordinate = [23.73252, 61.49613];
+
+export const DISCOVER_RANGE = 80;

@@ -7,10 +7,10 @@ import {
 } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BACKEND_URL } from "@/config";
+import { BACKEND_URL, DISCOVER_RANGE } from "@/config";
 import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationUtils";
-import { setActive, setToast } from "./toastReducer";
+import { createToast, setActive } from "./toastReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -121,7 +121,7 @@ export const discoverCards = (): ThunkAction<
         location
       );
 
-      if (distance < 80) {
+      if (distance < DISCOVER_RANGE) {
         try {
           const resp = await axios.post(
             `${BACKEND_URL}/postcards/unlocked/${card.id}`,
@@ -134,23 +134,16 @@ export const discoverCards = (): ThunkAction<
           );
           dispatch(setUnlocked(resp.data.unlocked));
           dispatch(setActive(false));
-          dispatch(
-            setToast({
-              type: "discover",
-              message: "New location discovered",
-              active: true,
-            })
-          );
+          dispatch(createToast("New location discovered", "discover"));
         } catch (e) {
           if (e instanceof AxiosError) {
-            console.log(e);
+            createToast("Failed to discover location", "notification");
             throw new Error(e.response?.data.error[0]);
           }
           console.log(e);
         }
       }
     }
-    dispatch(setPrev(location));
   };
 };
 

@@ -6,9 +6,10 @@ import {
   UnknownAction,
 } from "@reduxjs/toolkit";
 import { RootState } from "./store";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config";
 import { setUnlockedPacks } from "./userReducer";
+import { createToast } from "./toastReducer";
 import { getCards } from "./cardsReducer";
 
 const initialState: PackState = {
@@ -46,7 +47,10 @@ export const getAllPacks = (): ThunkAction<
       if (!packs) return;
       dispatch(setPacks(packs));
     } catch (e) {
-      // I need to implement error handling later for the entire app..
+      dispatch(createToast("Fetching packs failed", "notification"));
+      if (e instanceof AxiosError && "error" in e.response?.data) {
+        throw new Error(`Failed to fetch packs, ${e.response?.data.error[0]}`);
+      }
       console.log(e);
     }
   };
@@ -67,8 +71,12 @@ export const unlockPack = (
       const unlocked: string[] = res.data?.packs;
       if (!unlocked) return;
       dispatch(setUnlockedPacks(unlocked));
-      // I NEED TO DISPATCH THE ACTION TO GET CARDS AGAIN.. NEED TO FIX THE TYPINGS FIRST
+
+      if (token) {
+        dispatch(getCards(token));
+      }
     } catch (e) {
+      dispatch(createToast("Unlocking pack failed", "notification"));
       console.log(e);
     }
   };

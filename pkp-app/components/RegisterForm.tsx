@@ -1,19 +1,27 @@
-import { YStack, Button, Input, Label, XStack } from "tamagui";
+import { YStack, Button, Input, Text } from "tamagui";
 import { colors_new } from "@/colors";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { createUser } from "@/state/userReducer";
 import { configureLocationPerms } from "@/utils/location/locationUtils";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 
+// This component is my first try at using Reanimated to animate between the two buttons. Forcing the user to allow location before registration.
 const RegisterForm = () => {
-  const [username, setUsername] = useState("");
-  const dispatch: AppDispatch = useDispatch();
   const { t } = useTranslation();
+  const [username, setUsername] = useState(t("username_placeholder"));
+  const dispatch: AppDispatch = useDispatch();
+
+  const AnimatedButton = Animated.createAnimatedComponent(Button);
+
   const accessStatus = useSelector(
     (state: RootState) => state.location.allowed
   );
@@ -30,52 +38,60 @@ const RegisterForm = () => {
   };
 
   return (
-    <YStack
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      gap="$5"
-      padding="$6"
-    >
+    <YStack flex={1} gap="$6" padding="$4">
       <YStack width="100%">
-        <Label fontFamily="Monserrat" color={colors_new.black}>
+        <Text fontFamily="SpecialElite-Regular" color={colors_new.gold}>
           {t("username")}:
-        </Label>
+        </Text>
         <Input
-          color={colors_new.black}
+          color={colors_new.dirty_white}
           value={username}
-          fontFamily="Monserrat"
-          backgroundColor={colors_new.dirty_white}
-          width="$25"
+          fontFamily="SpecialElite-Regular"
+          backgroundColor={colors_new.red}
+          width="100%"
+          borderWidth="$0"
+          borderBottomWidth="$1"
+          borderColor={colors_new.dirty_white}
           onChangeText={setUsername}
         />
       </YStack>
-      <XStack width="100%" alignItems="center" gap="$5">
-        <Button
-          width="$18"
-          backgroundColor={accessStatus ? colors_new.black : colors_new.yellow}
-          disabled={accessStatus}
-          onPress={() => configureLocationPerms(dispatch)}
-        >
-          {t("allow_access")}
-        </Button>
 
-        <Ionicons
-          name={accessStatus ? "checkmark-circle-outline" : "close"}
-          color={accessStatus ? colors_new.black : colors_new.black}
-          size={50}
-        />
-      </XStack>
-      <Button
-        backgroundColor={accessStatus ? colors_new.yellow : colors_new.black}
-        disabled={!accessStatus}
-        marginTop="$10"
-        fontFamily="Monserrat"
-        size="$6"
-        onPress={registerUser}
-      >
-        {t("register")}
-      </Button>
+      <Animated.View layout={LinearTransition}>
+        {accessStatus ? (
+          <AnimatedButton
+            backgroundColor={colors_new.gold}
+            disabled={!accessStatus}
+            fontFamily="SpecialElite-Regular"
+            onPress={registerUser}
+            width="100%"
+            borderRadius={20}
+            entering={FadeIn.duration(500)}
+            exiting={FadeOut.duration(500)}
+          >
+            {/* This has POOR CONTRAST, FIND A BETTER COLOR */}
+            <Text
+              color={colors_new.dirty_white}
+              fontFamily="SpecialElite-Regular"
+            >
+              {t("register")}
+            </Text>
+          </AnimatedButton>
+        ) : (
+          <AnimatedButton
+            width="100%"
+            backgroundColor={colors_new.dirty_white}
+            disabled={accessStatus}
+            onPress={() => configureLocationPerms(dispatch)}
+            borderRadius={20}
+            entering={FadeIn.duration(500)}
+            exiting={FadeOut.duration(500)}
+          >
+            <Text color={colors_new.black} fontFamily="SpecialElite-Regular">
+              {t("allow_access")}
+            </Text>
+          </AnimatedButton>
+        )}
+      </Animated.View>
     </YStack>
   );
 };

@@ -21,5 +21,7 @@
   "register": "Rekisteröidy",
   "distance": "Etäisyys",
   "undiscovered": "Piilotettu kohde",
-  "back": "Takaisin"
+  "back": "Takaisin",
+  "username_placeholder": "SeikkailijaSampo",
+  "error_occurred": "Jotain meni pieleen"
 }

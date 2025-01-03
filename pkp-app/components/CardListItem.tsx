@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { XGroup, YGroup, Text, Image } from "tamagui";
 import { useRouter } from "expo-router";
 
+// This component is ugly. I need to design a proper style in figma and implement it later. Like this for now. VIP!!
 const CardListItem = ({ card }: { card: Postcard }) => {
   const { t, i18n } = useTranslation();
   const unlockedCards = useSelector(
@@ -21,7 +22,14 @@ const CardListItem = ({ card }: { card: Postcard }) => {
 
   if (!unlockedCards?.includes(card.id)) {
     return (
-      <TouchableOpacity style={{ width: "100%", height: "15%" }}>
+      <TouchableOpacity
+        style={{
+          width: "100%",
+          height: "40%",
+          borderBottomWidth: 1,
+          borderColor: colors_new.dirty_white,
+        }}
+      >
         <XGroup
           backgroundColor={colors_new.light_red}
           alignItems="center"
@@ -35,7 +43,7 @@ const CardListItem = ({ card }: { card: Postcard }) => {
           <XGroup alignItems="center">
             <Image
               source={{
-                uri: require("@/assets/images/marker-x.png"),
+                uri: require("@/assets/images/marker-x-white.png"),
               }}
               width={70}
               height={70}

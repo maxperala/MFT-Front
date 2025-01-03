@@ -1,5 +1,4 @@
 import {
-  AnyAction,
   createSlice,
   PayloadAction,
   ThunkAction,
@@ -8,7 +7,6 @@ import {
 import { Coords, UserLocation } from "@/types";
 import { AppDispatch, RootState } from "./store";
 import { Location } from "@maplibre/maplibre-react-native";
-import { checkMapExists, downloadMap } from "@/utils/offlineMaps";
 
 const initialState: UserLocation = {
   coords: null,
@@ -104,23 +102,6 @@ export const setFocusedOnUser = (status: boolean) => {
 export const setMapHeading = (heading: number) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setHeading(heading));
-  };
-};
-
-export const setupMapPack = () => {
-  return async (dispatch: AppDispatch) => {
-    if (await checkMapExists()) {
-      dispatch(setPackExists(true));
-      return;
-    }
-    try {
-      const success = await downloadMap();
-      if (success) {
-        dispatch(setPackExists(true));
-      }
-    } catch (e) {
-      return;
-    }
   };
 };
 

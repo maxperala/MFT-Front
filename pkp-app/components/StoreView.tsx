@@ -4,7 +4,16 @@ import { AppDispatch, RootState } from "@/state/store";
 import { Pack } from "@/types";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { YStack, Card, CardProps, Text, Button, XStack } from "tamagui";
+import {
+  YStack,
+  Card,
+  CardProps,
+  Text,
+  Button,
+  XStack,
+  Image,
+  View,
+} from "tamagui";
 
 const props: CardProps = {
   animation: "bouncy",
@@ -20,7 +29,9 @@ const props: CardProps = {
   shadowOpacity: 0.5,
   shadowRadius: 2,
 };
-
+/* Currently, each pack has the same bg, which is okay since there is only one pack. When more are implemented, I will switch to hosting the backgrounds
+as well and providing the bg urls for each pack from the backend. But for now it's fine. I'm not really certain about the color choices and will work on that.
+*/
 const StoreView = () => {
   const packs: Pack[] = useSelector((state: RootState) => state.packs.packs);
   const dispatch: AppDispatch = useDispatch();
@@ -38,6 +49,14 @@ const StoreView = () => {
     const paid = pack.paid;
     return (
       <Card {...props} key={pack.id}>
+        <Card.Background>
+          <Image
+            source={{ uri: require("@/assets/images/pack-1-bg.png") }}
+            width="100%"
+            height="100%"
+            borderRadius={10}
+          />
+        </Card.Background>
         <Card.Header padded>
           <Text fontFamily="Fair-Prosper" fontSize="$6" color={colors.white}>
             {i18n.language === "fi" ? pack.name_fi : pack.name}
@@ -61,15 +80,18 @@ const StoreView = () => {
             </YStack>
 
             <Button
-              backgroundColor={unclocked ? colors_new.teal : colors_new.brown}
+              backgroundColor={
+                unclocked ? colors_new.dirty_white : colors_new.brown
+              }
               animation="100ms"
               disabled={unclocked}
               borderWidth="$0.25"
               borderColor={colors_new.beige}
+              onPress={() => redeem(pack)}
             >
               <Text
                 fontFamily="Montserrat"
-                color={colors_new.dirty_white}
+                color={unclocked ? colors_new.black : colors_new.dirty_white}
                 fontSize="$6"
               >
                 {unclocked ? t("owned") : paid ? t("purchase") : t("claim")}
@@ -84,7 +106,7 @@ const StoreView = () => {
   return (
     <YStack
       padding="$2"
-      backgroundColor={colors_new.dirty_white}
+      backgroundColor={colors_new.beige}
       width="100%"
       height="100%"
       alignItems="center"

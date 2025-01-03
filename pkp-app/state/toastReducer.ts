@@ -1,6 +1,11 @@
 import { ToastState, ToastType } from "@/types";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AppDispatch } from "./store";
+import {
+  createSlice,
+  PayloadAction,
+  ThunkAction,
+  UnknownAction,
+} from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
 const initialState: ToastState = {
   type: null,
@@ -23,8 +28,11 @@ const toastReducer = createSlice({
 
 export const { setToast, setActive } = toastReducer.actions;
 
-export const createToast = (msg: string, type: ToastType) => {
-  return async (dispatch: AppDispatch) => {
+export const createToast = (
+  msg: string,
+  type: ToastType
+): ThunkAction<void, RootState, unknown, UnknownAction> => {
+  return async (dispatch) => {
     dispatch(setToast({ type, message: msg, active: true }));
   };
 };
