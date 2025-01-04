@@ -7,6 +7,7 @@ import {
 import { Coords, UserLocation } from "@/types";
 import { AppDispatch, RootState } from "./store";
 import { Location } from "@maplibre/maplibre-react-native";
+import { isUserInArea } from "@/utils/location/locationHelpers";
 
 const initialState: UserLocation = {
   coords: null,
@@ -15,6 +16,7 @@ const initialState: UserLocation = {
   zoom: 10,
   mapLoading: true,
   packExists: true,
+  showMap: true,
 };
 
 const locationSlice = createSlice({
@@ -54,6 +56,9 @@ const locationSlice = createSlice({
     setPackExists(state, action: PayloadAction<boolean>) {
       return { ...state, packExists: action.payload };
     },
+    setShowMap(state, action: PayloadAction<boolean>) {
+      return { ...state, showMap: action.payload };
+    },
   },
 });
 export const {
@@ -64,6 +69,7 @@ export const {
   setHeading,
   setMapLoading,
   setPackExists,
+  setShowMap,
 } = locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {
@@ -81,7 +87,9 @@ export const setLocationAccess = (status: boolean) => {
 export const setUserLocation = (
   location: Location
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
-  return async (dispatch, _getState) => {
+  return async (dispatch, getState) => {
+    console.log("RAN LOCATION UPDATE", location);
+    const mapShown = getState().location.showMap;
     dispatch(
       setLocation({
         lat: location.coords.latitude,
@@ -89,6 +97,18 @@ export const setUserLocation = (
         heading: location.coords.heading,
       })
     );
+    const inArea = isUserInArea({
+      lat: location.coords.latitude,
+      lon: location.coords.longitude,
+    });
+    console.log("IN AREA: ", inArea);
+    if (inArea && !mapShown) {
+      console.log("ENABLE MAP");
+      dispatch(setShowMap(true));
+    } else if (!inArea && mapShown) {
+      console.log("DISABLING MAP");
+      dispatch(setShowMap(false));
+    }
   };
 };
 

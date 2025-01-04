@@ -1,7 +1,7 @@
 import { colors_new } from "@/colors";
 import { RootState } from "@/state/store";
 import { Postcard } from "@/types";
-import { calculateDistance } from "@/utils/location/locationUtils";
+import { calculateDistance } from "@/utils/location/locationHelpers";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { TouchableOpacity } from "react-native";
@@ -81,7 +81,7 @@ const CardListItem = ({ card }: { card: Postcard }) => {
 
   return (
     <TouchableOpacity
-      style={{ width: "100%", height: "15%" }}
+      style={{ width: "100%", height: "40%" }}
       onPress={() => router.push(`/postcard/${card.id}`)}
     >
       <XGroup

@@ -2,8 +2,6 @@ import * as Location from "expo-location";
 import { AppDispatch } from "@/state/store";
 import { setLocationAccess } from "@/state/locationReducer";
 import { Linking, Alert } from "react-native";
-import haversine from "haversine-distance";
-import { Coords } from "@/types";
 
 const showAlert = () => {
   return new Promise<void>((resolve) => {
@@ -43,8 +41,4 @@ export const getLocationStatus = async (dispatch: AppDispatch) => {
     return;
   }
   dispatch(setLocationAccess(false));
-};
-
-export const calculateDistance = (a: Coords, b: Coords): number => {
-  return haversine([a.lat, a.lon], [b.lat, b.lon]);
 };

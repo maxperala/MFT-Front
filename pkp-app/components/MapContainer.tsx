@@ -1,14 +1,20 @@
 import { View, StyleSheet } from "react-native";
 import MapViewerMapbox from "./MapViewerMapbox";
 import Compass from "./Compass";
+import MapOverlay from "./MapOverlay";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
 
 const MapContainer = () => {
+  const showMap = useSelector((state: RootState) => state.location.showMap);
   return (
     <View style={style.container}>
+      <MapViewerMapbox />
       <View style={style.compassContainer}>
         <Compass />
       </View>
-      <MapViewerMapbox />
+
+      {!showMap ? <MapOverlay /> : null}
     </View>
   );
 };

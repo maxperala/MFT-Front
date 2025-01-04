@@ -9,7 +9,7 @@ import axios, { AxiosError } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL, DISCOVER_RANGE } from "@/config";
 import { AppDispatch, RootState } from "./store";
-import { calculateDistance } from "@/utils/location/locationUtils";
+import { calculateDistance } from "@/utils/location/locationHelpers";
 import { createToast, setActive } from "./toastReducer";
 
 const initialState: AccountState = {

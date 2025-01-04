@@ -11,6 +11,7 @@ export interface UserLocation {
   zoom: number;
   mapLoading: boolean;
   packExists: boolean;
+  showMap: boolean;
 }
 
 export interface User {

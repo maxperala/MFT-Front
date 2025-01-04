@@ -53,6 +53,7 @@ const ToastView = () => {
         justifyContent="center"
         alignItems="center"
         gap="$2"
+        zIndex={200}
       >
         {toastData.type === "discover" ? (
           <Image

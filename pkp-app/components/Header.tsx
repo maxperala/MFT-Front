@@ -18,6 +18,7 @@ const style = StyleSheet.create({
     shadowOffset: { width: 1, height: 3 },
     shadowRadius: 3,
     shadowOpacity: 0.3,
+    zIndex: 10,
 
     backgroundColor: colors_new.red,
   },

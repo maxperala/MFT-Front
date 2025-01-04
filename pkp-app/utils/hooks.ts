@@ -2,10 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { useEffect, useMemo, useRef } from "react";
 import { Coords } from "@/types";
-import { calculateDistance } from "@/utils/location/locationUtils";
+import { calculateDistance } from "@/utils/location/locationHelpers";
 import { discoverCards } from "@/state/userReducer";
 import * as Location from "expo-location";
-import { setLocation } from "@/state/locationReducer";
+import { setUserLocation } from "@/state/locationReducer";
 
 // This is a problem. Causes unecessary rerenders. I will deal with this. FIXED, THIS IS DEPRICATED!!
 export const useDiscover = () => {
@@ -27,7 +27,7 @@ export const useDiscover = () => {
       const dist = calculateDistance(location, prev.current);
       if (dist < 10) return;
       prev.current = location;
-      dispatch(discoverCards(undiscovered, location, token));
+      dispatch(discoverCards());
     }
   }, [location, token, undiscovered]);
 };
@@ -46,9 +46,11 @@ export const useLocation = () => {
         },
         (loc) => {
           dispatch(
-            setLocation({
-              lat: loc.coords.latitude,
-              lon: loc.coords.longitude,
+            setUserLocation({
+              coords: {
+                latitude: loc.coords.latitude,
+                longitude: loc.coords.longitude,
+              },
             })
           );
           dispatch(discoverCards());
