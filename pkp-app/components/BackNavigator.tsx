@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { colors_new } from "@/colors";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
-import { XStack } from "tamagui";
+
 
 const BackNavigator = () => {
   const router = useRouter();

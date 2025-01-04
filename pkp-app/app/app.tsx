@@ -16,7 +16,7 @@ import colors from "@/colors";
 import { getAllPacks } from "@/state/packsReducer";
 import FullScreenImage from "@/components/FullScreenImage";
 import BackNavigator from "@/components/BackNavigator";
-
+import * as Font from "expo-font";
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   const location = useSelector((state: RootState) => state.location.allowed);
@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     dispatch(getUser());
     getLocationStatus(dispatch);
-
+    console.log(Font.getLoadedFonts());
     const stateListener = AppState.addEventListener(
       "change",
       (nextAppState) => {

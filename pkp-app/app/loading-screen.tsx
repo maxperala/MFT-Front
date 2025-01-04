@@ -8,6 +8,8 @@ const LoadingScreen = () => {
   const mapLoading = useSelector(
     (state: RootState) => state.location.mapLoading
   );
+  console.log("MAP LOADING?", mapLoading);
+  console.log("USER LOADING?", userLoading);
 
   if (!mapLoading && !userLoading) return null;
   return (

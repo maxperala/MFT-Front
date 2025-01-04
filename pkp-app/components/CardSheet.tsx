@@ -39,6 +39,7 @@ const CardSheet = () => {
         marginBottom: 1,
         height: 35,
       }}
+      enableContentPanningGesture={false}
     >
       <BottomSheetView style={styles.container}>
         {card ? (

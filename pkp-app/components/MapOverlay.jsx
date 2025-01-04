@@ -23,7 +23,7 @@ const MapOverlay = () => {
         source={{ uri: require("@/assets/images/map-overlay.png") }}
         width="100%"
         height="100%"
-        objectFit="repeat"
+        objectFit="fill"
       />
       <Text
         position="absolute"

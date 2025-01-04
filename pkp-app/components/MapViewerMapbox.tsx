@@ -20,7 +20,7 @@ import {
   MAPBOX_STYLE_URL,
   centerCoordinate,
 } from "@/config";
-import { isEnabled } from "react-native/Libraries/Performance/Systrace";
+
 import colors from "@/colors";
 
 Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
@@ -28,10 +28,11 @@ Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 const MapViewerMapbox = () => {
   const dispatch: AppDispatch = useDispatch();
   const mapRef = useRef<Mapbox.Camera>(null);
-  const ready = useSelector((state: RootState) => state.location.mapLoading);
-  const focused = useSelector((store: RootState) => store.location.focused);
+
+
   const cards = useSelector((state: RootState) => state.cardData.cards);
   const [zoomLevel, setZoomLevel] = useState(0);
+
   useLocation();
   const defaultSettings: Mapbox.CameraStop = {
     centerCoordinate: centerCoordinate,
@@ -48,6 +49,7 @@ const MapViewerMapbox = () => {
     mapRef.current?.setCamera(defaultSettings);
   };
 
+
   return (
     <View style={styles.container}>
       <Mapbox.MapView
@@ -57,7 +59,9 @@ const MapViewerMapbox = () => {
         // Compass won't disable on iOS, so I hid it
         compassPosition={{ top: -50, left: -50 }}
         scaleBarEnabled={false}
+        // The first one works on ios but not android. Thus the second one lol
         onDidFinishLoadingMap={setMapReady}
+        onDidFinishLoadingStyle={setMapReady}
         onCameraChanged={updateHeadingAndZoom}
       >
         <Mapbox.Camera

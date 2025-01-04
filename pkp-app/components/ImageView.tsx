@@ -22,6 +22,7 @@ const ImageView = ({ card }: { card: Postcard }) => {
       shadowRadius={6}
       shadowColor={colors_new.black}
       backgroundColor={colors_new.dirty_white}
+      elevation={8}
       paddingTop="$3"
       paddingLeft="$0"
       paddingRight="$0"

@@ -20,6 +20,7 @@ const LoadingView = () => {
         shadowOffset={{ width: 0, height: 2 }}
         shadowOpacity={0.3}
         shadowRadius={6}
+        
       />
 
       <Spinner size="large" color={colors_new.beige} />

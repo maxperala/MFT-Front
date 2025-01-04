@@ -17,6 +17,7 @@ const naviLayout = () => {
           shadowOffset: { width: 1, height: -3 },
           shadowRadius: 3,
           shadowOpacity: 0.3,
+          elevation: 8
         },
         tabBarActiveTintColor: colors_new.gold,
         tabBarInactiveTintColor: colors_new.dirty_white,

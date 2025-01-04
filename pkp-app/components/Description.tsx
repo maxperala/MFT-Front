@@ -8,7 +8,7 @@ const Description = ({ card }: { card: Postcard }) => {
   return (
     <ScrollView
       padding="$4"
-      maxHeight={300}
+      maxHeight={315}
       backgroundColor={colors_new.dirty_white}
       borderRadius="$3"
     >
@@ -28,7 +28,7 @@ const Description = ({ card }: { card: Postcard }) => {
             fontWeight="bold"
             color={colors_new.black}
             fontFamily="SpecialElite-Regular"
-            paddingBottom="$3"
+            paddingBottom="$5"
           >
             {t("source")}: {card.source}
           </Text>

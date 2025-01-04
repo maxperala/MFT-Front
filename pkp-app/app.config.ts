@@ -23,8 +23,8 @@ export default {
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: "./assets/images/adaptive-icon.png",
-        backgroundColor: "#ffffff",
+        foregroundImage: "./assets/images/logo.png",
+        backgroundColor: "#AE2012",
       },
       permissions: [
         "android.permission.ACCESS_COARSE_LOCATION",
@@ -69,9 +69,10 @@ export default {
         "expo-font",
         {
           fonts: [
-            "./assets/fonts/Fair_Prosper.ttf",
+            "./assets/fonts/Fair-Prosper.ttf",
             "./assets/fonts/SpecialElite-Regular.ttf",
             "./assets/fonts/Montserrat.ttf",
+            "./assets/fonts/MarckScript-Regular.ttf"
           ],
         },
       ],

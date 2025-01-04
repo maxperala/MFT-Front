@@ -18,6 +18,7 @@ const style = StyleSheet.create({
     shadowOffset: { width: 1, height: 3 },
     shadowRadius: 3,
     shadowOpacity: 0.3,
+    elevation: 8,
 
     backgroundColor: colors_new.red,
   },
@@ -25,9 +26,9 @@ const style = StyleSheet.create({
     fontSize: 26,
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
-    shadowOffset: { width: 1, height: 3 },
-    shadowRadius: 3,
-    shadowOpacity: 0.3,
+    textShadowOffset: { width: 1, height: 3 },
+    textShadowRadius: 3,
+    
   },
 });
 

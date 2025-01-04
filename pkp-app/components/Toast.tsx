@@ -46,6 +46,7 @@ const ToastView = () => {
       shadowOffset={{ width: 2, height: 4 }}
       shadowOpacity={0.5}
       shadowRadius={5}
+      elevation={8}
     >
       <View
         flex={1}
