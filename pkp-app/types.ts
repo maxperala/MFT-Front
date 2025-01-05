@@ -1,3 +1,5 @@
+import { Feature, MultiPolygon } from "geojson";
+
 export interface Coords {
   lat: number;
   lon: number;
@@ -89,4 +91,14 @@ export interface PackState {
 
 export interface PictureUrlState {
   url: string | null;
+}
+
+export interface PostCodeInfo {
+  code: string;
+  name: string;
+  poly: Feature<MultiPolygon>;
+}
+
+export interface NavigationState {
+  currentDistrict: PostCodeInfo | null;
 }

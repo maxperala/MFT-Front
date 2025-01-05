@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "@/state/store";
 import Mapbox from "@rnmapbox/maps";
 import { useLocation } from "@/utils/hooks";
 import { setMapHeading, setMapLoading } from "@/state/locationReducer";
+import { Platform } from "react-native";
 /**
  * There is an issue with the Mapbox library version 10.1.33 and ios 17.X currently.
  * The user location causes an error and weird behaviour. So we use expo-location for the actual location
@@ -28,8 +29,8 @@ Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 const MapViewerMapbox = () => {
   const dispatch: AppDispatch = useDispatch();
   const mapRef = useRef<Mapbox.Camera>(null);
-
-
+  // DON'T REMOVE THIS, IT WILL BREAK THE APP ON IOS!! ** The map needs to rerender after loading the first time for it to emit any data. So we force a rerender when the map itself states it's ready **
+  const _ready = useSelector((state: RootState) => state.location.mapLoading);
   const cards = useSelector((state: RootState) => state.cardData.cards);
   const [zoomLevel, setZoomLevel] = useState(0);
 
@@ -45,10 +46,9 @@ const MapViewerMapbox = () => {
   };
 
   const setMapReady = () => {
-    dispatch(setMapLoading(false));
     mapRef.current?.setCamera(defaultSettings);
+    dispatch(setMapLoading(false));
   };
-
 
   return (
     <View style={styles.container}>
@@ -60,8 +60,10 @@ const MapViewerMapbox = () => {
         compassPosition={{ top: -50, left: -50 }}
         scaleBarEnabled={false}
         // The first one works on ios but not android. Thus the second one lol
-        onDidFinishLoadingMap={setMapReady}
-        onDidFinishLoadingStyle={setMapReady}
+        onDidFinishLoadingMap={Platform.OS === "ios" ? setMapReady : () => null}
+        onDidFinishLoadingStyle={
+          Platform.OS === "android" ? setMapReady : () => null
+        }
         onCameraChanged={updateHeadingAndZoom}
       >
         <Mapbox.Camera

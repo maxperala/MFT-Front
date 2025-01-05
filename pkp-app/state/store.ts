@@ -5,6 +5,7 @@ import cardsReducer from "./cardsReducer";
 import toastReducer from "./toastReducer";
 import packsReducer from "./packsReducer";
 import pictureReducer from "./pictureReducer";
+import navigationReducer from "./navigationReducer";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     toast: toastReducer,
     packs: packsReducer,
     picture: pictureReducer,
+    navigation: navigationReducer,
   },
 });
 

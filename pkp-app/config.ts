@@ -1,3 +1,18 @@
+import postal_data from "@/assets/mapping/postal_data.json";
+import { PostCodeInfo } from "./types";
+import wellknown from "wellknown";
+import { multiPolygon } from "@turf/helpers";
+
+export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
+  .map((info) => {
+    const p = wellknown.parse(info.poly);
+    if (p?.type === "MultiPolygon") {
+      return { ...info, poly: multiPolygon(p.coordinates) };
+    }
+    return { ...info, poly: null };
+  })
+  .filter((p) => p.poly != null);
+
 // Safe to expose for testing.
 export const MAPTILER_API_KEY = "h6APfvFtOjPAHL29TYsK";
 export const MAPBOX_PUBLIC_KEY =

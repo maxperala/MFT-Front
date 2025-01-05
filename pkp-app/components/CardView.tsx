@@ -18,7 +18,6 @@ const CardView = ({ card }: { card: Postcard }) => {
     >
       <Text
         fontSize="$8"
-        
         fontFamily="MarckScript-Regular"
         textDecorationLine="underline"
         paddingTop="$1"
@@ -28,6 +27,9 @@ const CardView = ({ card }: { card: Postcard }) => {
         textShadowOffset={{ width: 3, height: 1 }}
         textShadowRadius={5}
         shadowColor={colors_new.black}
+        shadowOffset={{ width: 3, height: 1 }}
+        shadowRadius={5}
+        shadowOpacity={0.7}
       >
         {i18n.language === "fi" ? card.title_fi : card.title_en}
       </Text>

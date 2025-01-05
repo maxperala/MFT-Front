@@ -26,9 +26,11 @@ const style = StyleSheet.create({
     fontSize: 26,
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
-    textShadowOffset: { width: 1, height: 3 },
+    textShadowOffset: { width: 2, height: 3 },
     textShadowRadius: 3,
-    
+    shadowOffset: { width: 2, height: 3 },
+    shadowRadius: 4,
+    shadowOpacity: 0.5,
   },
 });
 

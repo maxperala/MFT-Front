@@ -1,8 +1,10 @@
 import haversine from "haversine-distance";
-import { Coords } from "@/types";
+import { Coords, PostCodeInfo } from "@/types";
 import { isPointInPolygon } from "geolib";
-import { BOUNDS } from "@/config";
+import { BOUNDS, POST_CODE_DATA } from "@/config";
 import { GeolibInputCoordinates } from "geolib/es/types";
+import { booleanPointInPolygon } from "@turf/boolean-point-in-polygon";
+import { point } from "@turf/turf";
 
 /* These functions are not in locationUtils since they don't rely on Redux.
 So they are here to avoid dependency loops basically.
@@ -32,4 +34,15 @@ const boundingBoxToPolygon = (
     [maxLng, minLat],
     [maxLng, maxLat],
   ];
+};
+
+export const locToArea = (loc: Coords): PostCodeInfo | null => {
+  const p = point([loc.lon, loc.lat]);
+  for (const info of POST_CODE_DATA) {
+    if (booleanPointInPolygon(p, info.poly)) {
+      return info;
+    }
+  }
+
+  return null;
 };

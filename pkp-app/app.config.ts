@@ -32,7 +32,7 @@ export default {
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
       ],
-      package: "com.maxperala.pkpapp",
+      package: "com.maxperala.mft",
     },
     web: {
       bundler: "metro",
@@ -72,7 +72,7 @@ export default {
             "./assets/fonts/Fair-Prosper.ttf",
             "./assets/fonts/SpecialElite-Regular.ttf",
             "./assets/fonts/Montserrat.ttf",
-            "./assets/fonts/MarckScript-Regular.ttf"
+            "./assets/fonts/MarckScript-Regular.ttf",
           ],
         },
       ],
@@ -82,6 +82,7 @@ export default {
         "@rnmapbox/maps",
         {
           RNMapboxMapsDownloadToken: process.env.MAPBOX_SECRET,
+          RNMapboxMapsVersion: "11.0.0",
         },
       ],
       "expo-localization",

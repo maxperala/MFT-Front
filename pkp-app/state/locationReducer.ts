@@ -8,6 +8,7 @@ import { Coords, UserLocation } from "@/types";
 import { AppDispatch, RootState } from "./store";
 import { Location } from "@maplibre/maplibre-react-native";
 import { isUserInArea } from "@/utils/location/locationHelpers";
+import { setHeaderDistrict } from "./navigationReducer";
 
 const initialState: UserLocation = {
   coords: null,
@@ -78,37 +79,30 @@ export const setLocationAccess = (status: boolean) => {
   };
 };
 
-/**
- * Currently, this throttling with Prev, is not necessary since we use expo-location which handles it already.
- * But the plan is to switch to mapbox location when bug is fixed, so I keep it here anyways.
- * The calculation is not too costly.
- *
- */
 export const setUserLocation = (
   location: Location
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
   return async (dispatch, getState) => {
     console.log("RAN LOCATION UPDATE", location);
     const mapShown = getState().location.showMap;
-    dispatch(
-      setLocation({
-        lat: location.coords.latitude,
-        lon: location.coords.longitude,
-        heading: location.coords.heading,
-      })
-    );
+    // Setting heading here makes no difference, since it has no impact. The heading is coming from a different source (the map) and loc from expo-location
+    const c: Coords = {
+      lat: location.coords.latitude,
+      lon: location.coords.longitude,
+      heading: location.coords.heading,
+    };
+    dispatch(setLocation(c));
     const inArea = isUserInArea({
       lat: location.coords.latitude,
       lon: location.coords.longitude,
     });
-    console.log("IN AREA: ", inArea);
     if (inArea && !mapShown) {
-      console.log("ENABLE MAP");
       dispatch(setShowMap(true));
     } else if (!inArea && mapShown) {
       console.log("DISABLING MAP");
       dispatch(setShowMap(false));
     }
+    dispatch(setHeaderDistrict(c));
   };
 };
 

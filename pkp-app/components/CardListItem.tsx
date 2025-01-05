@@ -50,7 +50,6 @@ const CardListItem = ({ card }: { card: Postcard }) => {
               shadowOffset={{ width: 2, height: 1 }}
               shadowRadius={3}
               shadowOpacity={0.5}
-              
             />
             <YGroup gap="$2">
               <Text
@@ -59,8 +58,9 @@ const CardListItem = ({ card }: { card: Postcard }) => {
                 color={colors_new.dirty_white}
                 textShadowOffset={{ width: 2, height: 1 }}
                 textShadowRadius={3}
-                
-                
+                shadowOffset={{ width: 2, height: 1 }}
+                shadowRadius={3}
+                shadowOpacity={0.7}
               >
                 {t("undiscovered")}
               </Text>
@@ -83,7 +83,12 @@ const CardListItem = ({ card }: { card: Postcard }) => {
 
   return (
     <TouchableOpacity
-      style={{ width: "100%", height: "40%", borderBottomWidth: 1, borderColor: colors_new.dirty_white }}
+      style={{
+        width: "100%",
+        height: "40%",
+        borderBottomWidth: 1,
+        borderColor: colors_new.dirty_white,
+      }}
       onPress={() => router.push(`/postcard/${card.id}`)}
     >
       <XGroup
@@ -114,7 +119,9 @@ const CardListItem = ({ card }: { card: Postcard }) => {
               color={colors_new.dirty_white}
               textShadowOffset={{ width: 2, height: 1 }}
               textShadowRadius={3}
-              
+              shadowOffset={{ width: 2, height: 1 }}
+              shadowRadius={3}
+              shadowOpacity={0.7}
             >
               {i18n.language === "fi" ? card.title_fi : card.title_en}
             </Text>

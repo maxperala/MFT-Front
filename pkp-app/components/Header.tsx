@@ -1,10 +1,17 @@
 import { StyleSheet, View, Text } from "react-native";
-import { colors, colors_new } from "@/colors";
+import { colors_new } from "@/colors";
+import { RootState } from "@/state/store";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const navData = useSelector((state: RootState) => state.navigation);
   return (
     <View style={style.container}>
-      <Text style={style.text}>Pyynikki</Text>
+      <Text style={style.text}>
+        {navData.currentDistrict
+          ? navData.currentDistrict.name
+          : "Unknown area"}
+      </Text>
     </View>
   );
 };
@@ -29,10 +36,9 @@ const style = StyleSheet.create({
     fontFamily: "Fair-Prosper",
     textShadowOffset: { width: 2, height: 3 },
     textShadowRadius: 4,
-    
-    
-    
-    backgroundColor: colors_new.red
+    shadowOffset: { width: 2, height: 3 },
+    shadowRadius: 4,
+    shadowOpacity: 0.5,
   },
 });
 
