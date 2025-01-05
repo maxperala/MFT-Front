@@ -25,7 +25,7 @@ const CardListItem = ({ card }: { card: Postcard }) => {
       <TouchableOpacity
         style={{
           width: "100%",
-          height: "40%",
+          height: "15%",
           borderBottomWidth: 1,
           borderColor: colors_new.dirty_white,
         }}

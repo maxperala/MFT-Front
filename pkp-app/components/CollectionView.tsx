@@ -1,7 +1,7 @@
 import { RootState } from "@/state/store";
 import { Postcard } from "@/types";
 import { useSelector } from "react-redux";
-import { YGroup, ScrollView } from "tamagui";
+import { YGroup, ScrollView, View } from "tamagui";
 import CardListItem from "./CardListItem";
 import { colors_new } from "@/colors";
 
@@ -19,14 +19,19 @@ const CollectionView = () => {
     : [];
 
   return (
-    <YGroup
+    <View
+      justifyContent="center"
+      alignItems="center"
       width="100%"
       height="100%"
-      flex={1}
       backgroundColor={colors_new.beige}
     >
-      <ScrollView>{sections}</ScrollView>
-    </YGroup>
+      <ScrollView width="100%" height="100%">
+        <YGroup flex={1} backgroundColor={colors_new.beige}>
+          {sections}
+        </YGroup>
+      </ScrollView>
+    </View>
   );
 };
 
