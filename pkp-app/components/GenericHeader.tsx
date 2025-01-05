@@ -1,10 +1,15 @@
-import { StyleSheet, View, Text } from "react-native";
-import colors, { colors_new } from "@/colors";
-
+import { StyleSheet, View } from "react-native";
+import { colors_new } from "@/colors";
+import Animated, { FadeIn } from "react-native-reanimated";
+/*
+I need to implement the animation so that it runs each time the tab becomes active. VIP
+*/
 const GenericHeader = ({ title }: { title: string }) => {
   return (
     <View style={style.container}>
-      <Text style={style.text}>{title}</Text>
+      <Animated.Text style={style.text} entering={FadeIn.duration(1000)}>
+        {title}
+      </Animated.Text>
     </View>
   );
 };

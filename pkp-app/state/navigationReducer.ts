@@ -28,9 +28,12 @@ export const { setDistrict } = navigationReducer.actions;
 export const setHeaderDistrict = (
   c: Coords
 ): ThunkAction<void, RootState, unknown, Action<string>> => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const current = getState().navigation.currentDistrict;
     const area = locToArea(c);
-    dispatch(setDistrict(area));
+    if (area != current) {
+      dispatch(setDistrict(area));
+    }
   };
 };
 

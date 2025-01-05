@@ -1,17 +1,46 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet } from "react-native";
 import { colors_new } from "@/colors";
 import { RootState } from "@/state/store";
 import { useSelector } from "react-redux";
+import Animated, {
+  Easing,
+  ReduceMotion,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
+import { useEffect } from "react";
+import { Text, View } from "tamagui";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
+  const { t } = useTranslation();
+  const AnimatedText = Animated.createAnimatedComponent(Text);
   const navData = useSelector((state: RootState) => state.navigation);
+  const aniLength = useSharedValue(0);
+
+  const aniStyle = useAnimatedStyle(() => {
+    return { width: `${aniLength.value}%`, opacity: aniLength.value / 100 };
+  });
+
+  useEffect(() => {
+    aniLength.value = 0;
+    aniLength.value = withTiming(100, {
+      duration: 1300,
+      easing: Easing.out(Easing.quad),
+      reduceMotion: ReduceMotion.System,
+    });
+  }, [navData]);
+
   return (
     <View style={style.container}>
-      <Text style={style.text}>
-        {navData.currentDistrict
-          ? navData.currentDistrict.name
-          : "Unknown area"}
-      </Text>
+      <View justifyContent="center" alignItems="center">
+        <AnimatedText style={[style.text, aniStyle]}>
+          {navData.currentDistrict
+            ? navData.currentDistrict.name
+            : t("unknown")}
+        </AnimatedText>
+      </View>
     </View>
   );
 };

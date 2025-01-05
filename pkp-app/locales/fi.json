@@ -24,5 +24,6 @@
   "back": "Takaisin",
   "username_placeholder": "SeikkailijaSampo",
   "error_occurred": "Jotain meni pieleen",
-  "arrival": "Saavu Tampereelle aloittaaksesi seikkailu..."
+  "arrival": "Saavu Tampereelle aloittaaksesi seikkailu...",
+  "unknown": "Tuntematon seutu..."
 }
