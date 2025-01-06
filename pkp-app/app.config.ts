@@ -82,7 +82,7 @@ export default {
         "@rnmapbox/maps",
         {
           RNMapboxMapsDownloadToken: process.env.MAPBOX_SECRET,
-          RNMapboxMapsVersion: "11.0.0",
+          
         },
       ],
       "expo-localization",

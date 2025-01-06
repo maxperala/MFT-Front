@@ -74,3 +74,4 @@ export const useLocation = () => {
     };
   }, [allowed, dispatch]);
 };
+

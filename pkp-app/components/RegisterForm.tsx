@@ -13,6 +13,7 @@ import Animated, {
   FadeOut,
   LinearTransition,
 } from "react-native-reanimated";
+import { createToast } from "@/state/toastReducer";
 
 // This component is my first try at using Reanimated to animate between the two buttons. Forcing the user to allow location before registration.
 const RegisterForm = () => {
@@ -27,7 +28,15 @@ const RegisterForm = () => {
   );
   const registerUser = () => {
     try {
-      if (username.length < 4 || username.length > 10) return;
+      if (username.length < 4) {
+        dispatch(createToast(t("username_short"), "notification"))
+        return;
+      }
+
+      if (username.length > 15) {
+        dispatch(createToast(t("username_long"), "notification"))
+        return;
+      }
       dispatch(createUser({ username, secret_code: uuidv4() }));
     } catch (e) {
       if (e instanceof Error) {

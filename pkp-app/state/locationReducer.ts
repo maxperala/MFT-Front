@@ -13,6 +13,7 @@ import { setHeaderDistrict } from "./navigationReducer";
 const initialState: UserLocation = {
   coords: null,
   allowed: false,
+  allowedLoading: true,
   focused: false,
   zoom: 10,
   mapLoading: true,
@@ -60,6 +61,9 @@ const locationSlice = createSlice({
     setShowMap(state, action: PayloadAction<boolean>) {
       return { ...state, showMap: action.payload };
     },
+    setAllowedLoading(state, action: PayloadAction<boolean>) {
+      return {...state, allowedLoading: action.payload}
+    }
   },
 });
 export const {
@@ -71,6 +75,7 @@ export const {
   setMapLoading,
   setPackExists,
   setShowMap,
+  setAllowedLoading
 } = locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {

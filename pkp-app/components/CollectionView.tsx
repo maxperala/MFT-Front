@@ -1,38 +1,102 @@
+import { colors_new } from "@/colors";
 import { RootState } from "@/state/store";
 import { Postcard } from "@/types";
 import { useSelector } from "react-redux";
-import { YGroup, ScrollView, View } from "tamagui";
-import CardListItem from "./CardListItem";
-import { colors_new } from "@/colors";
+import PagerView from "react-native-pager-view";
+import { StyleSheet, View } from "react-native";
+import { Text, XStack, YStack } from "tamagui";
+import ImageView from "./ImageView";
+import { useTranslation } from "react-i18next";
+import { Ionicons } from "@expo/vector-icons";
+
 
 const CollectionView = () => {
   const cards = useSelector((state: RootState) => state.cardData.cards);
+  const unlocked = useSelector((state: RootState) => state.account.user?.unlocked);
+  const {t, i18n} = useTranslation();
 
-  const sections = cards
-    ? cards.map((card: Postcard) => {
-        return (
-          <YGroup.Item key={card.id}>
-            <CardListItem card={card} />
-          </YGroup.Item>
-        );
-      })
-    : [];
 
+
+  const filteredCards = cards?.filter((card: Postcard) => {
+    if (unlocked?.includes(card.id)) {
+      return true;
+    }
+    return false;
+  })
+
+  const backArrow = () => {
+    return (
+      <Ionicons name="arrow-back" size={35} color={colors_new.black}
+        style={{
+        opacity: 0.5,
+        shadowOffset: { width: 1, height: 3 },
+        shadowRadius: 3,
+        shadowOpacity: 0.3,
+      }}
+      
+      />
+    )
+
+  }
+
+  const forwardArrow = () => {
+    return(
+      <Ionicons name="arrow-forward" size={35} color={colors_new.black}
+        style={{
+        opacity: 0.5,
+        shadowOffset: { width: 1, height: 3 },
+        shadowRadius: 3,
+        shadowOpacity: 0.3,
+      }}
+      
+      />
+    )
+
+  }
+
+  const createArrow = (i: number) => {
+    const length = filteredCards?.length;
+    if (!length) {
+      return null;
+    }
+    return (
+      <YStack justifyContent="space-between" alignItems="center">
+        <XStack justifyContent="space-between" width="100%" padding="$5">
+          {i > 0 ? backArrow() : <View />}
+          {(length - 1) > i ? forwardArrow() : <View />}
+        </XStack>
+        <Text fontFamily="Fair-Prosper" opacity={0.7} fontSize="$4">{t("swipe")}</Text>
+        
+        
+      </YStack>
+    )
+  }
+  
   return (
-    <View
-      justifyContent="center"
-      alignItems="center"
-      width="100%"
-      height="100%"
-      backgroundColor={colors_new.beige}
-    >
-      <ScrollView width="100%" height="100%">
-        <YGroup flex={1} backgroundColor={colors_new.beige}>
-          {sections}
-        </YGroup>
-      </ScrollView>
-    </View>
-  );
+    <PagerView style={style.container}>
+      {(filteredCards && filteredCards.length > 0) ? filteredCards.map((card: Postcard, i) => {
+        return (
+          <View key={i} style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <Text fontFamily="MarckScript-Regular" fontSize="$7" paddingBottom="$4">{i18n.language === "fi" ? card.title_fi : card.title_en}</Text>
+            <ImageView card={card} toSheet={true} />
+            {createArrow(i)}
+          </View>
+        )
+      }) : <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
+            <Text fontFamily="Fair-Prosper" opacity={0.5} >{t("nothing_here")}</Text>
+          </View>
+        }
+    </PagerView>
+  )
 };
+
+
+const style = StyleSheet.create({
+  container: {
+    backgroundColor: colors_new.beige,
+    flex: 1
+  }
+})
+
 
 export default CollectionView;

@@ -9,8 +9,7 @@ import { getUser } from "@/state/userReducer";
 import { getLocationStatus } from "@/utils/location/locationUtils";
 import CardSheet from "@/components/CardSheet";
 import LoadingScreen from "./loading-screen";
-import { ToastProvider, ToastViewport } from "@tamagui/toast";
-import ToastView from "@/components/Toast";
+
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import colors from "@/colors";
 import { getAllPacks } from "@/state/packsReducer";
@@ -19,7 +18,8 @@ import BackNavigator from "@/components/BackNavigator";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const location = useSelector((state: RootState) => state.location.allowed);
+  const locationAllowed = useSelector((state: RootState) => state.location.allowed);
+  const locationLoading = useSelector((state: RootState) => state.location.allowedLoading);
   const account = useSelector((state: RootState) => state.account);
 
   const insets = useSafeAreaInsets();
@@ -48,16 +48,19 @@ const App = () => {
     }
   }, [account]);
 
-  if (!account.user && !account.loading) {
-    return <RegisterScreen />;
-  }
-  if (!location) {
+  if (!locationAllowed && !locationLoading) {
     return <NoLocationScreen />;
   }
 
+  if (!account.user && !account.loading) {
+    return <RegisterScreen />;
+  }
+
+
   return (
-    <ToastProvider>
+ 
       <View style={[style.app, { paddingTop: insets.top }]}>
+        
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen
@@ -69,10 +72,10 @@ const App = () => {
         <CardSheet />
         <FullScreenImage />
         <LoadingScreen />
-        <ToastView />
-        <ToastViewport flexDirection="column" top={38} left={0} right={0} />
+        
       </View>
-    </ToastProvider>
+      
+   
   );
 };
 

@@ -25,5 +25,9 @@
   "username_placeholder": "EricTheExplorer",
   "error_occurred": "An error occurred",
   "arrival": "Arrive at Tampere to start exploring...",
-  "unknown": "Uknown land..."
+  "unknown": "Uknown land...",
+  "username_short": "Username needs to be atleast 4 characters long",
+  "username_long": "Username too long",
+  "swipe": "Swipe to change...",
+  "nothing_here": "Nothing here. Explore locations to unlock cards..."
 }

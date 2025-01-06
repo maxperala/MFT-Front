@@ -22,7 +22,7 @@ import {
   centerCoordinate,
 } from "@/config";
 
-import colors from "@/colors";
+import colors, { colors_new } from "@/colors";
 
 Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 
@@ -72,21 +72,26 @@ const MapViewerMapbox = () => {
           defaultSettings={defaultSettings}
         />
 
-        {zoomLevel > 13 && cards
+        <Mapbox.LocationPuck
+          pulsing={{ isEnabled: true, color: colors_new.dark_red }}
+          
+        />
+
+        {zoomLevel > 14 && cards
           ? cards.map((card) => {
               return (
                 <Mapbox.MarkerView
                   coordinate={[card.location.lon, card.location.lat]}
                   key={card.id}
+                  allowOverlap={true}
+                  allowOverlapWithPuck={true}
                 >
                   <Marker card={card} />
                 </Mapbox.MarkerView>
               );
             })
           : null}
-        <Mapbox.LocationPuck
-          pulsing={{ isEnabled: true, color: colors.light_warm_red }}
-        />
+
       </Mapbox.MapView>
     </View>
   );

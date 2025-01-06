@@ -1,13 +1,15 @@
 import { colors_new } from "@/colors";
 import { setPicture } from "@/state/pictureReducer";
 import { Postcard } from "@/types";
+import { useRouter } from "expo-router";
 
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Image, YStack, Text } from "tamagui";
 
-const ImageView = ({ card }: { card: Postcard }) => {
+const ImageView = ({ card, toSheet = false }: { card: Postcard, toSheet?: boolean }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const setFullScreen = () => {
     dispatch(setPicture(card.url));
   };
@@ -27,7 +29,7 @@ const ImageView = ({ card }: { card: Postcard }) => {
       paddingLeft="$0"
       paddingRight="$0"
     >
-      <TouchableOpacity onPress={setFullScreen}>
+      <TouchableOpacity onPress={toSheet ? () => router.push(`/postcard/${card.id}`) : setFullScreen}>
         <Image
           source={{
             uri: card.url,

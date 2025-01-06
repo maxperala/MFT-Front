@@ -11,6 +11,7 @@ import { BACKEND_URL, DISCOVER_RANGE } from "@/config";
 import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationHelpers";
 import { createToast, setActive } from "./toastReducer";
+import i18n from "@/utils/i18n";
 
 const initialState: AccountState = {
   user: null,
@@ -72,23 +73,31 @@ export const getUser = () => {
 
 export const createUser = (user: NewUser) => {
   return async (dispatch: AppDispatch) => {
-    dispatch(setLoading(true));
-    let resp;
-    resp = await axios.post(`${BACKEND_URL}/users/register`, user);
+    try {
+      dispatch(setLoading(true));
+      let resp;
+      resp = await axios.post(`${BACKEND_URL}/users/register`, user);
+  
+      const data: User = resp.data;
+      if ("error" in data) {
 
-    const data: User | ErrorResponseData = resp.data;
-    if ("error" in data) {
+      }
+  
+      await AsyncStorage.setItem(
+        "savedUser",
+        JSON.stringify({ username: data.username, secret_code: user.secret_code })
+      );
+      dispatch(setUser(data));
+  
       dispatch(setLoading(false));
-      throw new Error(`Failed to register: ${data.error[0]}`);
+    } catch (e) {
+      dispatch(setLoading(false));
+      dispatch(createToast("An unknown error occurred", "notification"));
+      console.log(e);
+      throw new Error(`Failed to register, an unknown error occurred.`);
+
     }
 
-    await AsyncStorage.setItem(
-      "savedUser",
-      JSON.stringify({ username: data.username, secret_code: user.secret_code })
-    );
-    dispatch(setUser(data));
-
-    dispatch(setLoading(false));
   };
 };
 
@@ -134,7 +143,7 @@ export const discoverCards = (): ThunkAction<
           );
           dispatch(setUnlocked(resp.data.unlocked));
           dispatch(setActive(false));
-          dispatch(createToast("New location discovered", "discover"));
+          dispatch(createToast((i18n.language === "fi" ? card.title_fi : card.title_en), "discover"));
         } catch (e) {
           if (e instanceof AxiosError) {
             createToast("Failed to discover location", "notification");

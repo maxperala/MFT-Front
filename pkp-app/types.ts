@@ -8,6 +8,7 @@ export interface Coords {
 
 export interface UserLocation {
   allowed: boolean;
+  allowedLoading: boolean;
   focused: boolean;
   coords: Coords | null;
   zoom: number;

@@ -25,5 +25,9 @@
   "username_placeholder": "SeikkailijaSampo",
   "error_occurred": "Jotain meni pieleen",
   "arrival": "Saavu Tampereelle aloittaaksesi seikkailu...",
-  "unknown": "Tuntematon seutu..."
+  "unknown": "Tuntematon seutu...",
+  "username_short": "Käyttäjänimien on oltava vähintään 4 merkkiä",
+  "username_long": "Käyttäjänimi liian pitkä",
+  "swipe": "Käännä sivua pyyhkäisemällä...",
+  "nothing_here": "Ei vielä mitään nähtävää. Löydä uusia kuvia seikkailemalla..."
 }
