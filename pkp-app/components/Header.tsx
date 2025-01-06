@@ -9,7 +9,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Text, View } from "tamagui";
 import { useTranslation } from "react-i18next";
 
@@ -18,6 +18,8 @@ const Header = () => {
   const AnimatedText = Animated.createAnimatedComponent(Text);
   const navData = useSelector((state: RootState) => state.navigation);
   const aniLength = useSharedValue(0);
+  // We need to update the data indirectly trough this useState, so that the text doesn't change before the animation is reset :)
+  const [data, setData] = useState(navData);
 
   const aniStyle = useAnimatedStyle(() => {
     return { width: `${aniLength.value}%`, opacity: aniLength.value / 100 };
@@ -25,6 +27,7 @@ const Header = () => {
 
   useEffect(() => {
     aniLength.value = 0;
+    setData(navData);
     aniLength.value = withTiming(100, {
       duration: 1300,
       easing: Easing.out(Easing.quad),
@@ -36,8 +39,8 @@ const Header = () => {
     <View style={style.container}>
       <View justifyContent="center" alignItems="center">
         <AnimatedText style={[style.text, aniStyle]}>
-          {navData.currentDistrict
-            ? navData.currentDistrict.name
+          {data.currentDistrict
+            ? data.currentDistrict.name
             : t("unknown")}
         </AnimatedText>
       </View>
