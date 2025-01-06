@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { colors_new } from "@/colors";
 import { RootState } from "@/state/store";
 import { useSelector } from "react-redux";
@@ -7,22 +7,25 @@ import Animated, {
   ReduceMotion,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
   withTiming,
 } from "react-native-reanimated";
 import { useEffect, useState } from "react";
-import { Text, View } from "tamagui";
 import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const { t } = useTranslation();
-  const AnimatedText = Animated.createAnimatedComponent(Text);
+
   const navData = useSelector((state: RootState) => state.navigation);
   const aniLength = useSharedValue(0);
   // We need to update the data indirectly trough this useState, so that the text doesn't change before the animation is reset :)
   const [data, setData] = useState(navData);
 
   const aniStyle = useAnimatedStyle(() => {
-    return { width: `${aniLength.value}%`, opacity: aniLength.value / 100 };
+    return {
+      transform: [{ scaleX: aniLength.value / 100 }],
+      opacity: aniLength.value / 100,
+    };
   });
 
   useEffect(() => {
@@ -37,10 +40,16 @@ const Header = () => {
 
   return (
     <View style={style.container}>
-      <View justifyContent="center" alignItems="center">
-        <AnimatedText style={[style.text, aniStyle]}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Animated.Text style={[style.text, aniStyle]}>
           {data.currentDistrict ? data.currentDistrict.name : t("unknown")}
-        </AnimatedText>
+        </Animated.Text>
       </View>
     </View>
   );
@@ -55,7 +64,6 @@ const style = StyleSheet.create({
     shadowOffset: { width: 1, height: 3 },
     shadowRadius: 3,
     shadowOpacity: 0.3,
-    zIndex: 10,
     elevation: 8,
 
     backgroundColor: colors_new.red,
@@ -65,10 +73,11 @@ const style = StyleSheet.create({
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
     textShadowOffset: { width: 2, height: 3 },
-    textShadowRadius: 4,
+    textShadowRadius: 3,
     shadowOffset: { width: 2, height: 3 },
     shadowRadius: 4,
     shadowOpacity: 0.5,
+    textAlign: "center",
   },
 });
 
