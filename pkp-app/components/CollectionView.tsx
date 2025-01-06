@@ -9,50 +9,51 @@ import ImageView from "./ImageView";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
 
-
 const CollectionView = () => {
   const cards = useSelector((state: RootState) => state.cardData.cards);
-  const unlocked = useSelector((state: RootState) => state.account.user?.unlocked);
-  const {t, i18n} = useTranslation();
-
-
+  const unlocked = useSelector(
+    (state: RootState) => state.account.user?.unlocked
+  );
+  const { t, i18n } = useTranslation();
 
   const filteredCards = cards?.filter((card: Postcard) => {
     if (unlocked?.includes(card.id)) {
       return true;
     }
     return false;
-  })
+  });
 
   const backArrow = () => {
     return (
-      <Ionicons name="arrow-back" size={35} color={colors_new.black}
+      <Ionicons
+        name="arrow-back"
+        size={35}
+        color={colors_new.black}
         style={{
-        opacity: 0.5,
-        shadowOffset: { width: 1, height: 3 },
-        shadowRadius: 3,
-        shadowOpacity: 0.3,
-      }}
-      
+          opacity: 0.5,
+          shadowOffset: { width: 1, height: 3 },
+          shadowRadius: 3,
+          shadowOpacity: 0.3,
+        }}
       />
-    )
-
-  }
+    );
+  };
 
   const forwardArrow = () => {
-    return(
-      <Ionicons name="arrow-forward" size={35} color={colors_new.black}
+    return (
+      <Ionicons
+        name="arrow-forward"
+        size={35}
+        color={colors_new.black}
         style={{
-        opacity: 0.5,
-        shadowOffset: { width: 1, height: 3 },
-        shadowRadius: 3,
-        shadowOpacity: 0.3,
-      }}
-      
+          opacity: 0.5,
+          shadowOffset: { width: 1, height: 3 },
+          shadowRadius: 3,
+          shadowOpacity: 0.3,
+        }}
       />
-    )
-
-  }
+    );
+  };
 
   const createArrow = (i: number) => {
     const length = filteredCards?.length;
@@ -63,40 +64,73 @@ const CollectionView = () => {
       <YStack justifyContent="space-between" alignItems="center">
         <XStack justifyContent="space-between" width="100%" padding="$5">
           {i > 0 ? backArrow() : <View />}
-          {(length - 1) > i ? forwardArrow() : <View />}
+          {length - 1 > i ? forwardArrow() : <View />}
         </XStack>
-        <Text fontFamily="Fair-Prosper" opacity={0.7} fontSize="$4">{t("swipe")}</Text>
-        
-        
+        <Text
+          fontFamily="Fair-Prosper"
+          opacity={0.7}
+          fontSize="$4"
+          color={colors_new.black}
+        >
+          {t("swipe")}
+        </Text>
       </YStack>
-    )
-  }
-  
+    );
+  };
+
   return (
     <PagerView style={style.container}>
-      {(filteredCards && filteredCards.length > 0) ? filteredCards.map((card: Postcard, i) => {
-        return (
-          <View key={i} style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-            <Text fontFamily="MarckScript-Regular" fontSize="$7" paddingBottom="$4">{i18n.language === "fi" ? card.title_fi : card.title_en}</Text>
-            <ImageView card={card} toSheet={true} />
-            {createArrow(i)}
-          </View>
-        )
-      }) : <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-            <Text fontFamily="Fair-Prosper" opacity={0.5} >{t("nothing_here")}</Text>
-          </View>
-        }
+      {filteredCards && filteredCards.length > 0 ? (
+        filteredCards.map((card: Postcard, i) => {
+          return (
+            <View
+              key={i}
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                fontFamily="MarckScript-Regular"
+                fontSize="$7"
+                paddingBottom="$4"
+              >
+                {i18n.language === "fi" ? card.title_fi : card.title_en}
+              </Text>
+              <ImageView card={card} toSheet={true} />
+              {createArrow(i)}
+            </View>
+          );
+        })
+      ) : (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text
+            fontFamily="Fair-Prosper"
+            opacity={0.5}
+            color={colors_new.black}
+            textAlign="center"
+            shadowOffset={{ width: 1, height: 2 }}
+            shadowRadius={5}
+            shadowOpacity={0.6}
+            textShadowOffset={{ width: 1, height: 2 }}
+            textShadowRadius={5}
+          >
+            {t("nothing_here")}
+          </Text>
+        </View>
+      )}
     </PagerView>
-  )
+  );
 };
-
 
 const style = StyleSheet.create({
   container: {
     backgroundColor: colors_new.beige,
-    flex: 1
-  }
-})
-
+    flex: 1,
+  },
+});
 
 export default CollectionView;

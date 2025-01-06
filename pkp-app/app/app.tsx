@@ -18,8 +18,12 @@ import BackNavigator from "@/components/BackNavigator";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const locationAllowed = useSelector((state: RootState) => state.location.allowed);
-  const locationLoading = useSelector((state: RootState) => state.location.allowedLoading);
+  const locationAllowed = useSelector(
+    (state: RootState) => state.location.allowed
+  );
+  const locationLoading = useSelector(
+    (state: RootState) => state.location.allowedLoading
+  );
   const account = useSelector((state: RootState) => state.account);
 
   const insets = useSafeAreaInsets();
@@ -56,26 +60,20 @@ const App = () => {
     return <RegisterScreen />;
   }
 
-
   return (
- 
-      <View style={[style.app, { paddingTop: insets.top }]}>
-        
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen
-            name="postcard/[id]"
-            options={{ header: () => <BackNavigator /> }}
-          />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        <CardSheet />
-        <FullScreenImage />
-        <LoadingScreen />
-        
-      </View>
-      
-   
+    <View style={[style.app, { paddingTop: insets.top }]}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="postcard/[id]"
+          options={{ header: () => <BackNavigator /> }}
+        />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+      <CardSheet />
+      <FullScreenImage />
+      <LoadingScreen />
+    </View>
   );
 };
 

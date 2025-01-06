@@ -39,9 +39,7 @@ const Header = () => {
     <View style={style.container}>
       <View justifyContent="center" alignItems="center">
         <AnimatedText style={[style.text, aniStyle]}>
-          {data.currentDistrict
-            ? data.currentDistrict.name
-            : t("unknown")}
+          {data.currentDistrict ? data.currentDistrict.name : t("unknown")}
         </AnimatedText>
       </View>
     </View>
