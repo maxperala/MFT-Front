@@ -26,6 +26,9 @@ const App = () => {
   );
   const account = useSelector((state: RootState) => state.account);
 
+
+
+
   const insets = useSafeAreaInsets();
   // Gets the user and location status in the beginning. Adds a listener so that when user goes to change location perms in settings the app knows :))
   useEffect(() => {
@@ -62,6 +65,7 @@ const App = () => {
 
   return (
     <View style={[style.app, { paddingTop: insets.top }]}>
+      <LoadingScreen />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
@@ -72,7 +76,7 @@ const App = () => {
       </Stack>
       <CardSheet />
       <FullScreenImage />
-      <LoadingScreen />
+      
     </View>
   );
 };

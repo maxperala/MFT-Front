@@ -12,6 +12,8 @@ import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationHelpers";
 import { createToast, setActive } from "./toastReducer";
 import i18n from "@/utils/i18n";
+import RNRestart from "react-native-restart";
+import { Platform } from "react-native";
 
 const initialState: AccountState = {
   user: null,
@@ -71,8 +73,8 @@ export const getUser = () => {
   };
 };
 
-export const createUser = (user: NewUser) => {
-  return async (dispatch: AppDispatch) => {
+export const createUser = (user: NewUser): ThunkAction<void, RootState, unknown, AnyAction> => {
+  return async (dispatch, getState) => {
     try {
       dispatch(setLoading(true));
       let resp;
@@ -90,6 +92,13 @@ export const createUser = (user: NewUser) => {
       dispatch(setUser(data));
   
       dispatch(setLoading(false));
+      /* This is a workaround for an android issue I don't fully understand. On first launch (when registering) the
+      map does not ever call its ready function. So we just reload the app after registering. iOS does not have this issue,
+      and I don't currently understand why this happens on android */
+      if (Platform.OS === "android") {
+        RNRestart.restart();
+      }
+      
     } catch (e) {
       dispatch(setLoading(false));
       dispatch(createToast("An unknown error occurred", "notification"));

@@ -1,5 +1,6 @@
 import LoadingView from "@/components/LoadingView";
 import { RootState } from "@/state/store";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { View } from "tamagui";
 
@@ -8,6 +9,8 @@ const LoadingScreen = () => {
   const mapLoading = useSelector(
     (state: RootState) => state.location.mapLoading
   );
+
+
   console.log("MAP LOADING?", mapLoading);
   console.log("USER LOADING?", userLoading);
 

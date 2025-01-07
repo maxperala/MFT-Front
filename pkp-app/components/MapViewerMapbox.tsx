@@ -32,7 +32,10 @@ const MapViewerMapbox = () => {
   // DON'T REMOVE THIS, IT WILL BREAK THE APP ON IOS!! ** The map needs to rerender after loading the first time for it to emit any data. So we force a rerender when the map itself states it's ready **
   const _ready = useSelector((state: RootState) => state.location.mapLoading);
   const cards = useSelector((state: RootState) => state.cardData.cards);
+
   const [zoomLevel, setZoomLevel] = useState(0);
+
+  
 
   useLocation();
   const defaultSettings: Mapbox.CameraStop = {
@@ -60,10 +63,8 @@ const MapViewerMapbox = () => {
         compassPosition={{ top: -50, left: -50 }}
         scaleBarEnabled={false}
         // The first one works on ios but not android. Thus the second one lol
+        onDidFinishLoadingStyle={Platform.OS === "android" ? setMapReady : () => null}
         onDidFinishLoadingMap={Platform.OS === "ios" ? setMapReady : () => null}
-        onDidFinishLoadingStyle={
-          Platform.OS === "android" ? setMapReady : () => null
-        }
         onCameraChanged={updateHeadingAndZoom}
       >
         <Mapbox.Camera

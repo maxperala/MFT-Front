@@ -16,6 +16,7 @@ const store = configureStore({
     packs: packsReducer,
     picture: pictureReducer,
     navigation: navigationReducer,
+    
   },
 });
 
