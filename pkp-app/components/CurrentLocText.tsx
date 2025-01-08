@@ -1,51 +1,55 @@
 import { colors_new } from "@/colors";
 import { RootState } from "@/state/store";
 import { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native"
-import Animated, { useAnimatedStyle, useSharedValue, Easing, withTiming, ReduceMotion } from "react-native-reanimated"
+import { useTranslation } from "react-i18next";
+import { View, StyleSheet } from "react-native";
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  Easing,
+  withTiming,
+  ReduceMotion,
+} from "react-native-reanimated";
 import { useSelector } from "react-redux";
 
-
 const CurrentLocText = () => {
+  const { t } = useTranslation();
+  const navData = useSelector((state: RootState) => state.navigation);
+  const aniLength = useSharedValue(0);
+  // We need to update the data indirectly trough this useState, so that the text doesn't change before the animation is reset :)
+  const [data, setData] = useState(navData);
 
-    const navData = useSelector((state: RootState) => state.navigation);
-    const aniLength = useSharedValue(0);
-    // We need to update the data indirectly trough this useState, so that the text doesn't change before the animation is reset :)
-    const [data, setData] = useState(navData);
-  
-    const aniStyle = useAnimatedStyle(() => {
-      return {
-        transform: [{ scaleX: aniLength.value / 100 }],
-        opacity: aniLength.value / 100,
-      };
+  const aniStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scaleX: aniLength.value / 100 }],
+      opacity: aniLength.value / 100,
+    };
+  });
+
+  useEffect(() => {
+    aniLength.value = 0;
+    setData(navData);
+    aniLength.value = withTiming(100, {
+      duration: 1300,
+      easing: Easing.out(Easing.quad),
+      reduceMotion: ReduceMotion.System,
     });
+  }, [navData]);
 
-      useEffect(() => {
-        aniLength.value = 0;
-        setData(navData);
-        aniLength.value = withTiming(100, {
-          duration: 1300,
-          easing: Easing.out(Easing.quad),
-          reduceMotion: ReduceMotion.System,
-        });
-      }, [navData]);
-    
-
-    return (
-            <View
-                style={{
-                  flex: 2,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-            >
-                <Animated.Text style={[style.text, aniStyle]}>
-                  {data.currentDistrict ? data.currentDistrict.name : t("unknown")}
-                </Animated.Text>
-              </View>
-            
-    )
-}
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Animated.Text style={[style.text, aniStyle]}>
+        {data.currentDistrict ? data.currentDistrict.name : t("unknown")}
+      </Animated.Text>
+    </View>
+  );
+};
 
 const style = StyleSheet.create({
   container: {
@@ -61,7 +65,7 @@ const style = StyleSheet.create({
     backgroundColor: colors_new.red,
   },
   text: {
-    fontSize: 26,
+    fontSize: 23,
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
     textShadowOffset: { width: 2, height: 3 },
