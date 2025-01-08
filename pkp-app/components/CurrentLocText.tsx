@@ -53,7 +53,7 @@ const CurrentLocText = () => {
 
 const style = StyleSheet.create({
   container: {
-    height: 45,
+    
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
@@ -65,7 +65,7 @@ const style = StyleSheet.create({
     backgroundColor: colors_new.red,
   },
   text: {
-    fontSize: 23,
+    fontSize: 20,
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
     textShadowOffset: { width: 2, height: 3 },

@@ -5,6 +5,7 @@ import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { Image, View } from "tamagui";
 import { ImageZoom } from "@likashefqet/react-native-image-zoom";
+import { Ionicons } from "@expo/vector-icons";
 
 const FullScreenImage = () => {
   const uri = useSelector((state: RootState) => state.picture.url);
@@ -41,11 +42,7 @@ const FullScreenImage = () => {
           backgroundColor: colors_new.beige,
         }}
       >
-        <Image
-          source={{ uri: require("@/assets/images/marker-x.png") }}
-          height={50}
-          width={50}
-        />
+        <Ionicons name="close-circle" size={50} color={colors_new.black} />
       </TouchableOpacity>
     </View>
   );
