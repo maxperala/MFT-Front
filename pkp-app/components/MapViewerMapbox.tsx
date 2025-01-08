@@ -1,7 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { useRef, useState } from "react";
 import Marker from "./Marker";
-import { BOUNDS } from "@/config";
+import { BOUNDS, REVEAL_ZOOM_LEVEL } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import Mapbox from "@rnmapbox/maps";
@@ -78,7 +78,7 @@ const MapViewerMapbox = () => {
           
         />
 
-        {zoomLevel > 14 && cards
+        {zoomLevel > REVEAL_ZOOM_LEVEL && cards
           ? cards.map((card) => {
               return (
                 <Mapbox.MarkerView

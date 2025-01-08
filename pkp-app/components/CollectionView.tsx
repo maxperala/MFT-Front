@@ -8,6 +8,8 @@ import { Text, XStack, YStack } from "tamagui";
 import ImageView from "./ImageView";
 import { useTranslation } from "react-i18next";
 import { Ionicons } from "@expo/vector-icons";
+import { useMemo } from "react";
+import CurrentSlashTotalCards from "./CurrentSlashTotalCards";
 
 const CollectionView = () => {
   const cards = useSelector((state: RootState) => state.cardData.cards);
@@ -16,12 +18,15 @@ const CollectionView = () => {
   );
   const { t, i18n } = useTranslation();
 
-  const filteredCards = cards?.filter((card: Postcard) => {
-    if (unlocked?.includes(card.id)) {
-      return true;
-    }
-    return false;
-  });
+
+  const filteredCards = useMemo(() => {
+    return cards?.filter((card: Postcard) => {
+      if (unlocked?.includes(card.id)) {
+        return true;
+      }
+      return false;
+    });
+  }, [unlocked, cards])
 
   const backArrow = () => {
     return (
@@ -34,6 +39,7 @@ const CollectionView = () => {
           shadowOffset: { width: 1, height: 3 },
           shadowRadius: 3,
           shadowOpacity: 0.3,
+          paddingLeft: 5
         }}
       />
     );
@@ -50,6 +56,7 @@ const CollectionView = () => {
           shadowOffset: { width: 1, height: 3 },
           shadowRadius: 3,
           shadowOpacity: 0.3,
+          paddingRight: 5
         }}
       />
     );
@@ -62,9 +69,10 @@ const CollectionView = () => {
     }
     return (
       <YStack justifyContent="space-between" alignItems="center">
-        <XStack justifyContent="space-between" width="100%" padding="$5">
-          {i > 0 ? backArrow() : <View />}
-          {length - 1 > i ? forwardArrow() : <View />}
+        <XStack justifyContent="space-between" width="100%" padding="$3">
+          {i > 0 ? backArrow() : <View style={{width: 35}} />}
+          <CurrentSlashTotalCards current={(i + 1)} total={filteredCards.length} />
+          {length - 1 > i ? forwardArrow() : <View style={{width: 35}} />}
         </XStack>
         <Text
           fontFamily="Fair-Prosper"

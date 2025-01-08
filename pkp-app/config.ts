@@ -23,6 +23,9 @@ export const MAPBOX_STYLE_URL =
   "mapbox://styles/maxperala/cm4ptcmi2008q01r3hltl9i8u";
 export const CDN_URL = "https://pkp-backend.fly.dev/";
 
+// At what level the markers are revealed
+export const REVEAL_ZOOM_LEVEL = 13;
+
 // These are the bounds for the mappack and the mapview. Point is to force the user to use locally available tiles to limit the api requests. UPDATE: local not possible :(
 // Pretty good box. When zoomed fully out it's about the centrum of Tampere.
 export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
