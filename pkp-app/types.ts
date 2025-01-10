@@ -20,10 +20,17 @@ export interface UserLocation {
 export interface User {
   id: string;
   username: string;
-  lvl: string;
+  lvl: Level;
   token: string;
   unlocked: string[];
   packs: string[];
+}
+
+export interface Level {
+  lvl: number;
+  name_en: string;
+  name_fi: string;
+  limit: number;
 }
 
 export interface NewUser {
@@ -102,4 +109,9 @@ export interface PostCodeInfo {
 
 export interface NavigationState {
   currentDistrict: PostCodeInfo | null;
+}
+
+export interface UnlockedResponse {
+  discovered: string[];
+  newLevel: Level;
 }

@@ -65,7 +65,7 @@ const style = StyleSheet.create({
     backgroundColor: colors_new.red,
   },
   text: {
-    fontSize: 20,
+    fontSize: 18,
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
     textShadowOffset: { width: 2, height: 3 },

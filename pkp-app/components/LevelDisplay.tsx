@@ -12,7 +12,7 @@ const LevelDisplay = () => {
 
   return (
     <View style={style.container}>
-      <Text style={style.text}>Lvl {level}</Text>
+      <Text style={style.text}>Lvl {level.lvl}</Text>
     </View>
   );
 };

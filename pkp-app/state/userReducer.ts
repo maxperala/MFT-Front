@@ -1,4 +1,4 @@
-import { AccountState, User, NewUser, ErrorResponseData } from "@/types";
+import { AccountState, User, NewUser, Level, UnlockedResponse } from "@/types";
 import {
   AnyAction,
   createSlice,
@@ -41,10 +41,15 @@ const userReducer = createSlice({
         return { ...state, user: { ...state.user, packs: action.payload } };
       }
     },
+    setLevel(state, action: PayloadAction<Level>) {
+      if (state.user) {
+        return { ...state, user: { ...state.user, lvl: action.payload } };
+      }
+    },
   },
 });
 
-export const { setUser, setLoading, setUnlocked, setUnlockedPacks } =
+export const { setUser, setLoading, setUnlocked, setUnlockedPacks, setLevel } =
   userReducer.actions;
 
 export const getUser = () => {
@@ -73,24 +78,28 @@ export const getUser = () => {
   };
 };
 
-export const createUser = (user: NewUser): ThunkAction<void, RootState, unknown, AnyAction> => {
+export const createUser = (
+  user: NewUser
+): ThunkAction<void, RootState, unknown, AnyAction> => {
   return async (dispatch, getState) => {
     try {
       dispatch(setLoading(true));
       let resp;
       resp = await axios.post(`${BACKEND_URL}/users/register`, user);
-  
+
       const data: User = resp.data;
       if ("error" in data) {
-
       }
-  
+
       await AsyncStorage.setItem(
         "savedUser",
-        JSON.stringify({ username: data.username, secret_code: user.secret_code })
+        JSON.stringify({
+          username: data.username,
+          secret_code: user.secret_code,
+        })
       );
       dispatch(setUser(data));
-  
+
       dispatch(setLoading(false));
       /* This is a workaround for an android issue I don't fully understand. On first launch (when registering) the
       map does not ever call its ready function. So we just reload the app after registering. iOS does not have this issue,
@@ -98,15 +107,12 @@ export const createUser = (user: NewUser): ThunkAction<void, RootState, unknown,
       if (Platform.OS === "android") {
         RNRestart.restart();
       }
-      
     } catch (e) {
       dispatch(setLoading(false));
       dispatch(createToast("An unknown error occurred", "notification"));
       console.log(e);
       throw new Error(`Failed to register, an unknown error occurred.`);
-
     }
-
   };
 };
 
@@ -150,9 +156,22 @@ export const discoverCards = (): ThunkAction<
               },
             }
           );
-          dispatch(setUnlocked(resp.data.unlocked));
-          dispatch(setActive(false));
-          dispatch(createToast((i18n.language === "fi" ? card.title_fi : card.title_en), "discover"));
+          const data: UnlockedResponse = resp.data;
+          console.log("DATA", data);
+          dispatch(setUnlocked(data.discovered));
+          dispatch(
+            createToast(
+              i18n.language === "fi" ? card.title_fi : card.title_en,
+              "discover"
+            )
+          );
+          // I should rename one of the "depths" of lvl, confusing like this
+          if (
+            state.account.user &&
+            data.newLevel.lvl != state.account.user.lvl.lvl
+          ) {
+            dispatch(setLevel(data.newLevel));
+          }
         } catch (e) {
           if (e instanceof AxiosError) {
             createToast("Failed to discover location", "notification");

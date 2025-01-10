@@ -54,14 +54,14 @@ const RegisterForm = () => {
         </Text>
         <Input
           color={colors_new.dirty_white}
-          value={username}
+          value={username ? username : ""}
           fontFamily="SpecialElite-Regular"
           backgroundColor={colors_new.red}
           width="100%"
           borderWidth="$0"
           borderBottomWidth="$1"
           borderColor={colors_new.dirty_white}
-          onChangeText={setUsername}
+          onChangeText={(v) => (v != username) ? setUsername(v) : null}
         />
       </YStack>
 
