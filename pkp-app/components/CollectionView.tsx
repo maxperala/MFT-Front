@@ -87,7 +87,7 @@ const CollectionView = () => {
   };
 
   return (
-    <PagerView style={style.container}>
+    <PagerView style={style.container} key={filteredCards ? filteredCards.length : 0}>
       {filteredCards && filteredCards.length > 0 ? (
         filteredCards.map((card: Postcard, i) => {
           return (
