@@ -103,6 +103,7 @@ const CollectionView = () => {
                 fontFamily="MarckScript-Regular"
                 fontSize="$7"
                 paddingBottom="$4"
+                color={colors_new.black}
               >
                 {i18n.language === "fi" ? card.title_fi : card.title_en}
               </Text>

@@ -10,10 +10,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL, DISCOVER_RANGE } from "@/config";
 import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationHelpers";
-import { createToast, setActive } from "./toastReducer";
+import { createToast } from "./toastReducer";
 import i18n from "@/utils/i18n";
 import RNRestart from "react-native-restart";
 import { Platform } from "react-native";
+import { getCards } from "./cardsReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -157,7 +158,6 @@ export const discoverCards = (): ThunkAction<
             }
           );
           const data: UnlockedResponse = resp.data;
-          console.log("DATA", data);
           dispatch(setUnlocked(data.discovered));
           dispatch(
             createToast(
@@ -171,6 +171,7 @@ export const discoverCards = (): ThunkAction<
             data.newLevel.lvl != state.account.user.lvl.lvl
           ) {
             dispatch(setLevel(data.newLevel));
+            dispatch(getCards(state.account.user.token));
           }
         } catch (e) {
           if (e instanceof AxiosError) {

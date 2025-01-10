@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Marker from "./Marker";
 import { BOUNDS, REVEAL_ZOOM_LEVEL } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import Mapbox from "@rnmapbox/maps";
 import { useLocation } from "@/utils/hooks";
 import { setMapHeading, setMapLoading } from "@/state/locationReducer";
 import { Platform } from "react-native";
+import {debounce} from "lodash";
 /**
  * There is an issue with the Mapbox library version 10.1.33 and ios 17.X currently.
  * The user location causes an error and weird behaviour. So we use expo-location for the actual location
@@ -22,7 +23,8 @@ import {
   centerCoordinate,
 } from "@/config";
 
-import colors, { colors_new } from "@/colors";
+import { colors_new } from "@/colors";
+import { Postcard } from "@/types";
 
 Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
 
@@ -33,25 +35,50 @@ const MapViewerMapbox = () => {
   const _ready = useSelector((state: RootState) => state.location.mapLoading);
   const cards = useSelector((state: RootState) => state.cardData.cards);
 
-  const [zoomLevel, setZoomLevel] = useState(0);
+  const [showMarkers, setShowMarkers] = useState(false);
 
-  
 
   useLocation();
   const defaultSettings: Mapbox.CameraStop = {
     centerCoordinate: centerCoordinate,
     zoomLevel: 13,
   };
-
-  const updateHeadingAndZoom = (e: Mapbox.MapState) => {
-    setZoomLevel(e.properties.zoom);
+// Debouce to improve performance on lower-end devices, especially android
+  const updateHeadingAndZoom = debounce((e: Mapbox.MapState) => {
+    if (e.properties.zoom > REVEAL_ZOOM_LEVEL && !showMarkers) {
+      setShowMarkers(true);
+    } else if (e.properties.zoom < REVEAL_ZOOM_LEVEL && showMarkers) {
+      setShowMarkers(false);
+    }
     dispatch(setMapHeading(e.properties.heading));
-  };
+  }, 200
+)
 
   const setMapReady = () => {
     mapRef.current?.setCamera(defaultSettings);
     dispatch(setMapLoading(false));
   };
+
+  const MemoMarker = React.memo(({card}: {card: Postcard}) => {
+    return (
+      <Mapbox.MarkerView
+      coordinate={[card.location.lon, card.location.lat]}
+      key={card.id}
+      allowOverlap={true}
+      allowOverlapWithPuck={true}
+    >
+      <Marker card={card} />
+    </Mapbox.MarkerView>
+    )
+  })
+
+  const markers = useMemo(() => {
+    if (cards && showMarkers) {
+      return cards.map((card) => (
+        <MemoMarker card={card} key={card.id} />
+      ))
+    }
+  }, [cards, showMarkers])
 
   return (
     <View style={styles.container}>
@@ -59,7 +86,7 @@ const MapViewerMapbox = () => {
         style={styles.map}
         styleURL={MAPBOX_STYLE_URL}
         compassEnabled={false}
-        // Compass won't disable on iOS, so I hid it
+        // Compass won't disable on iOS, so I hid it. THERE IS A COMMIT NOW TO FIX THIS, WE WAIT FOR A RELEASE
         compassPosition={{ top: -50, left: -50 }}
         scaleBarEnabled={false}
         // The first one works on ios but not android. Thus the second one lol
@@ -78,20 +105,7 @@ const MapViewerMapbox = () => {
           
         />
 
-        {zoomLevel > REVEAL_ZOOM_LEVEL && cards
-          ? cards.map((card) => {
-              return (
-                <Mapbox.MarkerView
-                  coordinate={[card.location.lon, card.location.lat]}
-                  key={card.id}
-                  allowOverlap={true}
-                  allowOverlapWithPuck={true}
-                >
-                  <Marker card={card} />
-                </Mapbox.MarkerView>
-              );
-            })
-          : null}
+        {markers}
 
       </Mapbox.MapView>
     </View>
