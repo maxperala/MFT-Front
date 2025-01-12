@@ -7,7 +7,13 @@ import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 import { Image, YStack, Text } from "tamagui";
 
-const ImageView = ({ card, toSheet = false }: { card: Postcard, toSheet?: boolean }) => {
+const ImageView = ({
+  card,
+  toSheet = false,
+}: {
+  card: Postcard;
+  toSheet?: boolean;
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const setFullScreen = () => {
@@ -15,7 +21,7 @@ const ImageView = ({ card, toSheet = false }: { card: Postcard, toSheet?: boolea
   };
   return (
     <YStack
-      width="90%"
+      width="85%"
       height="45%"
       justifyContent="center"
       alignItems="center"
@@ -29,7 +35,11 @@ const ImageView = ({ card, toSheet = false }: { card: Postcard, toSheet?: boolea
       paddingLeft="$0"
       paddingRight="$0"
     >
-      <TouchableOpacity onPress={toSheet ? () => router.push(`/postcard/${card.id}`) : setFullScreen}>
+      <TouchableOpacity
+        onPress={
+          toSheet ? () => router.push(`/postcard/${card.id}`) : setFullScreen
+        }
+      >
         <Image
           source={{
             uri: card.url,

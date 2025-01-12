@@ -52,7 +52,7 @@ export const getCards = (
     }
   };
 };
-
+// This is currently useless, and typed wrong
 export const setActiveCard = (card: Postcard | null) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setActive(card));

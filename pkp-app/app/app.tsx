@@ -25,9 +25,7 @@ const App = () => {
     (state: RootState) => state.location.allowedLoading
   );
   const account = useSelector((state: RootState) => state.account);
-
-
-
+  const activeCard = useSelector((state: RootState) => state.cardData.active);
 
   const insets = useSafeAreaInsets();
   // Gets the user and location status in the beginning. Adds a listener so that when user goes to change location perms in settings the app knows :))
@@ -74,9 +72,8 @@ const App = () => {
         />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <CardSheet />
+      {activeCard ? <CardSheet card={activeCard} /> : null}
       <FullScreenImage />
-      
     </View>
   );
 };

@@ -1,18 +1,17 @@
-import { AppDispatch, RootState } from "@/state/store";
-import { useDispatch, useSelector } from "react-redux";
-import BottomSheetModal, { BottomSheetView } from "@gorhom/bottom-sheet";
+import { AppDispatch } from "@/state/store";
+import { useDispatch } from "react-redux";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
 import { StyleSheet, Platform } from "react-native";
-import {  useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { setActive } from "@/state/cardsReducer";
 import CardView from "./CardView";
 import { colors_new, colors } from "@/colors";
 import { Spinner } from "tamagui";
+import { Postcard } from "@/types";
 // This is, for now, the best I can do with this extremely buggy and laggy bottomsheet library. I will come back to this.
-const CardSheet = () => {
-  const card = useSelector((state: RootState) => state.cardData.active);
+const CardSheet = ({ card }: { card: Postcard }) => {
   const dispatch: AppDispatch = useDispatch();
-  const sheetRef = useRef<BottomSheetModal>(null);
-  const snapPoints = useMemo(() => ["90%"], []);
+  const snapPoints = useMemo(() => ["50%", "90%"], []);
   const enablePanningGesture = Platform.OS === "android" ? false : true;
   const closeModal = () => {
     dispatch(setActive(null));
@@ -20,12 +19,11 @@ const CardSheet = () => {
   if (!card) return;
 
   return (
-    <BottomSheetModal
+    <BottomSheet
       snapPoints={snapPoints}
       onClose={closeModal}
-      index={0}
+      index={1}
       bottomInset={5}
-      ref={sheetRef}
       detached={true}
       enablePanDownToClose
       handleStyle={{
@@ -36,6 +34,7 @@ const CardSheet = () => {
         height: 35,
       }}
       enableContentPanningGesture={enablePanningGesture}
+      enableDynamicSizing={false}
     >
       <BottomSheetView style={styles.container}>
         {card ? (
@@ -44,7 +43,7 @@ const CardSheet = () => {
           <Spinner size="large" color={colors.yellow} />
         )}
       </BottomSheetView>
-    </BottomSheetModal>
+    </BottomSheet>
   );
 };
 
