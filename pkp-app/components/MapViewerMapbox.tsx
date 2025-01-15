@@ -8,7 +8,7 @@ import Mapbox from "@rnmapbox/maps";
 import { useLocation } from "@/utils/hooks";
 import { setMapHeading, setMapLoading } from "@/state/locationReducer";
 import { Platform } from "react-native";
-import {debounce} from "lodash";
+import { debounce } from "lodash";
 /**
  * There is an issue with the Mapbox library version 10.1.33 and ios 17.X currently.
  * The user location causes an error and weird behaviour. So we use expo-location for the actual location
@@ -36,49 +36,50 @@ const MapViewerMapbox = () => {
   const cards = useSelector((state: RootState) => state.cardData.cards);
 
   const [showMarkers, setShowMarkers] = useState(false);
-
+  const [ready, setReady] = useState(false);
 
   useLocation();
   const defaultSettings: Mapbox.CameraStop = {
     centerCoordinate: centerCoordinate,
     zoomLevel: 13,
   };
-// Debouce to improve performance on lower-end devices, especially android
+  // Debouce to improve performance on lower-end devices, especially android
   const updateHeadingAndZoom = debounce((e: Mapbox.MapState) => {
+    if (!ready) {
+      setMapReady();
+    }
     if (e.properties.zoom > REVEAL_ZOOM_LEVEL && !showMarkers) {
       setShowMarkers(true);
     } else if (e.properties.zoom < REVEAL_ZOOM_LEVEL && showMarkers) {
       setShowMarkers(false);
     }
     dispatch(setMapHeading(e.properties.heading));
-  }, 200
-)
-
+  }, 200);
+  // This is because sometimes, for some unknown reason none of the map ready events fire on android. This works for now.
   const setMapReady = () => {
+    setReady(true);
     mapRef.current?.setCamera(defaultSettings);
     dispatch(setMapLoading(false));
   };
 
-  const MemoMarker = React.memo(({card}: {card: Postcard}) => {
+  const MemoMarker = React.memo(({ card }: { card: Postcard }) => {
     return (
       <Mapbox.MarkerView
-      coordinate={[card.location.lon, card.location.lat]}
-      key={card.id}
-      allowOverlap={true}
-      allowOverlapWithPuck={true}
-    >
-      <Marker card={card} />
-    </Mapbox.MarkerView>
-    )
-  })
+        coordinate={[card.location.lon, card.location.lat]}
+        key={card.id}
+        allowOverlap={true}
+        allowOverlapWithPuck={true}
+      >
+        <Marker card={card} />
+      </Mapbox.MarkerView>
+    );
+  });
 
   const markers = useMemo(() => {
     if (cards && showMarkers) {
-      return cards.map((card) => (
-        <MemoMarker card={card} key={card.id} />
-      ))
+      return cards.map((card) => <MemoMarker card={card} key={card.id} />);
     }
-  }, [cards, showMarkers])
+  }, [cards, showMarkers]);
 
   return (
     <View style={styles.container}>
@@ -90,7 +91,9 @@ const MapViewerMapbox = () => {
         compassPosition={{ top: -50, left: -50 }}
         scaleBarEnabled={false}
         // The first one works on ios but not android. Thus the second one lol
-        onDidFinishLoadingStyle={Platform.OS === "android" ? setMapReady : () => null}
+        onDidFinishLoadingStyle={
+          Platform.OS === "android" ? setMapReady : () => null
+        }
         onDidFinishLoadingMap={Platform.OS === "ios" ? setMapReady : () => null}
         onCameraChanged={updateHeadingAndZoom}
       >
@@ -102,11 +105,9 @@ const MapViewerMapbox = () => {
 
         <Mapbox.LocationPuck
           pulsing={{ isEnabled: true, color: colors_new.dark_red }}
-          
         />
 
         {markers}
-
       </Mapbox.MapView>
     </View>
   );

@@ -3,7 +3,7 @@ import { setPicture } from "@/state/pictureReducer";
 import { RootState } from "@/state/store";
 import { TouchableOpacity } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { Image, View } from "tamagui";
+import { View } from "tamagui";
 import { ImageZoom } from "@likashefqet/react-native-image-zoom";
 import { Ionicons } from "@expo/vector-icons";
 

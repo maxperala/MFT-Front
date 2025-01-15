@@ -105,14 +105,26 @@ export const createUser = (
       /* This is a workaround for an android issue I don't fully understand. On first launch (when registering) the
       map does not ever call its ready function. So we just reload the app after registering. iOS does not have this issue,
       and I don't currently understand why this happens on android */
+      /*
+
       if (Platform.OS === "android") {
         RNRestart.restart();
       }
+    */
     } catch (e) {
+      if (e instanceof AxiosError) {
+        console.log(e.response);
+      }
       dispatch(setLoading(false));
-      dispatch(createToast("An unknown error occurred", "notification"));
-      console.log(e);
-      throw new Error(`Failed to register, an unknown error occurred.`);
+      if (e instanceof AxiosError && "errors" in e.response?.data && e.response?.data.errors.length > 0) {
+        dispatch(createToast(e.response?.data.errors.join(", "), "notification"))
+      } else {
+        dispatch(createToast("An unknown error occurred", "notification"));
+        throw new Error(`Failed to register, an unknown error occurred.`);
+        console.log(e);
+      }
+
+      
     }
   };
 };
