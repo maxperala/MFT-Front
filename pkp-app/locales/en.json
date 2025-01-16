@@ -29,5 +29,8 @@
   "username_short": "Username needs to be atleast 4 characters long",
   "username_long": "Username too long",
   "swipe": "Swipe to change...",
-  "nothing_here": "Nothing here yet.\nExplore locations to unlock cards..."
+  "nothing_here": "Nothing here yet.\nExplore locations to unlock cards...",
+  "name": "Name",
+  "level": "Level",
+  "passport": "Passport"
 }

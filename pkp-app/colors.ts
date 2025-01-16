@@ -28,6 +28,8 @@ export const colors_new = {
   light_red: "#eb5e58",
   dark_red: "#9B2226",
   dirty_white: "#f2f1e9",
+  light_grey: "#dbdad3",
+  card_white: "#E1E1E1",
 };
 
 export const colorsTamagui = {

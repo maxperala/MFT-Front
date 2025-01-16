@@ -24,6 +24,12 @@ export interface User {
   token: string;
   unlocked: string[];
   packs: string[];
+  stamps?: Stamp[];
+}
+
+export interface Stamp {
+  asset: string;
+  description: string;
 }
 
 export interface Level {

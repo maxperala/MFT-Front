@@ -13,10 +13,10 @@ const LevelDisplay = () => {
   );
   let percentage = useMemo(() => {
     if (unlocked && level && level.limit != 0) {
-      const perc = (unlocked.length / level.limit + 1) * 100;
-      return perc === 0 ? 10 : perc;
+      const perc = (unlocked.length / level.limit) * 100;
+      return perc === 0 ? 20 : perc;
     }
-    return 10;
+    return 20;
   }, [unlocked, level]);
 
   if (level === undefined) {

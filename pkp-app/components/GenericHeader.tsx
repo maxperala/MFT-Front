@@ -28,7 +28,7 @@ const style = StyleSheet.create({
     backgroundColor: colors_new.red,
   },
   text: {
-    fontSize: 26,
+    fontSize: 20,
     color: colors_new.dirty_white,
     fontFamily: "Fair-Prosper",
     textShadowOffset: { width: 2, height: 3 },
@@ -36,6 +36,7 @@ const style = StyleSheet.create({
     shadowOffset: { width: 2, height: 3 },
     shadowRadius: 4,
     shadowOpacity: 0.5,
+    letterSpacing: 2,
   },
 });
 

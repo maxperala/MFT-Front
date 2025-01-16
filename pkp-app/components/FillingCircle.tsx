@@ -4,6 +4,7 @@ import Animated, {
   useSharedValue,
   withSpring,
   useAnimatedProps,
+  withTiming,
 } from "react-native-reanimated";
 import { useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";
@@ -22,7 +23,9 @@ const FillingCircle = ({
   const circumference = 2 * Math.PI * radius;
 
   const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-  const animatedStrokeOffset = useSharedValue(circumference);
+  const animatedStrokeOffset = useSharedValue(
+    circumference - (circumference * percentage) / 100
+  );
   useEffect(() => {
     animatedStrokeOffset.value = withSpring(
       circumference - (circumference * percentage) / 100,

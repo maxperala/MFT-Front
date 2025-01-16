@@ -17,7 +17,7 @@ const naviLayout = () => {
           shadowOffset: { width: 1, height: -3 },
           shadowRadius: 3,
           shadowOpacity: 0.3,
-          elevation: 8
+          elevation: 8,
         },
         tabBarActiveTintColor: colors_new.gold,
         tabBarInactiveTintColor: colors_new.dirty_white,
@@ -54,13 +54,13 @@ const naviLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="passport"
         options={{
-          title: t("settings"),
+          title: t("passport"),
           tabBarIcon: ({ color, size }) => {
-            return <Ionicons name="settings" color={color} size={size} />;
+            return <Ionicons name="person" color={color} size={size} />;
           },
-          header: () => <GenericHeader title={t("settings")} />,
+          header: () => <GenericHeader title={t("passport")} />,
         }}
       />
     </Tabs>
