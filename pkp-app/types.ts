@@ -126,6 +126,7 @@ export interface NavigationState {
 export interface UnlockedResponse {
   discovered: string[];
   newLevel: Level;
+  newStamps: StampID[];
 }
 
 export interface StampState {
@@ -133,3 +134,9 @@ export interface StampState {
   activeStamp: Stamp | null;
   activeStampVisible: boolean;
 }
+
+export interface SettingsState {
+  route: SettingsRoute;
+}
+
+export type SettingsRoute = "" | "language" | "token" | "privacy";

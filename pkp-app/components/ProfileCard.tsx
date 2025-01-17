@@ -27,12 +27,10 @@ const ProfileCard = () => {
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: colors_new.card_white,
+    backgroundColor: colors_new.dirty_white,
     width: "100%",
-    flex: 3,
     padding: 3,
     gap: 0,
-    opacity: 0.9,
     borderRadius: 6,
     shadowOffset: { width: 0, height: 4 },
     shadowRadius: 4,

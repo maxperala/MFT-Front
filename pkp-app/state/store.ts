@@ -7,6 +7,7 @@ import packsReducer from "./packsReducer";
 import pictureReducer from "./pictureReducer";
 import navigationReducer from "./navigationReducer";
 import stampReducer from "./stampsReducer";
+import settingsReducer from "./settingsReducer";
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
     stamps: stampReducer,
     picture: pictureReducer,
     navigation: navigationReducer,
+    settings: settingsReducer,
   },
 });
 

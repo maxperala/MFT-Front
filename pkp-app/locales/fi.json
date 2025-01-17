@@ -29,8 +29,18 @@
   "username_short": "Käyttäjänimien on oltava vähintään 4 merkkiä",
   "username_long": "Käyttäjänimi liian pitkä",
   "swipe": "Käännä sivua pyyhkäisemällä...",
-  "nothing_here": "Ei vielä mitään nähtävää.\nLöydä uusia kuvia seikkailemalla...",
+  "nothing_here": "Ei vielä mitään nähtävää.\nLöydä uusia paikkoja seikkailemalla...",
   "name": "Nimi",
   "level": "Taso",
-  "passport": "Passi"
+  "passport": "Passi",
+  "found": "Löydetty",
+  "choose_language": "Choose your language",
+  "language_name": "Suomi",
+  "done": "Valmis",
+  "language": "Kieli",
+  "language_settings_description": "Valitse sovelluksen kieli",
+  "privacy_policy": "Yksityisyys ja tietosuoja",
+  "privacy_description": "Tutustu tietosuojaselosteeseen",
+  "user": "Käyttäjä",
+  "user_description": "Kopioi kirjautumiskoodi"
 }

@@ -1,4 +1,11 @@
-import { AccountState, User, NewUser, Level, UnlockedResponse } from "@/types";
+import {
+  AccountState,
+  User,
+  NewUser,
+  Level,
+  UnlockedResponse,
+  StampID,
+} from "@/types";
 import {
   AnyAction,
   createSlice,
@@ -15,6 +22,7 @@ import i18n from "@/utils/i18n";
 import RNRestart from "react-native-restart";
 import { Platform } from "react-native";
 import { getCards } from "./cardsReducer";
+import { setActiveStamp, setActiveStampDebounced } from "./stampsReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -47,11 +55,22 @@ const userReducer = createSlice({
         return { ...state, user: { ...state.user, lvl: action.payload } };
       }
     },
+    setUnlockedStamps(state, action: PayloadAction<StampID[]>) {
+      if (state.user) {
+        return { ...state, user: { ...state.user, stamps: action.payload } };
+      }
+    },
   },
 });
 
-export const { setUser, setLoading, setUnlocked, setUnlockedPacks, setLevel } =
-  userReducer.actions;
+export const {
+  setUser,
+  setLoading,
+  setUnlocked,
+  setUnlockedPacks,
+  setLevel,
+  setUnlockedStamps,
+} = userReducer.actions;
 
 export const getUser = () => {
   return async (dispatch: AppDispatch) => {
@@ -111,20 +130,35 @@ export const createUser = (
         RNRestart.restart();
       }
     */
+      // We wait 10 seconds before revealing the registering congratulation stamp...
+      if (data.stamps.length === 1) {
+        setTimeout(() => {
+          const fullStampData = getState().stamps.allStamps.find(
+            (s) => s.id === data.stamps[0]
+          );
+          if (fullStampData) {
+            dispatch(setActiveStamp(fullStampData));
+          }
+        }, 10000);
+      }
     } catch (e) {
       if (e instanceof AxiosError) {
         console.log(e.response);
       }
       dispatch(setLoading(false));
-      if (e instanceof AxiosError && "errors" in e.response?.data && e.response?.data.errors.length > 0) {
-        dispatch(createToast(e.response?.data.errors.join(", "), "notification"))
+      if (
+        e instanceof AxiosError &&
+        "errors" in e.response?.data &&
+        e.response?.data.errors.length > 0
+      ) {
+        dispatch(
+          createToast(e.response?.data.errors.join(", "), "notification")
+        );
       } else {
         dispatch(createToast("An unknown error occurred", "notification"));
-        throw new Error(`Failed to register, an unknown error occurred.`);
         console.log(e);
+        throw new Error(`Failed to register, an unknown error occurred.`);
       }
-
-      
     }
   };
 };
@@ -177,6 +211,20 @@ export const discoverCards = (): ThunkAction<
               "discover"
             )
           );
+          if (data.newStamps.length != state.account.user?.stamps.length) {
+            const newStamp = data.newStamps.find(
+              (s) => !state.account.user?.stamps.includes(s)
+            );
+            dispatch(setUnlockedStamps(data.newStamps));
+            const fullStampData = state.stamps.allStamps.find(
+              (s) => s.id === newStamp
+            );
+            if (fullStampData) {
+              setTimeout(() => {
+                dispatch(setActiveStampDebounced(fullStampData));
+              }, 3000);
+            }
+          }
           // I should rename one of the "depths" of lvl, confusing like this
           if (
             state.account.user &&

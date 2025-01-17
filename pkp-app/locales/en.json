@@ -32,5 +32,15 @@
   "nothing_here": "Nothing here yet.\nExplore locations to unlock cards...",
   "name": "Name",
   "level": "Level",
-  "passport": "Passport"
+  "passport": "Passport",
+  "found": "Found",
+  "choose_language": "Choose your language",
+  "language_name": "English",
+  "done": "Done",
+  "language": "Language",
+  "language_settings_description": "Choose the language of the app",
+  "privacy_policy": "Privacy Policy",
+  "privacy_description": "Examine the privacy policy",
+  "user": "User",
+  "user_description": "Copy your login token"
 }

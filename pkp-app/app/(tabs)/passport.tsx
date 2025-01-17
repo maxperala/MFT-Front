@@ -4,6 +4,7 @@ import ProfileCard from "@/components/ProfileCard";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import StampModal from "@/components/Stamps/StampModal";
+import SettingsCard from "@/components/SettingsCard";
 
 const Settings = () => {
   const activeStamp = useSelector(
@@ -16,7 +17,7 @@ const Settings = () => {
         style={style.scrollView}
       >
         <ProfileCard />
-        <View style={{ flex: 2 }} />
+        <SettingsCard />
       </ScrollView>
       {activeStamp ? <StampModal stamp={activeStamp} /> : null}
     </View>
@@ -25,14 +26,15 @@ const Settings = () => {
 
 const style = StyleSheet.create({
   scrollContainer: {
-    flex: 1,
+    width: "100%",
     backgroundColor: colors_new.beige,
     alignItems: "center",
     padding: 20,
+    gap: 20,
   },
   container: {
-    width: "100%",
     height: "100%",
+    width: "100%",
   },
   scrollView: {
     backgroundColor: colors_new.beige,

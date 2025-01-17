@@ -69,11 +69,11 @@ const style = StyleSheet.create({
   },
   text: {
     fontFamily: "Fair-Prosper",
-    color: colors_new.dirty_white,
-    fontSize: 18,
     position: "absolute",
     lineHeight: 40,
     paddingTop: 4,
+    fontSize: 18,
+    color: colors_new.dirty_white,
   },
 });
 

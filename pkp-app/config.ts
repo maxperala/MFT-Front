@@ -2,6 +2,7 @@ import postal_data from "@/assets/mapping/postal_data.json";
 import { PostCodeInfo, Stamp } from "./types";
 import wellknown from "wellknown";
 import { multiPolygon } from "@turf/helpers";
+import i18n from "@/utils/i18n";
 
 export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   .map((info) => {
@@ -36,3 +37,5 @@ export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
 export const centerCoordinate = [23.73252, 61.49613];
 
 export const DISCOVER_RANGE = 80;
+
+export const AVAILABLE_LANGUAGES = i18n.languages;
