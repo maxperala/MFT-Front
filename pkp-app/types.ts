@@ -24,12 +24,18 @@ export interface User {
   token: string;
   unlocked: string[];
   packs: string[];
-  stamps?: Stamp[];
+  stamps: StampID[];
 }
 
+export type StampID = string;
+
 export interface Stamp {
+  id: string;
   asset: string;
-  description: string;
+  description_en: string;
+  description_fi: string;
+  type: string;
+  pack?: string;
 }
 
 export interface Level {
@@ -120,4 +126,10 @@ export interface NavigationState {
 export interface UnlockedResponse {
   discovered: string[];
   newLevel: Level;
+}
+
+export interface StampState {
+  allStamps: Stamp[];
+  activeStamp: Stamp | null;
+  activeStampVisible: boolean;
 }

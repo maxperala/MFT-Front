@@ -1,5 +1,5 @@
 import postal_data from "@/assets/mapping/postal_data.json";
-import { PostCodeInfo } from "./types";
+import { PostCodeInfo, Stamp } from "./types";
 import wellknown from "wellknown";
 import { multiPolygon } from "@turf/helpers";
 

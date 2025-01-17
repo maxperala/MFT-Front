@@ -4,7 +4,6 @@ import Animated, {
   useSharedValue,
   withSpring,
   useAnimatedProps,
-  withTiming,
 } from "react-native-reanimated";
 import { useEffect } from "react";
 import { View, StyleSheet, Text } from "react-native";

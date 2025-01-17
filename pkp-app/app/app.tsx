@@ -15,6 +15,7 @@ import colors from "@/colors";
 import { getAllPacks } from "@/state/packsReducer";
 import FullScreenImage from "@/components/FullScreenImage";
 import BackNavigator from "@/components/BackNavigator";
+import { getAllStamps } from "@/state/stampsReducer";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -50,6 +51,7 @@ const App = () => {
   useEffect(() => {
     if (account.user) {
       dispatch(getAllPacks());
+      dispatch(getAllStamps());
     }
   }, [account]);
 

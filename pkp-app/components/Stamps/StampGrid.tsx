@@ -2,17 +2,24 @@ import { RootState } from "@/state/store";
 import { useMemo } from "react";
 import { View, StyleSheet } from "react-native";
 import { useSelector } from "react-redux";
-import Stamp from "./Stamp";
+import Stamper from "./Stamper";
 import EmptyStamp from "./EmptyStamp";
+import { StampID, Stamp } from "@/types";
 
 const StampGrid = () => {
-  const stamps = useSelector((state: RootState) => state.account.user?.stamps);
-  const stampOrEmpty: string[] = useMemo(() => {
+  const stampsOwned: StampID[] | undefined = useSelector(
+    (state: RootState) => state.account.user?.stamps
+  );
+  const allStamps = useSelector((state: RootState) => state.stamps.allStamps);
+  const stamps = useMemo(() => {
+    return allStamps.filter((s) => stampsOwned?.includes(s.id));
+  }, [stampsOwned, allStamps]);
+  const stampOrEmpty: (Stamp | string)[] = useMemo(() => {
     let i = 0;
     const list = [];
     while (i <= 6) {
       if (stamps && stamps.length >= i + 1) {
-        list.push(stamps[i].asset);
+        list.push(stamps[i]);
       } else {
         list.push("empty");
       }
@@ -22,21 +29,21 @@ const StampGrid = () => {
   }, [stamps]);
 
   const firstRow = useMemo(() => {
-    return stampOrEmpty.slice(0, 3).map((asset, i) => {
-      return asset === "empty" ? (
+    return stampOrEmpty.slice(0, 3).map((s, i) => {
+      return typeof s === "string" ? (
         <EmptyStamp key={i} />
       ) : (
-        <Stamp url={asset} key={i} />
+        <Stamper stamp={s} key={i} />
       );
     });
   }, [stampOrEmpty]);
 
   const secondRow = useMemo(() => {
-    return stampOrEmpty.slice(3, 6).map((asset, i) => {
-      return asset === "empty" ? (
+    return stampOrEmpty.slice(3, 6).map((s, i) => {
+      return typeof s === "string" ? (
         <EmptyStamp key={i} />
       ) : (
-        <Stamp url={asset} key={i} />
+        <Stamper stamp={s} key={i} />
       );
     });
   }, [stampOrEmpty]);

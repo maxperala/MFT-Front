@@ -2,7 +2,7 @@ import "dotenv/config";
 
 export default {
   expo: {
-    name: "Memories from Tampere",
+    name: "Memories From Tampere",
     slug: "memories-from-tampere",
     version: "1.0.0",
     orientation: "portrait",
