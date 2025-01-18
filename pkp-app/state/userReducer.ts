@@ -19,8 +19,6 @@ import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationHelpers";
 import { createToast } from "./toastReducer";
 import i18n from "@/utils/i18n";
-import RNRestart from "react-native-restart";
-import { Platform } from "react-native";
 import { getCards } from "./cardsReducer";
 import { setActiveStamp, setActiveStampDebounced } from "./stampsReducer";
 

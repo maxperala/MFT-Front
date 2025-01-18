@@ -1,5 +1,4 @@
 import { Tabs } from "expo-router";
-import { StyleSheet } from "react-native";
 import colors, { colors_new } from "@/colors";
 import { Ionicons } from "@expo/vector-icons";
 import Header from "@/components/Header";

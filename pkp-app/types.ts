@@ -137,6 +137,7 @@ export interface StampState {
 
 export interface SettingsState {
   route: SettingsRoute;
+  language: string;
 }
 
 export type SettingsRoute = "" | "language" | "token" | "privacy";

@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import Animated, { FadeInRight, FadeOutLeft } from "react-native-reanimated";
+import Animated, { FadeInRight } from "react-native-reanimated";
 import RadioGroup from "react-native-radio-buttons-group";
 import { useMemo, useState } from "react";
 import { colors_new } from "@/colors";
@@ -9,6 +9,7 @@ import { AppDispatch } from "@/state/store";
 import { useDispatch } from "react-redux";
 import { setRoute } from "@/state/settingsReducer";
 import { AVAILABLE_LANGUAGES } from "@/config";
+import { changeLanguage } from "@/state/settingsReducer";
 
 const LanguageSettings = () => {
   const { t, i18n } = useTranslation();
@@ -28,12 +29,12 @@ const LanguageSettings = () => {
   }, []);
   const [selected, setSelected] = useState(i18n.language);
 
-  const onPressDone = () => {
+  const onPressDone = async () => {
+    dispatch(changeLanguage(selected));
     dispatch(setRoute(""));
   };
   const onPressButton = (id: string) => {
     setSelected(id);
-    i18n.changeLanguage(id);
   };
 
   return (
@@ -42,7 +43,7 @@ const LanguageSettings = () => {
       entering={FadeInRight.duration(1000)}
     >
       <TouchableOpacity style={style.btn} onPress={onPressDone}>
-        <Text style={style.btnLabel}>Done</Text>
+        <Text style={style.btnLabel}>{t("done")}</Text>
         <Ionicons name="checkmark" size={50} />
       </TouchableOpacity>
       <Text style={style.text}>{t("choose_language")}</Text>

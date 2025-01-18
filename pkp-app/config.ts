@@ -1,8 +1,10 @@
 import postal_data from "@/assets/mapping/postal_data.json";
-import { PostCodeInfo, Stamp } from "./types";
+import { PostCodeInfo } from "./types";
 import wellknown from "wellknown";
 import { multiPolygon } from "@turf/helpers";
 import i18n from "@/utils/i18n";
+import * as Clipboard from "expo-clipboard";
+import { Alert } from "react-native";
 
 export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   .map((info) => {
@@ -39,3 +41,19 @@ export const centerCoordinate = [23.73252, 61.49613];
 export const DISCOVER_RANGE = 80;
 
 export const AVAILABLE_LANGUAGES = i18n.languages;
+
+const finnishClipboardAlert = () => {
+  Alert.alert("Kopioitu", "Kirjautumiskoodi kopioitu leikepöydälle");
+};
+
+const englishClipboardAlert = () => {
+  Alert.alert("Copied", "Login token copied to clipboard");
+};
+
+Clipboard.addClipboardListener(() => {
+  if (i18n.language === "fi") {
+    finnishClipboardAlert();
+  } else {
+    englishClipboardAlert();
+  }
+});

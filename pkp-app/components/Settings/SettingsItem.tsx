@@ -1,4 +1,4 @@
-import { setRoute } from "@/state/settingsReducer";
+import { setSettingsRoute } from "@/state/settingsReducer";
 import { AppDispatch } from "@/state/store";
 import { SettingsRoute } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
@@ -19,7 +19,7 @@ const SettingsItem = ({
   const dispatch: AppDispatch = useDispatch();
 
   const onPressButton = () => {
-    dispatch(setRoute(path));
+    dispatch(setSettingsRoute(path));
   };
   return (
     <TouchableOpacity

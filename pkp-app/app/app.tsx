@@ -16,6 +16,7 @@ import { getAllPacks } from "@/state/packsReducer";
 import FullScreenImage from "@/components/FullScreenImage";
 import BackNavigator from "@/components/BackNavigator";
 import { getAllStamps } from "@/state/stampsReducer";
+import { initSavedLanguage } from "@/state/settingsReducer";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,6 +32,7 @@ const App = () => {
   const insets = useSafeAreaInsets();
   // Gets the user and location status in the beginning. Adds a listener so that when user goes to change location perms in settings the app knows :))
   useEffect(() => {
+    dispatch(initSavedLanguage());
     dispatch(getUser());
     getLocationStatus(dispatch);
 

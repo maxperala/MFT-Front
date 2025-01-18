@@ -5,8 +5,8 @@ import { TamaguiProvider } from "tamagui";
 import { tamaguiConfig } from "@/tamagui.config";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { I18nextProvider } from "react-i18next";
-import i18n from "@/utils/i18n";
 import colors from "@/colors";
+import i18n from "@/utils/i18n";
 import { ToastProvider, ToastViewport } from "@tamagui/toast";
 import ToastView from "@/components/Toast";
 
