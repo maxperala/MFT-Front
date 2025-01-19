@@ -10,8 +10,9 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useEffect, useState } from "react";
+import { StampID } from "@/types";
 
-const StampModalCloseButton = () => {
+const StampModalCloseButton = ({ id }: { id: StampID }) => {
   const dispatch: AppDispatch = useDispatch();
   const [disabled, setDisabled] = useState(true);
   const visible = useSelector(
@@ -19,8 +20,7 @@ const StampModalCloseButton = () => {
   );
 
   const onPressButton = () => {
-    console.log("pressed");
-    dispatch(clearActiveStamp());
+    dispatch(clearActiveStamp(id));
   };
 
   const animatedOpacity = useSharedValue(0);

@@ -133,6 +133,7 @@ export interface StampState {
   allStamps: Stamp[];
   activeStamp: Stamp | null;
   activeStampVisible: boolean;
+  viewedStamps: StampID[];
 }
 
 export interface SettingsState {

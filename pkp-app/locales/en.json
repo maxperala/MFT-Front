@@ -42,5 +42,6 @@
   "privacy_policy": "Privacy Policy",
   "privacy_description": "Examine the privacy policy",
   "user": "User",
-  "user_description": "Copy your login token"
+  "user_description": "Copy your login token",
+  "stamp_unlocked": "STAMP UNLOCKED"
 }

@@ -42,5 +42,6 @@
   "privacy_policy": "Yksityisyys ja tietosuoja",
   "privacy_description": "Tutustu tietosuojaselosteeseen",
   "user": "Käyttäjä",
-  "user_description": "Kopioi kirjautumiskoodi"
+  "user_description": "Kopioi kirjautumiskoodi",
+  "stamp_unlocked": "SAIT UUDEN LEIMAN"
 }

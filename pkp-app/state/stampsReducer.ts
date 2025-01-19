@@ -1,4 +1,4 @@
-import { Stamp, StampState } from "@/types";
+import { Stamp, StampID, StampState } from "@/types";
 import {
   createSlice,
   PayloadAction,
@@ -6,16 +6,18 @@ import {
   ThunkDispatch,
   UnknownAction,
 } from "@reduxjs/toolkit";
-import { AppDispatch, RootState } from "./store";
+import { RootState } from "./store";
 import axios from "axios";
 import { BACKEND_URL } from "@/config";
 import { createToast } from "./toastReducer";
 import { debounce } from "lodash";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const initialState: StampState = {
   allStamps: [],
   activeStamp: null,
   activeStampVisible: false,
+  viewedStamps: [],
 };
 
 const stampReducer = createSlice({
@@ -31,10 +33,13 @@ const stampReducer = createSlice({
     setVisibility(state, action: PayloadAction<boolean>) {
       return { ...state, activeStampVisible: action.payload };
     },
+    setViewedStamps(state, action: PayloadAction<StampID[]>) {
+      return { ...state, viewedStamps: action.payload };
+    },
   },
 });
 
-export const { setStamps, setActiveStamp, setVisibility } =
+export const { setStamps, setActiveStamp, setVisibility, setViewedStamps } =
   stampReducer.actions;
 
 export const getAllStamps = (): ThunkAction<
@@ -58,6 +63,11 @@ export const getAllStamps = (): ThunkAction<
       if (stamps) {
         dispatch(setStamps(stamps));
       }
+      const viewed = await AsyncStorage.getItem("viewedStamps");
+
+      if (viewed) {
+        dispatch(setViewedStamps(JSON.parse(viewed)));
+      }
     } catch (e) {
       dispatch(
         createToast("An error occurred fetching stamps", "notification")
@@ -67,14 +77,11 @@ export const getAllStamps = (): ThunkAction<
   };
 };
 
-export const clearActiveStamp = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  UnknownAction
-> => {
+export const clearActiveStamp = (
+  id: StampID
+): ThunkAction<void, RootState, unknown, UnknownAction> => {
   return async (dispatch, _getState) => {
-    debouncedSetActiveStamp(dispatch, null, true);
+    debouncedSetActiveStamp(dispatch, null, true, id);
   };
 };
 
@@ -82,11 +89,13 @@ const debouncedSetActiveStamp = debounce(
   (
     dispatch: ThunkDispatch<RootState, unknown, UnknownAction>,
     stamp: Stamp | null,
-    clearVisibility: boolean
+    clearVisibility: boolean,
+    id: StampID
   ) => {
     dispatch(setActiveStamp(stamp));
     if (clearVisibility) {
       dispatch(setVisibility(false));
+      dispatch(setViewedStampsAndSave(id));
     }
   },
   1000,
@@ -94,10 +103,25 @@ const debouncedSetActiveStamp = debounce(
 );
 
 export const setActiveStampDebounced = (
-  stamp: Stamp | null
+  stamp: Stamp | null,
+  id: StampID
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
   return async (dispatch, _getState) => {
-    debouncedSetActiveStamp(dispatch, stamp, false);
+    debouncedSetActiveStamp(dispatch, stamp, false, id);
+  };
+};
+
+export const setViewedStampsAndSave = (
+  id: StampID
+): ThunkAction<void, RootState, unknown, UnknownAction> => {
+  return async (dispatch, getState) => {
+    const viewed = getState().stamps.viewedStamps;
+    console.log("VIEWED STAMPS", viewed);
+    if (!viewed.includes(id)) {
+      const newViewed = viewed.concat(id);
+      await AsyncStorage.setItem("viewedStamps", JSON.stringify(newViewed));
+      dispatch(setViewedStamps(newViewed));
+    }
   };
 };
 

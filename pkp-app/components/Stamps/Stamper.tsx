@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 const Stamper = ({ stamp }: { stamp: Stamp }) => {
   const dispatch: AppDispatch = useDispatch();
   const onPressBtn = () => {
-    dispatch(setActiveStampDebounced(stamp));
+    dispatch(setActiveStampDebounced(stamp, stamp.id));
   };
 
   return (

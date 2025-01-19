@@ -1,11 +1,11 @@
 import { colors_new } from "@/colors";
 import { Stamp } from "@/types";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import LottieView from "lottie-react-native";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ModalStampImage from "./ModalStampImageAndDescription";
-import { AppDispatch } from "@/state/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/state/store";
+import { useDispatch, useSelector } from "react-redux";
 import { setVisibility } from "@/state/stampsReducer";
 import StampModalCloseButton from "./StampModalCloseButton";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
@@ -13,8 +13,13 @@ import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 const StampModal = ({ stamp }: { stamp: Stamp }) => {
   const animation = useRef<LottieView>(null);
   const dispatch: AppDispatch = useDispatch();
+  const viewed = useSelector((state: RootState) => state.stamps.viewedStamps);
+  console.log("VIEWED", viewed);
   const halfwayTriggered = useRef(false);
   const [layoutReady, setLayoutReady] = useState(false);
+  const isNew = useMemo(() => {
+    return !viewed.includes(stamp.id);
+  }, [viewed, stamp]);
   useEffect(() => {
     console.log(layoutReady);
     if (animation.current && layoutReady) {
@@ -41,6 +46,7 @@ const StampModal = ({ stamp }: { stamp: Stamp }) => {
       exiting={FadeOut.duration(500)}
     >
       <View style={style.innerContainer}>
+        {isNew ? <Text style={style.heading}>STAMP UNLOCKED</Text> : null}
         <ModalStampImage stamp={stamp} />
         <LottieView
           ref={animation}
@@ -50,7 +56,7 @@ const StampModal = ({ stamp }: { stamp: Stamp }) => {
           onLayout={() => setLayoutReady(true)}
           loop={false}
         />
-        <StampModalCloseButton />
+        <StampModalCloseButton id={stamp.id} />
       </View>
     </Animated.View>
   );
@@ -83,6 +89,13 @@ const style = StyleSheet.create({
     width: "127%",
     height: "127%",
     position: "absolute",
+  },
+  heading: {
+    fontSize: 18,
+    fontFamily: "SpecialElite-Regular",
+    color: colors_new.black,
+    position: "absolute",
+    top: "5%",
   },
 });
 

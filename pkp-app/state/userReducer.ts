@@ -20,7 +20,11 @@ import { calculateDistance } from "@/utils/location/locationHelpers";
 import { createToast } from "./toastReducer";
 import i18n from "@/utils/i18n";
 import { getCards } from "./cardsReducer";
-import { setActiveStamp, setActiveStampDebounced } from "./stampsReducer";
+import {
+  setActiveStamp,
+  setActiveStampDebounced,
+  setViewedStamps,
+} from "./stampsReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -219,7 +223,9 @@ export const discoverCards = (): ThunkAction<
             );
             if (fullStampData) {
               setTimeout(() => {
-                dispatch(setActiveStampDebounced(fullStampData));
+                dispatch(
+                  setActiveStampDebounced(fullStampData, fullStampData.id)
+                );
               }, 3000);
             }
           }
