@@ -5,12 +5,15 @@ import { Text } from "tamagui";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCard } from "@/state/cardsReducer";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 const Marker = (props: { card: Postcard }) => {
   const dispatch: AppDispatch = useDispatch();
   const discovered = useSelector(
     (state: RootState) => state.account.user?.unlocked
   );
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
   // This is to give each marker a random orientation, improving visuals. But we need to make sure it doesn't recalculate while the thing is visible
   const rotation = useMemo<number>(() => Math.floor(Math.random() * 359), []);
   if (!discovered) return;
@@ -37,7 +40,7 @@ const Marker = (props: { card: Postcard }) => {
             style={style.discMarker}
           ></Image>
           <Text fontFamily="Fair-Prosper" color="black" fontSize="$1">
-            {props.card.title_fi}
+            {lang === "fi" ? props.card.title_fi : props.card.title_en}
           </Text>
         </View>
       </Pressable>
