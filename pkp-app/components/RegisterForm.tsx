@@ -1,6 +1,6 @@
 import { YStack, Button, Input, Text } from "tamagui";
 import { colors_new } from "@/colors";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { createUser } from "@/state/userReducer";
@@ -14,14 +14,22 @@ import Animated, {
   LinearTransition,
 } from "react-native-reanimated";
 import { createToast } from "@/state/toastReducer";
+import { TouchableOpacity } from "react-native";
 
 // This component is my first try at using Reanimated to animate between the two buttons. Forcing the user to allow location before registration.
-const RegisterForm = () => {
+const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
   const { t } = useTranslation();
   const [username, setUsername] = useState(t("username_placeholder"));
   const dispatch: AppDispatch = useDispatch();
 
-  const AnimatedButton = Animated.createAnimatedComponent(Button);
+  const AnimatedYStack = useMemo(
+    () => Animated.createAnimatedComponent(YStack),
+    []
+  );
+  const AnimatedButton = useMemo(
+    () => Animated.createAnimatedComponent(Button),
+    []
+  );
 
   const accessStatus = useSelector(
     (state: RootState) => state.location.allowed
@@ -29,12 +37,12 @@ const RegisterForm = () => {
   const registerUser = () => {
     try {
       if (username.length < 4) {
-        dispatch(createToast(t("username_short"), "notification"))
+        dispatch(createToast(t("username_short"), "notification"));
         return;
       }
 
       if (username.length > 15) {
-        dispatch(createToast(t("username_long"), "notification"))
+        dispatch(createToast(t("username_long"), "notification"));
         return;
       }
       dispatch(createUser({ username, secret_code: uuidv4() }));
@@ -47,7 +55,13 @@ const RegisterForm = () => {
   };
 
   return (
-    <YStack flex={1} gap="$6" padding="$4">
+    <AnimatedYStack
+      flex={1}
+      gap="$6"
+      padding="$4"
+      entering={FadeIn}
+      exiting={FadeOut}
+    >
       <YStack width="100%">
         <Text fontFamily="SpecialElite-Regular" color={colors_new.gold}>
           {t("username")}:
@@ -61,30 +75,41 @@ const RegisterForm = () => {
           borderWidth="$0"
           borderBottomWidth="$1"
           borderColor={colors_new.dirty_white}
-          onChangeText={(v) => (v != username) ? setUsername(v) : null}
+          onChangeText={(v) => (v != username ? setUsername(v) : null)}
         />
       </YStack>
 
       <Animated.View layout={LinearTransition}>
         {accessStatus ? (
-          <AnimatedButton
-            backgroundColor={colors_new.gold}
-            disabled={!accessStatus}
-            fontFamily="SpecialElite-Regular"
-            onPress={registerUser}
-            width="100%"
-            borderRadius={20}
-            entering={FadeIn.duration(500)}
-            exiting={FadeOut.duration(500)}
-          >
-            {/* This has POOR CONTRAST, FIND A BETTER COLOR */}
-            <Text
-              color={colors_new.dirty_white}
+          <YStack justifyContent="center" alignItems="center" gap="$4">
+            <AnimatedButton
+              backgroundColor={colors_new.gold}
+              disabled={!accessStatus}
               fontFamily="SpecialElite-Regular"
+              onPress={registerUser}
+              width="100%"
+              borderRadius={20}
+              entering={FadeIn.duration(500)}
+              exiting={FadeOut.duration(500)}
             >
-              {t("register")}
-            </Text>
-          </AnimatedButton>
+              <Text
+                color={colors_new.dirty_white}
+                fontFamily="SpecialElite-Regular"
+              >
+                {t("register")}
+              </Text>
+            </AnimatedButton>
+            <TouchableOpacity onPress={() => setFormVisible(false)}>
+              <Text
+                fontFamily={"Roboto"}
+                fontSize={15}
+                textDecorationLine="underline"
+                color={colors_new.gold}
+              >
+                Login with token
+              </Text>
+            </TouchableOpacity>
+          </YStack>
         ) : (
           <AnimatedButton
             width="100%"
@@ -101,7 +126,7 @@ const RegisterForm = () => {
           </AnimatedButton>
         )}
       </Animated.View>
-    </YStack>
+    </AnimatedYStack>
   );
 };
 

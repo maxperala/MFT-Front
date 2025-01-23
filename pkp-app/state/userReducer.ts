@@ -11,13 +11,14 @@ import {
   createSlice,
   PayloadAction,
   ThunkAction,
+  UnknownAction,
 } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL, DISCOVER_RANGE } from "@/config";
 import { AppDispatch, RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationHelpers";
-import { createToast } from "./toastReducer";
+import { createToast, setToast } from "./toastReducer";
 import i18n from "@/utils/i18n";
 import { getCards } from "./cardsReducer";
 import {
@@ -74,8 +75,13 @@ export const {
   setUnlockedStamps,
 } = userReducer.actions;
 
-export const getUser = () => {
-  return async (dispatch: AppDispatch) => {
+export const getUser = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAction
+> => {
+  return async (dispatch) => {
     dispatch(setLoading(true));
     const loginData = await AsyncStorage.getItem("savedUser");
     if (!loginData) {
@@ -83,16 +89,31 @@ export const getUser = () => {
       return;
     }
     const savedUser: NewUser = JSON.parse(loginData);
+    dispatch(loginUser(savedUser));
+  };
+};
+
+export const loginUser = (
+  loginData: NewUser
+): ThunkAction<void, RootState, unknown, UnknownAction> => {
+  return async (dispatch, _getState) => {
     try {
-      const resp = await axios.post(`${BACKEND_URL}/users/login`, savedUser);
+      const resp = await axios.post(`${BACKEND_URL}/users/login`, loginData);
       const data: User = resp.data;
       dispatch(setUser(data));
-
+      await AsyncStorage.setItem(
+        "savedUser",
+        JSON.stringify({
+          username: data.username,
+          secret_code: loginData.secret_code,
+        })
+      );
       dispatch(setLoading(false));
     } catch (e) {
-      if (e instanceof AxiosError) {
-        dispatch(setLoading(false));
-        throw new Error(e.response?.data.error);
+      if (e instanceof AxiosError && "errors" in e.response?.data) {
+        dispatch(createToast(`${e.response?.data.errors[0]}`, "notification"));
+      } else {
+        dispatch(createToast("Unknown error logging in", "notification"));
       }
       console.log(e);
       dispatch(setLoading(false));
@@ -246,6 +267,15 @@ export const discoverCards = (): ThunkAction<
         }
       }
     }
+  };
+};
+
+export const loginUserFromPage = (
+  data: NewUser
+): ThunkAction<void, RootState, unknown, UnknownAction> => {
+  return async (dispatch) => {
+    dispatch(setLoading(true));
+    dispatch(loginUser(data));
   };
 };
 

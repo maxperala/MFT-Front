@@ -43,5 +43,7 @@
   "privacy_description": "Tutustu tietosuojaselosteeseen",
   "user": "Käyttäjä",
   "user_description": "Kopioi kirjautumiskoodi",
-  "stamp_unlocked": "SAIT UUDEN LEIMAN"
+  "stamp_unlocked": "SAIT UUDEN LEIMAN",
+  "login_token": "Kirjautumiskoodi",
+  "login": "Kirjaudu"
 }
