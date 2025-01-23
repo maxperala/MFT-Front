@@ -8,7 +8,7 @@ const SettingsMenu = () => {
   const { t } = useTranslation();
   return (
     <Animated.View style={style.container} entering={FadeInLeft.duration(1000)}>
-      <Text style={style.text}>Asetukset:</Text>
+      <Text style={style.text}>{t("settings")}:</Text>
       <SettingsItem
         title={t("language")}
         description={t("language_settings_description")}
