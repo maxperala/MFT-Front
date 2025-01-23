@@ -45,5 +45,6 @@
   "user_description": "Kopioi kirjautumiskoodi",
   "stamp_unlocked": "SAIT UUDEN LEIMAN",
   "login_token": "Kirjautumiskoodi",
-  "login": "Kirjaudu"
+  "login": "Kirjaudu",
+  "delete_account": "Poista Tili"
 }

@@ -5,6 +5,8 @@ import { multiPolygon } from "@turf/helpers";
 import i18n from "@/utils/i18n";
 import * as Clipboard from "expo-clipboard";
 import { Alert } from "react-native";
+import { AppDispatch } from "./state/store";
+import { ActionCreator, ThunkAction } from "@reduxjs/toolkit";
 
 export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   .map((info) => {
@@ -48,6 +50,36 @@ const finnishClipboardAlert = () => {
 
 const englishClipboardAlert = () => {
   Alert.alert("Copied", "Login token copied to clipboard");
+};
+
+export const finnishDeleteAlert = (
+  dispatch: AppDispatch,
+  fn: ActionCreator<any, any>
+) => {
+  Alert.alert("Tilin poistaminen", "Haluatko varmasti poistaa tilisi?", [
+    {
+      text: "Kyllä",
+      onPress: () => dispatch(fn()),
+    },
+    { text: "Ei", onPress: () => null },
+  ]);
+};
+
+export const englishDeleteAlert = (
+  dispatch: AppDispatch,
+  fn: ActionCreator<any, any>
+) => {
+  Alert.alert(
+    "Delete your account",
+    "Are you sure you want to delete your account?",
+    [
+      {
+        text: "Yes",
+        onPress: () => dispatch(fn()),
+      },
+      { text: "No", onPress: () => null },
+    ]
+  );
 };
 
 Clipboard.addClipboardListener(() => {

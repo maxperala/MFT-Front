@@ -45,5 +45,6 @@
   "user_description": "Copy your login token",
   "stamp_unlocked": "STAMP UNLOCKED",
   "login_token": "Login token",
-  "login": "Login"
+  "login": "Login",
+  "delete_account": "Delete Account"
 }

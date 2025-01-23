@@ -32,7 +32,7 @@ const SettingsCard = () => {
 const style = StyleSheet.create({
   container: {
     width: "100%",
-    height: 350,
+    height: 400,
     backgroundColor: colors_new.dirty_white,
     borderRadius: 6,
     shadowOffset: { width: 0, height: 4 },

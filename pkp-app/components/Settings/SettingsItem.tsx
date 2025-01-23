@@ -56,11 +56,11 @@ const style = StyleSheet.create({
     alignItems: "flex-end",
   },
   headerText: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: "MarckScript-Regular",
   },
   footerText: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: "SpecialElite-Regular",
   },
 });

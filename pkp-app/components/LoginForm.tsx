@@ -1,6 +1,6 @@
 import { colors_new } from "@/colors";
 import { AppDispatch } from "@/state/store";
-import { loginUser } from "@/state/userReducer";
+import { loginUserFromPage } from "@/state/userReducer";
 import { Ionicons } from "@expo/vector-icons";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -21,7 +21,7 @@ const LoginForm = ({ setFormVisible }: { setFormVisible: Function }) => {
   );
 
   const login = () => {
-    dispatch(loginUser({ username, secret_code: token }));
+    dispatch(loginUserFromPage({ username, secret_code: token }));
   };
 
   return (

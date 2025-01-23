@@ -16,16 +16,13 @@ import {
 import axios, { AxiosError } from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { BACKEND_URL, DISCOVER_RANGE } from "@/config";
-import { AppDispatch, RootState } from "./store";
+import { RootState } from "./store";
 import { calculateDistance } from "@/utils/location/locationHelpers";
-import { createToast, setToast } from "./toastReducer";
+import { createToast } from "./toastReducer";
 import i18n from "@/utils/i18n";
 import { getCards } from "./cardsReducer";
-import {
-  setActiveStamp,
-  setActiveStampDebounced,
-  setViewedStamps,
-} from "./stampsReducer";
+import { setActiveStamp, setActiveStampDebounced } from "./stampsReducer";
+import RNRestart from "react-native-restart";
 
 const initialState: AccountState = {
   user: null,
@@ -276,6 +273,34 @@ export const loginUserFromPage = (
   return async (dispatch) => {
     dispatch(setLoading(true));
     dispatch(loginUser(data));
+  };
+};
+
+export const deleteUser = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  UnknownAction
+> => {
+  return async (dispatch, getState) => {
+    try {
+      const token = getState().account.user?.token;
+      if (!token) {
+        return;
+      }
+      const resp = await axios.delete(`${BACKEND_URL}/users/delete`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (resp.data.deleted) {
+        await AsyncStorage.removeItem("savedUser");
+        RNRestart.restart();
+      }
+    } catch (e) {
+      dispatch(createToast("Error deleting user", "notification"));
+      console.log(e);
+    }
   };
 };
 
