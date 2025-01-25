@@ -24,9 +24,9 @@ const SettingsMenu = () => {
           color={colors_new.light_red}
         />
         <SettingsItem
-          title={t("privacy_policy")}
-          description={t("privacy_description")}
-          path="privacy"
+          title={t("info")}
+          description={t("info_description")}
+          path="info"
           color={colors_new.beige}
         />
         <DeleteAccountButton />

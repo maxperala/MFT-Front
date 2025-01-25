@@ -2,10 +2,10 @@ import { colors_new } from "@/colors";
 import { setPicture } from "@/state/pictureReducer";
 import { Postcard } from "@/types";
 import { useRouter } from "expo-router";
-
+import { Image } from "expo-image";
 import { TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
-import { Image, YStack, Text } from "tamagui";
+import { YStack, Text } from "tamagui";
 
 const ImageView = ({
   card,
@@ -44,9 +44,12 @@ const ImageView = ({
           source={{
             uri: card.url,
           }}
-          flex={1}
-          borderRadius="$0"
-          aspectRatio={1}
+          style={{
+            flex: 1,
+            borderRadius: 0,
+            aspectRatio: 1,
+          }}
+          cachePolicy="memory-disk"
         />
         <Text
           color={colors_new.black}

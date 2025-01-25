@@ -1,6 +1,6 @@
 import { RootState } from "@/state/store";
 import { Stamp } from "@/types";
-import { Image, View, StyleSheet } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { useSelector } from "react-redux";
 import Animated, {
   useSharedValue,
@@ -11,6 +11,8 @@ import Animated, {
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 
+const AnimatedImage = Animated.createAnimatedComponent(Image);
+
 const ModalStampImageAndDescription = ({ stamp }: { stamp: Stamp }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -18,6 +20,7 @@ const ModalStampImageAndDescription = ({ stamp }: { stamp: Stamp }) => {
     (state: RootState) => state.stamps.activeStampVisible
   );
   const textVisibility = useSharedValue(0);
+  const imageOpacity = useSharedValue(0);
 
   useEffect(() => {
     if (visible) {
@@ -25,27 +28,31 @@ const ModalStampImageAndDescription = ({ stamp }: { stamp: Stamp }) => {
         duration: 10000,
         easing: Easing.out(Easing.exp),
       });
+      imageOpacity.value = withTiming(1, { duration: 800 });
+    } else {
+      imageOpacity.value = 0;
+      textVisibility.value = 0;
     }
   }, [visible]);
 
-  const aniStyle = useAnimatedStyle(() => {
+  const aniStyleText = useAnimatedStyle(() => {
     return {
       opacity: textVisibility.value,
+    };
+  });
+  const aniStyleImage = useAnimatedStyle(() => {
+    return {
+      opacity: imageOpacity.value,
     };
   });
 
   return (
     <View style={style.container}>
-      <Image
+      <AnimatedImage
+        style={[style.image, aniStyleImage]}
         source={{ uri: stamp.asset }}
-        style={{
-          width: "40%",
-          height: "40%",
-          objectFit: "contain",
-          opacity: visible ? 1 : 0,
-        }}
       />
-      <Animated.Text style={[style.text, aniStyle]}>
+      <Animated.Text style={[style.text, aniStyleText]}>
         {lang === "fi" ? stamp.description_fi : stamp.description_en}
       </Animated.Text>
     </View>
@@ -65,6 +72,11 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontFamily: "MarckScript-Regular",
     textAlign: "center",
+  },
+  image: {
+    width: "40%",
+    height: "40%",
+    objectFit: "contain",
   },
 });
 

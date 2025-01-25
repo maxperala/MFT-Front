@@ -116,7 +116,6 @@ export const setViewedStampsAndSave = (
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
   return async (dispatch, getState) => {
     const viewed = getState().stamps.viewedStamps;
-    console.log("VIEWED STAMPS", viewed);
     if (!viewed.includes(id)) {
       const newViewed = viewed.concat(id);
       await AsyncStorage.setItem("viewedStamps", JSON.stringify(newViewed));

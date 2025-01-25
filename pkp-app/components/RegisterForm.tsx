@@ -57,7 +57,7 @@ const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
   return (
     <AnimatedYStack
       flex={1}
-      gap="$6"
+      gap="$5"
       padding="$4"
       entering={FadeIn}
       exiting={FadeOut}
@@ -106,7 +106,7 @@ const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
                 textDecorationLine="underline"
                 color={colors_new.gold}
               >
-                Login with token
+                {t("login_with_token")}
               </Text>
             </TouchableOpacity>
           </YStack>

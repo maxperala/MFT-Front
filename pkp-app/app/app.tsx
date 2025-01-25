@@ -75,6 +75,10 @@ const App = () => {
           options={{ header: () => <BackNavigator /> }}
         />
         <Stack.Screen name="+not-found" />
+        <Stack.Screen
+          name="info_page"
+          options={{ header: () => <BackNavigator /> }}
+        />
       </Stack>
       {activeCard ? <CardSheet card={activeCard} /> : null}
       <FullScreenImage />

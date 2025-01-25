@@ -2,6 +2,7 @@ import { setSettingsRoute } from "@/state/settingsReducer";
 import { AppDispatch } from "@/state/store";
 import { SettingsRoute } from "@/types";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -17,9 +18,10 @@ const SettingsItem = ({
   color: string;
 }) => {
   const dispatch: AppDispatch = useDispatch();
+  const router = useRouter();
 
   const onPressButton = () => {
-    dispatch(setSettingsRoute(path));
+    dispatch(setSettingsRoute(path, router));
   };
   return (
     <TouchableOpacity

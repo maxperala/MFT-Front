@@ -10,6 +10,7 @@ import { RootState } from "./store";
 import { getSavedLanguage, setLanguage } from "@/utils/localization";
 import * as Clipboard from "expo-clipboard";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Router } from "expo-router";
 
 const initialState: SettingsState = {
   route: "",
@@ -57,7 +58,8 @@ export const initSavedLanguage = (): ThunkAction<
 };
 
 export const setSettingsRoute = (
-  route: SettingsRoute
+  route: SettingsRoute,
+  router: Router
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
   return async (dispatch, __getState) => {
     if (route === "token") {
@@ -69,6 +71,10 @@ export const setSettingsRoute = (
         await Clipboard.setStringAsync(token);
         return;
       }
+    }
+    if (route === "info") {
+      router.push("/info_page");
+      return;
     }
     dispatch(setRoute(route));
   };

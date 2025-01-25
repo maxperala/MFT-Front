@@ -7,7 +7,7 @@
   "photographer": "Photographer",
   "no_location_message": "This app requires location prevlidges to use",
   "not_found": "Apologies, this page does not exist. Please restart the App.",
-  "source": "Source",
+  "source": "Source of photo",
   "discovered_message": "A new location was discovered",
   "store": "Store",
   "locations": "Locations",
@@ -46,5 +46,10 @@
   "stamp_unlocked": "STAMP UNLOCKED",
   "login_token": "Login token",
   "login": "Login",
-  "delete_account": "Delete Account"
+  "delete_account": "Delete Account",
+  "by_using_service": "By using this service you agree to our",
+  "privacy_policy_bottom": "privacy policy",
+  "login_with_token": "Kirjaudu koodilla",
+  "info": "Details",
+  "info_description": "General information"
 }

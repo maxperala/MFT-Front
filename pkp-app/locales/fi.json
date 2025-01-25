@@ -7,7 +7,7 @@
   "photographer": "Valokuvaaja",
   "no_location_message": "Tämä sovellus vaatii pääsyn sijaintiisi toimiakseen",
   "not_found": "Pahoittelut, tätä sivua ei ole olemassa. Käynnistä sovellus uudelleen.",
-  "source": "Lähde",
+  "source": "Kuvan lähde",
   "discovered_message": "Uusi kohde avattu",
   "store": "Kauppa",
   "locations": "Kohdetta",
@@ -46,5 +46,10 @@
   "stamp_unlocked": "SAIT UUDEN LEIMAN",
   "login_token": "Kirjautumiskoodi",
   "login": "Kirjaudu",
-  "delete_account": "Poista Tili"
+  "delete_account": "Poista Tili",
+  "by_using_service": "Käyttämällä tätä palvelua hyväksyt",
+  "privacy_policy_bottom": "tietosuojakäytäntömme",
+  "login_with_token": "Kirjaudu koodilla",
+  "info": "Yleinen",
+  "info_description": "Tietoja sovelluksesta"
 }

@@ -27,7 +27,7 @@ const LoginForm = ({ setFormVisible }: { setFormVisible: Function }) => {
   return (
     <AnimatedYStack
       flex={1}
-      gap="$6"
+      gap="$5"
       entering={FadeInLeft}
       exiting={FadeOutLeft}
     >
@@ -74,7 +74,7 @@ const LoginForm = ({ setFormVisible }: { setFormVisible: Function }) => {
         </Text>
       </Button>
       <TouchableOpacity
-        style={{ paddingLeft: 10, alignSelf: "center", paddingTop: "10%" }}
+        style={{ paddingLeft: 10, alignSelf: "center", paddingTop: "1%" }}
         onPress={() => setFormVisible(false)}
       >
         <Ionicons name="arrow-back" size={60} color={colors_new.dirty_white} />

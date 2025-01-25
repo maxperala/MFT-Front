@@ -141,4 +141,4 @@ export interface SettingsState {
   language: string;
 }
 
-export type SettingsRoute = "" | "language" | "token" | "privacy";
+export type SettingsRoute = "" | "language" | "token" | "info";

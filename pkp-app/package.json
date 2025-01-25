@@ -1,7 +1,7 @@
 {
   "name": "memories-from-tampere",
   "main": "expo-router/entry",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -73,7 +73,8 @@
     "tamagui": "1.120.1",
     "uuid": "^11.0.3",
     "wellknown": "^0.5.0",
-    "expo-clipboard": "~7.0.1"
+    "expo-clipboard": "~7.0.1",
+    "expo-image": "~2.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

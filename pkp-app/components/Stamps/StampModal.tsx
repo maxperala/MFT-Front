@@ -1,44 +1,21 @@
 import { colors_new } from "@/colors";
 import { Stamp } from "@/types";
 import { View, StyleSheet, Text } from "react-native";
-import LottieView from "lottie-react-native";
-import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import { useMemo } from "react";
 import ModalStampImage from "./ModalStampImageAndDescription";
-import { AppDispatch, RootState } from "@/state/store";
-import { useDispatch, useSelector } from "react-redux";
-import { setVisibility } from "@/state/stampsReducer";
+import { RootState } from "@/state/store";
+import { useSelector } from "react-redux";
 import StampModalCloseButton from "./StampModalCloseButton";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
+import StampAnimation from "./StampAnimation";
 
 const StampModal = ({ stamp }: { stamp: Stamp }) => {
-  const animation = useRef<LottieView>(null);
-  const dispatch: AppDispatch = useDispatch();
   const viewed = useSelector((state: RootState) => state.stamps.viewedStamps);
   const { t } = useTranslation();
-  const halfwayTriggered = useRef(false);
-  const [layoutReady, setLayoutReady] = useState(false);
   const isNew = useMemo(() => {
     return !viewed.includes(stamp.id);
   }, [viewed, stamp]);
-  useEffect(() => {
-    console.log(layoutReady);
-    if (animation.current && layoutReady) {
-      animation.current.play(0, 15);
-    }
-  }, [layoutReady]);
-
-  const onHalfway = () => {
-    if (halfwayTriggered.current) {
-      animation.current?.pause();
-      return;
-    }
-    halfwayTriggered.current = true;
-    dispatch(setVisibility(true));
-    setTimeout(() => {
-      animation.current?.play(15);
-    }, 500);
-  };
 
   return (
     <Animated.View
@@ -51,14 +28,7 @@ const StampModal = ({ stamp }: { stamp: Stamp }) => {
           <Text style={style.heading}>{t("stamp_unlocked")}</Text>
         ) : null}
         <ModalStampImage stamp={stamp} />
-        <LottieView
-          ref={animation}
-          style={style.animation}
-          source={require("@/assets/animations/stamping.json")}
-          onAnimationFinish={onHalfway}
-          onLayout={() => setLayoutReady(true)}
-          loop={false}
-        />
+        <StampAnimation />
         <StampModalCloseButton id={stamp.id} />
       </View>
     </Animated.View>

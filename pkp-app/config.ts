@@ -44,6 +44,12 @@ export const DISCOVER_RANGE = 80;
 
 export const AVAILABLE_LANGUAGES = i18n.languages;
 
+export const PRIVACY_POLICY = {
+  fi: "https://pkp-backend.fly.dev/documents/privacy_policy_fi.html",
+  en: "https://pkp-backend.fly.dev/documents/privacy_policy_en.html",
+};
+
+// Thsese should really be their own file.
 const finnishClipboardAlert = () => {
   Alert.alert("Kopioitu", "Kirjautumiskoodi kopioitu leikepöydälle");
 };
