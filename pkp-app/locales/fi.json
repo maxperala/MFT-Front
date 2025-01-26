@@ -51,5 +51,7 @@
   "privacy_policy_bottom": "tietosuojakäytäntömme",
   "login_with_token": "Kirjaudu koodilla",
   "info": "Yleinen",
-  "info_description": "Tietoja sovelluksesta"
+  "info_description": "Tietoja sovelluksesta",
+  "NSLocationUsageDescription": "Sovellus vaatii sijaintisi toimiakseen",
+  "NSLocationWhenInUseUsageDescription": "Sovellus vaatii sijaintisi toimiakseen"
 }

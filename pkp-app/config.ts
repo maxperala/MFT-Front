@@ -6,7 +6,7 @@ import i18n from "@/utils/i18n";
 import * as Clipboard from "expo-clipboard";
 import { Alert } from "react-native";
 import { AppDispatch } from "./state/store";
-import { ActionCreator, ThunkAction } from "@reduxjs/toolkit";
+import { ActionCreator } from "@reduxjs/toolkit";
 
 export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   .map((info) => {
@@ -18,15 +18,16 @@ export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   })
   .filter((p) => p.poly != null);
 
-// Safe to expose for testing.
-export const MAPTILER_API_KEY = "h6APfvFtOjPAHL29TYsK";
+// Safe to expose. This is also included in the built app.
 export const MAPBOX_PUBLIC_KEY =
   "pk.eyJ1IjoibWF4cGVyYWxhIiwiYSI6ImNtNHBzNWh2MzBuZGsya3MzZGRjNHJnZWIifQ.AfbjHIYVmWRjayhMqyS_0A";
-// Machine ip server is running on... when testing on mobile can't use localhost... works on emulator
-export const BACKEND_URL = "https://pkp-backend.fly.dev/api";
+export const BACKEND_BASE = "https://service.tampere.app";
+export const BACKEND_URL = `${BACKEND_BASE}/api`;
 export const MAPBOX_STYLE_URL =
   "mapbox://styles/maxperala/cm4ptcmi2008q01r3hltl9i8u";
-export const CDN_URL = "https://pkp-backend.fly.dev/";
+
+// I don't think this is used for anything
+export const CDN_URL = BACKEND_BASE;
 
 // At what level the markers are revealed
 export const REVEAL_ZOOM_LEVEL = 13;
@@ -45,8 +46,13 @@ export const DISCOVER_RANGE = 80;
 export const AVAILABLE_LANGUAGES = i18n.languages;
 
 export const PRIVACY_POLICY = {
-  fi: "https://pkp-backend.fly.dev/documents/privacy_policy_fi.html",
-  en: "https://pkp-backend.fly.dev/documents/privacy_policy_en.html",
+  fi: `${BACKEND_BASE}/documents/privacy_policy_fi.html`,
+  en: `${BACKEND_BASE}/documents/privacy_policy_en.html`,
+};
+
+export const INFO_URL = {
+  fi: `${BACKEND_BASE}/documents/info_fi.html`,
+  en: `${BACKEND_BASE}/documents/info_en.html`,
 };
 
 // Thsese should really be their own file.

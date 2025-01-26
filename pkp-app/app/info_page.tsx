@@ -1,15 +1,14 @@
 import { colors_new } from "@/colors";
-import { PRIVACY_POLICY } from "@/config";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 import { Spinner } from "tamagui";
+import { INFO_URL } from "@/config";
 
 const InfoPage = () => {
   const { i18n } = useTranslation();
-  // This will be replaced with a different web page when I finnish creating the info webpage
-  const uri = i18n.language === "fi" ? PRIVACY_POLICY.fi : PRIVACY_POLICY.en;
+  const uri = i18n.language === "fi" ? INFO_URL.fi : INFO_URL.en;
   const [loading, setLoading] = useState(true);
   return (
     <View style={styles.container}>

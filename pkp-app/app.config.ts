@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "Tampere",
     slug: "memories-from-tampere",
-    version: "0.6.0",
+    version: "0.6.2",
     orientation: "portrait",
     owner: "maxperala",
     icon: "./assets/images/logo_bg.jpg",
@@ -16,8 +16,13 @@ export default {
       bundleIdentifier: "com.maxperala.mft",
       infoPlist: {
         NSAppTransportSecurity: {
-          NSAllowsArbitraryLoads: true,
+          NSAllowsArbitraryLoads: false,
           NSAllowsLocalNetworking: true,
+          CFBundleAllowMixedLocalizations: true,
+          NSLocationWhenInUseUsageDescription:
+            "The app requires your location to function",
+          NSLocationUsageDescription:
+            "The app requires your location to function",
         },
       },
     },
@@ -33,6 +38,9 @@ export default {
         "android.permission.ACCESS_FINE_LOCATION",
       ],
       package: "com.maxperala.mft",
+    },
+    locales: {
+      fi: "./locales/fi.json",
     },
     web: {
       bundler: "metro",
@@ -58,13 +66,7 @@ export default {
           },
         },
       ],
-      [
-        "expo-location",
-        {
-          locationWhenInUsePermission:
-            "Allow $(PRODUCT_NAME) to use your location",
-        },
-      ],
+      ["expo-location"],
       [
         "expo-font",
         {
