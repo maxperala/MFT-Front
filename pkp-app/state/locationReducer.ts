@@ -62,8 +62,8 @@ const locationSlice = createSlice({
       return { ...state, showMap: action.payload };
     },
     setAllowedLoading(state, action: PayloadAction<boolean>) {
-      return {...state, allowedLoading: action.payload}
-    }
+      return { ...state, allowedLoading: action.payload };
+    },
   },
 });
 export const {
@@ -75,7 +75,7 @@ export const {
   setMapLoading,
   setPackExists,
   setShowMap,
-  setAllowedLoading
+  setAllowedLoading,
 } = locationSlice.actions;
 
 export const setLocationAccess = (status: boolean) => {
@@ -88,7 +88,6 @@ export const setUserLocation = (
   location: Location
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
   return async (dispatch, getState) => {
-    console.log("RAN LOCATION UPDATE", location);
     const mapShown = getState().location.showMap;
     // Setting heading here makes no difference, since it has no impact. The heading is coming from a different source (the map) and loc from expo-location
     const c: Coords = {
@@ -104,7 +103,6 @@ export const setUserLocation = (
     if (inArea && !mapShown) {
       dispatch(setShowMap(true));
     } else if (!inArea && mapShown) {
-      console.log("DISABLING MAP");
       dispatch(setShowMap(false));
     }
     dispatch(setHeaderDistrict(c));

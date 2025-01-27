@@ -18,10 +18,8 @@ export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   })
   .filter((p) => p.poly != null);
 
-// Safe to expose. This is also included in the built app.
-export const MAPBOX_PUBLIC_KEY =
-  "pk.eyJ1IjoibWF4cGVyYWxhIiwiYSI6ImNtNHBzNWh2MzBuZGsya3MzZGRjNHJnZWIifQ.AfbjHIYVmWRjayhMqyS_0A";
 export const BACKEND_BASE = "https://service.tampere.app";
+//export const BACKEND_BASE = "http://192.168.1.112:3001";
 export const BACKEND_URL = `${BACKEND_BASE}/api`;
 export const MAPBOX_STYLE_URL =
   "mapbox://styles/maxperala/cm4ptcmi2008q01r3hltl9i8u";

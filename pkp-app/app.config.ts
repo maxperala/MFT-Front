@@ -4,15 +4,16 @@ export default {
   expo: {
     name: "Tampere",
     slug: "memories-from-tampere",
-    version: "0.6.2",
+    version: "0.7.0",
     orientation: "portrait",
     owner: "maxperala",
     icon: "./assets/images/logo_bg.jpg",
     scheme: "myapp",
+    platforms: ["ios", "android"],
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
-      supportsTablet: true,
+      supportsTablet: false,
       bundleIdentifier: "com.maxperala.mft",
       infoPlist: {
         NSAppTransportSecurity: {
@@ -20,9 +21,9 @@ export default {
           NSAllowsLocalNetworking: true,
           CFBundleAllowMixedLocalizations: true,
           NSLocationWhenInUseUsageDescription:
-            "The app requires your location to function",
+            "This app needs your location to show nearby historical sites",
           NSLocationUsageDescription:
-            "The app requires your location to function",
+            "This app needs your location to show nearby historical sites",
         },
       },
     },
@@ -41,11 +42,6 @@ export default {
     },
     locales: {
       fi: "./locales/fi.json",
-    },
-    web: {
-      bundler: "metro",
-      output: "static",
-      favicon: "./assets/images/favicon.png",
     },
     plugins: [
       "expo-router",

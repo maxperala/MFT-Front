@@ -51,5 +51,15 @@
   "privacy_policy_bottom": "privacy policy",
   "login_with_token": "Kirjaudu koodilla",
   "info": "Details",
-  "info_description": "General information"
+  "info_description": "General information",
+  "NSLocationUsageDescription": "This app needs your location to show nearby historical sites",
+  "location_perm": "Allow location usage",
+  "adventure": "Start your adventure",
+  "adventure_description": "Approach the marked spots on the map to unlock new destinations",
+  "learn": "Collect old photographs",
+  "learn_description": "Each destination unveils an old photograph from that spot along with a description of its historical significance",
+  "earn": "Earn stamps",
+  "earn_description": "By collecting postcards, you level up and earn new stamps for your passport.",
+  "next": "Next",
+  "skip": "Skip"
 }

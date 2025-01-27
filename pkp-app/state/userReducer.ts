@@ -23,6 +23,7 @@ import i18n from "@/utils/i18n";
 import { getCards } from "./cardsReducer";
 import { setActiveStamp, setActiveStampDebounced } from "./stampsReducer";
 import RNRestart from "react-native-restart";
+import { setTestMode } from "./settingsReducer";
 
 const initialState: AccountState = {
   user: null,
@@ -105,6 +106,10 @@ export const loginUser = (
           secret_code: loginData.secret_code,
         })
       );
+      // Hardcoded to allow the app store review team to access test mode
+      if (loginData.username === "appletest") {
+        dispatch(setTestMode(true));
+      }
       dispatch(setLoading(false));
     } catch (e) {
       if (e instanceof AxiosError && "errors" in e.response?.data) {

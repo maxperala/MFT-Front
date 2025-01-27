@@ -7,6 +7,7 @@ import { RootState } from "@/state/store";
 import StampModal from "./Stamps/StampModal";
 
 const MapContainer = () => {
+  const devMode = useSelector((state: RootState) => state.settings.testMode);
   const showMap = useSelector((state: RootState) => state.location.showMap);
   const activeStamp = useSelector(
     (state: RootState) => state.stamps.activeStamp
@@ -18,7 +19,7 @@ const MapContainer = () => {
         <Compass />
       </View>
 
-      {!showMap ? <MapOverlay /> : null}
+      {!showMap && !devMode ? <MapOverlay /> : null}
       {activeStamp ? <StampModal stamp={activeStamp} /> : null}
     </View>
   );

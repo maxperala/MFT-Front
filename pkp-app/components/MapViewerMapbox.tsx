@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Marker from "./Marker";
 import { BOUNDS, REVEAL_ZOOM_LEVEL } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,23 +17,25 @@ import { debounce } from "lodash";
  */
 
 // These are public api keys, and can be exposed. They just provide access to the right style of map
-import {
-  MAPBOX_PUBLIC_KEY,
-  MAPBOX_STYLE_URL,
-  centerCoordinate,
-} from "@/config";
+import { MAPBOX_STYLE_URL, centerCoordinate } from "@/config";
 
 import { colors_new } from "@/colors";
 import { Postcard } from "@/types";
 
-Mapbox.setAccessToken(MAPBOX_PUBLIC_KEY);
-
 const MapViewerMapbox = () => {
   const dispatch: AppDispatch = useDispatch();
+  const accessToken = useSelector(
+    (state: RootState) => state.account.user?.mapkey
+  );
   const mapRef = useRef<Mapbox.Camera>(null);
   // DON'T REMOVE THIS, IT WILL BREAK THE APP ON IOS!! ** The map needs to rerender after loading the first time for it to emit any data. So we force a rerender when the map itself states it's ready **
   const _ready = useSelector((state: RootState) => state.location.mapLoading);
   const cards = useSelector((state: RootState) => state.cardData.cards);
+  useEffect(() => {
+    if (accessToken) {
+      Mapbox.setAccessToken(accessToken);
+    }
+  }, [accessToken]);
 
   const [showMarkers, setShowMarkers] = useState(false);
   const [ready, setReady] = useState(false);
@@ -41,7 +43,7 @@ const MapViewerMapbox = () => {
   useLocation();
   const defaultSettings: Mapbox.CameraStop = {
     centerCoordinate: centerCoordinate,
-    zoomLevel: 13,
+    zoomLevel: 14,
   };
   // Debouce to improve performance on lower-end devices, especially android
   const updateHeadingAndZoom = debounce((e: Mapbox.MapState) => {

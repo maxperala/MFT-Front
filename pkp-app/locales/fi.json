@@ -5,7 +5,7 @@
   "settings": "Asetukset",
   "year": "Vuosi",
   "photographer": "Valokuvaaja",
-  "no_location_message": "Tämä sovellus vaatii pääsyn sijaintiisi toimiakseen",
+  "no_location_message": "Sovellus vaatii pääsyn sijaintiisi toimiakseen",
   "not_found": "Pahoittelut, tätä sivua ei ole olemassa. Käynnistä sovellus uudelleen.",
   "source": "Kuvan lähde",
   "discovered_message": "Uusi kohde avattu",
@@ -53,5 +53,14 @@
   "info": "Yleinen",
   "info_description": "Tietoja sovelluksesta",
   "NSLocationUsageDescription": "Sovellus vaatii sijaintisi toimiakseen",
-  "NSLocationWhenInUseUsageDescription": "Sovellus vaatii sijaintisi toimiakseen"
+  "location_perm": "Salli sijainnin käyttö",
+  "NSLocationWhenInUseUsageDescription": "Sovellus tarvitsee sijaintitietosi, jotta voit löytää kohteita kartalta.",
+  "adventure": "Aloita seikkailu",
+  "adventure_description": "Lähesty kartalle merkattuja paikkoja avataksesi uusia kohteita",
+  "learn": "Kerää vanhoja valokuvia",
+  "learn_description": "Jokaisesta paikasta paljastuu kohdalta otettu vanha valokuva ja kuvaus paikan historiasta",
+  "earn": "Ansaitse leimoja",
+  "earn_description": "Keräämällä postikortteja korotat tasoasi ja ansaitset uusia leimoja passiisi",
+  "next": "Seuraava",
+  "skip": "Ohita"
 }

@@ -6,12 +6,19 @@ import LoginForm from "@/components/LoginForm";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { useTranslation } from "react-i18next";
 import PrivacyPolicyView from "@/components/PrivacyPolicyView";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
+import OnboardingViewer from "./onboarding";
 
 const Register = () => {
   const [registerFrom, setRegisterForm] = useState(true);
   const [policyVisible, setPolicyVisible] = useState(false);
+  const introSeen = useSelector((state: RootState) => state.settings.introSeen);
   const { t } = useTranslation();
 
+  if (!introSeen) {
+    return <OnboardingViewer />;
+  }
   return (
     <ScrollView
       contentContainerStyle={{

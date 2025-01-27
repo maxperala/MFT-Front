@@ -25,6 +25,7 @@ export interface User {
   unlocked: string[];
   packs: string[];
   stamps: StampID[];
+  mapkey: string;
 }
 
 export type StampID = string;
@@ -139,6 +140,12 @@ export interface StampState {
 export interface SettingsState {
   route: SettingsRoute;
   language: string;
+  introSeen: boolean;
+  testMode: boolean;
 }
 
 export type SettingsRoute = "" | "language" | "token" | "info";
+
+export interface introSavedObject {
+  seen: boolean;
+}

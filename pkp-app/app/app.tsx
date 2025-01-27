@@ -16,7 +16,7 @@ import { getAllPacks } from "@/state/packsReducer";
 import FullScreenImage from "@/components/FullScreenImage";
 import BackNavigator from "@/components/BackNavigator";
 import { getAllStamps } from "@/state/stampsReducer";
-import { initSavedLanguage } from "@/state/settingsReducer";
+import { checkIntroSeen, initSavedLanguage } from "@/state/settingsReducer";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,6 +34,7 @@ const App = () => {
   useEffect(() => {
     dispatch(initSavedLanguage());
     dispatch(getUser());
+    dispatch(checkIntroSeen());
     getLocationStatus(dispatch);
 
     const stateListener = AppState.addEventListener(
@@ -57,12 +58,12 @@ const App = () => {
     }
   }, [account]);
 
-  if (!locationAllowed && !locationLoading) {
-    return <NoLocationScreen />;
-  }
-
   if (!account.user && !account.loading) {
     return <RegisterScreen />;
+  }
+
+  if (!locationAllowed && !locationLoading) {
+    return <NoLocationScreen />;
   }
 
   return (
