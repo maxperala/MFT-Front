@@ -47,9 +47,9 @@
   "login_token": "Login token",
   "login": "Login",
   "delete_account": "Delete Account",
-  "by_using_service": "By using this service you agree to our",
+  "by_using_service": "By using this service you agree to our privacy policy",
   "privacy_policy_bottom": "privacy policy",
-  "login_with_token": "Kirjaudu koodilla",
+  "login_with_token": "Login with token",
   "info": "Details",
   "info_description": "General information",
   "NSLocationUsageDescription": "This app needs your location to show nearby historical sites",
@@ -59,7 +59,9 @@
   "learn": "Collect old photographs",
   "learn_description": "Each destination unveils an old photograph from that spot along with a description of its historical significance",
   "earn": "Earn stamps",
-  "earn_description": "By collecting postcards, you level up and earn new stamps for your passport.",
+  "earn_description": "By collecting postcards, you level up and earn new stamps for your passport",
   "next": "Next",
-  "skip": "Skip"
+  "skip": "Skip",
+  "pyynikki_start": "Start from Pyynikki",
+  "pyynikki_description": "The Postcards from Pyynikki pack comes included with the app, so start from there!"
 }

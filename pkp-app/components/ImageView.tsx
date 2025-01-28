@@ -21,8 +21,8 @@ const ImageView = ({
   };
   return (
     <YStack
-      width="85%"
-      height="45%"
+      width="80%"
+      aspectRatio={1}
       justifyContent="center"
       alignItems="center"
       shadowOpacity={0.3}
@@ -31,14 +31,19 @@ const ImageView = ({
       shadowColor={colors_new.black}
       backgroundColor={colors_new.dirty_white}
       elevation={8}
-      paddingTop="$3"
-      paddingLeft="$0"
-      paddingRight="$0"
     >
       <TouchableOpacity
         onPress={
           toSheet ? () => router.push(`/postcard/${card.id}`) : setFullScreen
         }
+        style={{
+          width: "95%",
+          paddingTop: "2%",
+          gap: "2%",
+          aspectRatio: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
       >
         <Image
           source={{
@@ -48,6 +53,7 @@ const ImageView = ({
             flex: 1,
             borderRadius: 0,
             aspectRatio: 1,
+            objectFit: "contain",
           }}
           cachePolicy="memory-disk"
         />

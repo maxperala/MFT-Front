@@ -40,8 +40,17 @@ const StampModalCloseButton = ({ id }: { id: StampID }) => {
 
   return (
     <Animated.View style={[style.container, animatedStyle]}>
-      <TouchableOpacity onPress={onPressButton} disabled={disabled}>
-        <Ionicons size={40} name="close-circle" color={colors_new.red} />
+      <TouchableOpacity
+        onPress={onPressButton}
+        disabled={disabled}
+        style={{ flex: 1 }}
+      >
+        <Ionicons
+          size={40}
+          name="close-circle"
+          color={colors_new.red}
+          style={{ flex: 1 }}
+        />
       </TouchableOpacity>
     </Animated.View>
   );
@@ -49,13 +58,12 @@ const StampModalCloseButton = ({ id }: { id: StampID }) => {
 
 const style = StyleSheet.create({
   container: {
-    width: "15%",
-    height: "15%",
+    flex: 1,
     position: "absolute",
     top: "5%",
     right: "5%",
     justifyContent: "center",
-    alignItems: "center",
+    textAlign: "center",
   },
 });
 

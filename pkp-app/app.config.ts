@@ -4,10 +4,10 @@ export default {
   expo: {
     name: "Tampere",
     slug: "memories-from-tampere",
-    version: "0.7.0",
+    version: "0.7.1",
     orientation: "portrait",
     owner: "maxperala",
-    icon: "./assets/images/logo_bg.jpg",
+    icon: "./assets/images/icon.png",
     scheme: "myapp",
     platforms: ["ios", "android"],
     userInterfaceStyle: "automatic",

@@ -1,6 +1,7 @@
 import { RootState } from "@/state/store";
 import { Stamp } from "@/types";
 import { View, StyleSheet, Image } from "react-native";
+import { Text } from "tamagui";
 import { useSelector } from "react-redux";
 import Animated, {
   useSharedValue,
@@ -12,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
+const AnimatedText = Animated.createAnimatedComponent(Text);
 
 const ModalStampImageAndDescription = ({ stamp }: { stamp: Stamp }) => {
   const { i18n } = useTranslation();
@@ -52,9 +54,14 @@ const ModalStampImageAndDescription = ({ stamp }: { stamp: Stamp }) => {
         style={[style.image, aniStyleImage]}
         source={{ uri: stamp.asset }}
       />
-      <Animated.Text style={[style.text, aniStyleText]}>
+      <AnimatedText
+        style={[style.text, aniStyleText]}
+        fontSize="$6"
+        paddingLeft="4%"
+        paddingRight="4%"
+      >
         {lang === "fi" ? stamp.description_fi : stamp.description_en}
-      </Animated.Text>
+      </AnimatedText>
     </View>
   );
 };
@@ -69,7 +76,6 @@ const style = StyleSheet.create({
     gap: "7%",
   },
   text: {
-    fontSize: 20,
     fontFamily: "MarckScript-Regular",
     textAlign: "center",
   },

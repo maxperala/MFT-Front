@@ -47,7 +47,7 @@
   "login_token": "Kirjautumiskoodi",
   "login": "Kirjaudu",
   "delete_account": "Poista Tili",
-  "by_using_service": "Käyttämällä tätä palvelua hyväksyt",
+  "by_using_service": "Käyttämällä tätä palvelua hyväksyt tietosuojakäytäntömme",
   "privacy_policy_bottom": "tietosuojakäytäntömme",
   "login_with_token": "Kirjaudu koodilla",
   "info": "Yleinen",
@@ -62,5 +62,7 @@
   "earn": "Ansaitse leimoja",
   "earn_description": "Keräämällä postikortteja korotat tasoasi ja ansaitset uusia leimoja passiisi",
   "next": "Seuraava",
-  "skip": "Ohita"
+  "skip": "Ohita",
+  "pyynikki_start": "Aloita Pyynikiltä",
+  "pyynikki_description": "Sovellukseen sisältyy ilmainen Postikortteja Pyynikiltä paketti, joten aloita seikkailusi sieltä!"
 }

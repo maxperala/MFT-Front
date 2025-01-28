@@ -47,7 +47,7 @@ const style = StyleSheet.create({
   },
   innerContainer: {
     width: "85%",
-    height: "45%",
+    aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors_new.beige,

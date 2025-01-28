@@ -8,7 +8,7 @@ const Description = ({ card }: { card: Postcard }) => {
   return (
     <ScrollView
       padding="$4"
-      maxHeight={315}
+      maxHeight={500}
       backgroundColor={colors_new.dirty_white}
       borderRadius="$3"
     >

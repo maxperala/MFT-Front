@@ -25,18 +25,22 @@ const Register = () => {
         width: "100%",
         height: "100%",
         backgroundColor: colors_new.red,
+        paddingTop: "20%",
         justifyContent: "center",
       }}
       automaticallyAdjustKeyboardInsets={true}
       keyboardShouldPersistTaps={"always"}
     >
       <YStack alignItems="center" flex={1} gap="$1">
-        <Image
-          source={{ uri: require("@/assets/images/logo.png") }}
-          width="100%"
-          height="100%"
-          flex={1}
-        />
+        <View style={{ aspectRatio: 1, width: "70%" }}>
+          <Image
+            source={{ uri: require("@/assets/images/logo.png") }}
+            width="100%"
+            height="100%"
+            flex={1}
+          />
+        </View>
+
         <View flex={1} width="90%">
           {registerFrom ? (
             <RegisterForm setFormVisible={setRegisterForm} />
@@ -51,20 +55,11 @@ const Register = () => {
         <Text
           color={colors_new.light_grey}
           fontSize="$1"
-          position="absolute"
           alignSelf="center"
-          bottom="$8"
           textAlign="center"
+          paddingBottom="6%"
         >
           {t("by_using_service")}
-          {"\n"}
-          <Text
-            color={colors_new.dirty_white}
-            textDecorationLine="underline"
-            fontSize="$3"
-          >
-            {t("privacy_policy_bottom")}
-          </Text>
         </Text>
       </TouchableOpacity>
       {policyVisible ? (

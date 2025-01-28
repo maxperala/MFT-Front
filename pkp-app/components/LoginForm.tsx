@@ -77,7 +77,7 @@ const LoginForm = ({ setFormVisible }: { setFormVisible: Function }) => {
         style={{ paddingLeft: 10, alignSelf: "center", paddingTop: "1%" }}
         onPress={() => setFormVisible(false)}
       >
-        <Ionicons name="arrow-back" size={60} color={colors_new.dirty_white} />
+        <Ionicons name="arrow-back" size={40} color={colors_new.dirty_white} />
       </TouchableOpacity>
     </AnimatedYStack>
   );

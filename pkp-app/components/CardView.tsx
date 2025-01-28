@@ -1,5 +1,5 @@
-import { YStack, Text, Image, View } from "tamagui";
-import { colors, colors_new } from "@/colors";
+import { YStack, Text } from "tamagui";
+import { colors_new } from "@/colors";
 import { Postcard } from "@/types";
 import Description from "./Description";
 import { useTranslation } from "react-i18next";
