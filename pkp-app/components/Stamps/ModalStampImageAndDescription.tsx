@@ -11,6 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import { colors_new } from "@/colors";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -78,6 +79,7 @@ const style = StyleSheet.create({
   text: {
     fontFamily: "MarckScript-Regular",
     textAlign: "center",
+    color: colors_new.black,
   },
   image: {
     width: "40%",
