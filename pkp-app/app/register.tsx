@@ -1,5 +1,6 @@
 import { colors_new } from "@/colors";
-import { View, Image, YStack, Text } from "tamagui";
+import { View, YStack, Text } from "tamagui";
+import { Image } from "expo-image";
 import RegisterForm from "@/components/RegisterForm";
 import { useState } from "react";
 import LoginForm from "@/components/LoginForm";
@@ -32,14 +33,10 @@ const Register = () => {
       keyboardShouldPersistTaps={"always"}
     >
       <YStack alignItems="center" flex={1} gap="$1">
-        <View style={{ aspectRatio: 1, width: "70%" }}>
-          <Image
-            source={{ uri: require("@/assets/images/logo.png") }}
-            width="100%"
-            height="100%"
-            flex={1}
-          />
-        </View>
+        <Image
+          source={require("@/assets/images/logo.png")}
+          style={{ width: "70%", aspectRatio: 1 }}
+        />
 
         <View flex={1} width="90%">
           {registerFrom ? (
@@ -55,6 +52,8 @@ const Register = () => {
         <Text
           color={colors_new.light_grey}
           fontSize="$1"
+          position="absolute"
+          bottom="$3"
           alignSelf="center"
           textAlign="center"
           paddingBottom="6%"
