@@ -21,9 +21,9 @@ export default {
           NSAllowsLocalNetworking: true,
           CFBundleAllowMixedLocalizations: true,
           NSLocationWhenInUseUsageDescription:
-            "This app needs your location to show nearby historical sites",
+            "Allow location access to explore historical sites nearby and unlock new content based on your current location.",
           NSLocationUsageDescription:
-            "This app needs your location to show nearby historical sites",
+            "Allow location access to explore historical sites nearby and unlock new content based on your current location.",
         },
       },
     },
@@ -42,6 +42,7 @@ export default {
     },
     locales: {
       fi: "./locales/fi.json",
+      en: "./locales/en.json",
     },
     plugins: [
       "expo-router",
