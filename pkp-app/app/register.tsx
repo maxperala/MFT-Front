@@ -14,8 +14,9 @@ import OnboardingViewer from "./onboarding";
 const Register = () => {
   const [registerFrom, setRegisterForm] = useState(true);
   const [policyVisible, setPolicyVisible] = useState(false);
-  const introSeen = useSelector((state: RootState) => state.settings.introSeen);
   const { t } = useTranslation();
+  const [username, setUsername] = useState(t("username_placeholder"));
+  const introSeen = useSelector((state: RootState) => state.settings.introSeen);
 
   if (!introSeen) {
     return <OnboardingViewer />;
@@ -40,10 +41,15 @@ const Register = () => {
 
         <View flex={1} width="90%">
           {registerFrom ? (
-            <RegisterForm setFormVisible={setRegisterForm} />
+            <RegisterForm
+              setFormVisible={setRegisterForm}
+              username={username}
+              setUsername={setUsername}
+            />
           ) : (
             <LoginForm
               setFormVisible={(val: boolean) => setRegisterForm(!val)}
+              existingUsername={username}
             />
           )}
         </View>

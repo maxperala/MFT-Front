@@ -64,5 +64,7 @@
   "next": "Seuraava",
   "skip": "Ohita",
   "pyynikki_start": "Aloita Pyynikiltä",
-  "pyynikki_description": "Sovellukseen sisältyy ilmainen Postikortteja Pyynikiltä paketti, joten aloita seikkailusi sieltä!"
+  "pyynikki_description": "Sovellukseen sisältyy ilmainen Postikortteja Pyynikiltä paketti, joten aloita seikkailusi sieltä!",
+  "continue": "Jatka",
+  "cancel": "Peruuta"
 }

@@ -64,5 +64,7 @@
   "next": "Next",
   "skip": "Skip",
   "pyynikki_start": "Start from Pyynikki",
-  "pyynikki_description": "The Postcards from Pyynikki pack comes included with the app, so start from there!"
+  "pyynikki_description": "The Postcards from Pyynikki pack comes included with the app, so start from there!",
+  "continue": "Continue",
+  "cancel": "Cancel"
 }

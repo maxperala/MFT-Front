@@ -17,9 +17,17 @@ import { createToast } from "@/state/toastReducer";
 import { TouchableOpacity } from "react-native";
 
 // This component is my first try at using Reanimated to animate between the two buttons. Forcing the user to allow location before registration.
-const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
+const RegisterForm = ({
+  setFormVisible,
+  username,
+  setUsername,
+}: {
+  setFormVisible: Function;
+  username: string;
+  setUsername: Function;
+}) => {
   const { t } = useTranslation();
-  const [username, setUsername] = useState(t("username_placeholder"));
+
   const dispatch: AppDispatch = useDispatch();
 
   const AnimatedYStack = useMemo(
@@ -34,6 +42,8 @@ const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
   const accessStatus = useSelector(
     (state: RootState) => state.location.allowed
   );
+  const [locationAsked, setLocationAsked] = useState(false);
+
   const registerUser = () => {
     try {
       if (username.length < 4) {
@@ -80,11 +90,10 @@ const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
       </YStack>
 
       <Animated.View layout={LinearTransition}>
-        {accessStatus ? (
+        {locationAsked ? (
           <YStack justifyContent="center" alignItems="center" gap="$4">
             <AnimatedButton
               backgroundColor={colors_new.gold}
-              disabled={!accessStatus}
               fontFamily="SpecialElite-Regular"
               onPress={registerUser}
               width="100%"
@@ -115,13 +124,16 @@ const RegisterForm = ({ setFormVisible }: { setFormVisible: Function }) => {
             width="100%"
             backgroundColor={colors_new.dirty_white}
             disabled={accessStatus}
-            onPress={() => configureLocationPerms(dispatch)}
+            onPress={() => {
+              configureLocationPerms(dispatch);
+              setLocationAsked(true);
+            }}
             borderRadius={20}
             entering={FadeIn.duration(500)}
             exiting={FadeOut.duration(500)}
           >
             <Text color={colors_new.black} fontFamily="SpecialElite-Regular">
-              {t("allow_access")}
+              {t("continue")}
             </Text>
           </AnimatedButton>
         )}

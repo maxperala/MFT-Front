@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { View, AppState, StyleSheet } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/state/store";
-import NoLocationScreen from "./error_screens/no_location";
 import RegisterScreen from "./register";
 import { getUser } from "@/state/userReducer";
 import { getLocationStatus } from "@/utils/location/locationUtils";
@@ -20,12 +19,6 @@ import { checkIntroSeen, initSavedLanguage } from "@/state/settingsReducer";
 
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const locationAllowed = useSelector(
-    (state: RootState) => state.location.allowed
-  );
-  const locationLoading = useSelector(
-    (state: RootState) => state.location.allowedLoading
-  );
   const account = useSelector((state: RootState) => state.account);
   const activeCard = useSelector((state: RootState) => state.cardData.active);
 
@@ -60,10 +53,6 @@ const App = () => {
 
   if (!account.user && !account.loading) {
     return <RegisterScreen />;
-  }
-
-  if (!locationAllowed && !locationLoading) {
-    return <NoLocationScreen />;
   }
 
   return (

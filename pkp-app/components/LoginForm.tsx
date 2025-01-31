@@ -9,9 +9,15 @@ import Animated, { FadeInLeft, FadeOutLeft } from "react-native-reanimated";
 import { useDispatch } from "react-redux";
 import { YStack, Text, Button, Input } from "tamagui";
 
-const LoginForm = ({ setFormVisible }: { setFormVisible: Function }) => {
+const LoginForm = ({
+  setFormVisible,
+  existingUsername,
+}: {
+  setFormVisible: Function;
+  existingUsername: string;
+}) => {
   const { t } = useTranslation();
-  const [username, setUsername] = useState(t("username_placeholder"));
+  const [username, setUsername] = useState(t(existingUsername));
   const [token, setToken] = useState(t(""));
   const dispatch: AppDispatch = useDispatch();
 

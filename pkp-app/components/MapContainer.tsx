@@ -5,10 +5,14 @@ import MapOverlay from "./MapOverlay";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import StampModal from "./Stamps/StampModal";
+import NoLocationScreen from "@/app/error_screens/no_location";
 
 const MapContainer = () => {
   const devMode = useSelector((state: RootState) => state.settings.testMode);
   const showMap = useSelector((state: RootState) => state.location.showMap);
+  const locationAllowed = useSelector(
+    (state: RootState) => state.location.allowed
+  );
   const activeStamp = useSelector(
     (state: RootState) => state.stamps.activeStamp
   );
@@ -21,6 +25,7 @@ const MapContainer = () => {
 
       {!showMap && !devMode ? <MapOverlay /> : null}
       {activeStamp ? <StampModal stamp={activeStamp} /> : null}
+      {!locationAllowed ? <NoLocationScreen /> : null}
     </View>
   );
 };
