@@ -123,7 +123,6 @@ const RegisterForm = ({
           <AnimatedButton
             width="100%"
             backgroundColor={colors_new.dirty_white}
-            disabled={accessStatus}
             onPress={() => {
               configureLocationPerms(dispatch);
               setLocationAsked(true);
