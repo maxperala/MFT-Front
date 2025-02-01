@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "Tampere",
     slug: "memories-from-tampere",
-    version: "0.7.1",
+    version: "0.7.2",
     orientation: "portrait",
     owner: "maxperala",
     icon: "./assets/images/icon.png",
