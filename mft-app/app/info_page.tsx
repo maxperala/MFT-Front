@@ -1,4 +1,18 @@
-import { colors_new } from "@/colors";
+/**
+ * Info Page Component
+ *
+ * Displays external web content within the app using WebView, with language-specific
+ * content based on the user's selected language preference.
+ *
+ * Features:
+ * - Language-aware content loading (Finnish/English)
+ * - Loading spinner while content loads
+ * - Styled container with border and padding
+ * - Responsive layout with absolute positioning
+ *
+ * @component
+ */
+import { colors } from "@/colors";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { View, StyleSheet } from "react-native";
@@ -17,7 +31,7 @@ const InfoPage = () => {
         style={styles.webview}
         onLoad={() => setLoading(false)}
       >
-        {loading ? <Spinner color={colors_new.gold} size="large" /> : null}
+        {loading ? <Spinner color={colors.gold} size="large" /> : null}
       </WebView>
     </View>
   );
@@ -25,7 +39,7 @@ const InfoPage = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors_new.beige,
+    backgroundColor: colors.beige,
     position: "absolute",
     paddingTop: "15%",
     paddingBottom: "10%",
@@ -37,7 +51,7 @@ const styles = StyleSheet.create({
   webview: {
     flex: 1,
     borderRadius: 6,
-    borderColor: colors_new.black,
+    borderColor: colors.black,
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",

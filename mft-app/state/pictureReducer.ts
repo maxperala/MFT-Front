@@ -1,3 +1,6 @@
+/**
+ * Manages the state of the currently displayed full-screen picture URL
+ */
 import { PictureUrlState } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

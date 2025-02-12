@@ -1,3 +1,6 @@
+/**
+ * Manages user account state including authentication, unlocked content, and levels
+ */
 import {
   AccountState,
   User,
@@ -73,6 +76,9 @@ export const {
   setUnlockedStamps,
 } = userReducer.actions;
 
+/**
+ * Retrieves saved user data and initiates login
+ */
 export const getUser = (): ThunkAction<
   void,
   RootState,
@@ -91,6 +97,9 @@ export const getUser = (): ThunkAction<
   };
 };
 
+/**
+ * Authenticates user with provided credentials
+ */
 export const loginUser = (
   loginData: NewUser
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
@@ -123,6 +132,9 @@ export const loginUser = (
   };
 };
 
+/**
+ * Creates a new user account
+ */
 export const createUser = (
   user: NewUser
 ): ThunkAction<void, RootState, unknown, AnyAction> => {
@@ -146,16 +158,7 @@ export const createUser = (
       dispatch(setUser(data));
 
       dispatch(setLoading(false));
-      /* This is a workaround for an android issue I don't fully understand. On first launch (when registering) the
-      map does not ever call its ready function. So we just reload the app after registering. iOS does not have this issue,
-      and I don't currently understand why this happens on android */
-      /*
 
-      if (Platform.OS === "android") {
-        RNRestart.restart();
-      }
-    */
-      // We wait 10 seconds before revealing the registering congratulation stamp...
       if (data.stamps.length === 1) {
         setTimeout(() => {
           const fullStampData = getState().stamps.allStamps.find(
@@ -188,6 +191,9 @@ export const createUser = (
   };
 };
 
+/**
+ * Checks for nearby discoverable cards based on user location
+ */
 export const discoverCards = (): ThunkAction<
   void,
   RootState,
@@ -272,6 +278,9 @@ export const discoverCards = (): ThunkAction<
   };
 };
 
+/**
+ * Initiates login process from a specific page
+ */
 export const loginUserFromPage = (
   data: NewUser
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
@@ -281,6 +290,9 @@ export const loginUserFromPage = (
   };
 };
 
+/**
+ * Deletes user account and clears local data
+ */
 export const deleteUser = (): ThunkAction<
   void,
   RootState,

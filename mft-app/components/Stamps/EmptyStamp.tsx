@@ -1,3 +1,17 @@
+/**
+ * Empty Stamp Component
+ *
+ * A placeholder component that displays a circular stamp outline image
+ * in a centered container.
+ *
+ * Features:
+ * - Centered container layout
+ * - Circular stamp outline image
+ * - Responsive image sizing
+ * - Consistent object fitting
+ *
+ * @component
+ */
 import { Image, View, StyleSheet } from "react-native";
 
 const EmptyStamp = () => {

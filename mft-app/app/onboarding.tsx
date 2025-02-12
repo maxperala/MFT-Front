@@ -1,4 +1,20 @@
-import { colors_new } from "@/colors";
+/**
+ * Onboarding Viewer Component
+ *
+ * Manages the initial app onboarding experience with a swipeable carousel of
+ * introduction screens explaining key app features and functionality.
+ *
+ * Features:
+ * - Multi-page swiper interface
+ * - Localized content using i18n
+ * - Custom styled slides with images and animations
+ * - Responsive layout with safe area handling
+ * - Progress tracking with Redux state management
+ * - Custom typography for titles and subtitles
+ *
+ * @component
+ */
+import { colors } from "@/colors";
 import Onboarding, { Page } from "react-native-onboarding-swiper";
 import { Image } from "expo-image";
 import { StyleSheet, View } from "react-native";
@@ -22,7 +38,7 @@ const OnboardingViewer = () => {
   const pages: Page[] = useMemo(() => {
     return [
       {
-        backgroundColor: colors_new.red,
+        backgroundColor: colors.red,
         image: (
           <View style={style.container}>
             <Image
@@ -35,7 +51,7 @@ const OnboardingViewer = () => {
         subtitle: <Subtitle str={t("adventure_description")} />,
       },
       {
-        backgroundColor: colors_new.red,
+        backgroundColor: colors.red,
         image: (
           <View style={style.container}>
             <Image
@@ -48,7 +64,7 @@ const OnboardingViewer = () => {
         subtitle: <Subtitle str={t("learn_description")} />,
       },
       {
-        backgroundColor: colors_new.red,
+        backgroundColor: colors.red,
         image: (
           <View style={style.container}>
             <Image
@@ -70,7 +86,7 @@ const OnboardingViewer = () => {
             />
           </View>
         ),
-        backgroundColor: colors_new.red,
+        backgroundColor: colors.red,
         title: <Title str={t("pyynikki_start")} />,
         subtitle: <Subtitle str={t("pyynikki_description")} />,
       },
@@ -98,7 +114,7 @@ const style = StyleSheet.create({
     alignItems: "flex-start",
     aspectRatio: 1,
     borderWidth: 4,
-    borderColor: colors_new.dirty_white,
+    borderColor: colors.dirty_white,
     borderRadius: 6,
     shadowOffset: { width: 2, height: 2 },
     shadowRadius: 5,
@@ -120,11 +136,7 @@ const style = StyleSheet.create({
 
 const Title = ({ str }: { str: string }) => {
   return (
-    <Text
-      fontFamily="Fair-Prosper"
-      fontSize="$9"
-      color={colors_new.dirty_white}
-    >
+    <Text fontFamily="Fair-Prosper" fontSize="$9" color={colors.dirty_white}>
       {str}
     </Text>
   );
@@ -136,7 +148,7 @@ const Subtitle = ({ str }: { str: string }) => {
       fontFamily="MarckScript-Regular"
       fontSize="$8"
       textAlign="center"
-      color={colors_new.light_grey}
+      color={colors.light_grey}
       paddingLeft="4%"
       paddingRight="4%"
       paddingTop="3%"

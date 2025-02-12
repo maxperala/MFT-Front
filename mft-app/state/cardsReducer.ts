@@ -1,4 +1,7 @@
-import { AppDispatch, RootState } from "@/state/store";
+/**
+ * Manages the state of postcards and active card selection
+ */
+import { RootState } from "@/state/store";
 import { Postcard, PostcardsState } from "@/types";
 import axios, { AxiosError } from "axios";
 import { BACKEND_URL } from "@/config";
@@ -30,6 +33,9 @@ const cardsReducer = createSlice({
 
 export const { setCards, setActive } = cardsReducer.actions;
 
+/**
+ * Fetches all postcards from the backend using authentication token
+ */
 export const getCards = (
   token: string
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
@@ -52,9 +58,14 @@ export const getCards = (
     }
   };
 };
-// This is currently useless, and typed wrong
-export const setActiveCard = (card: Postcard | null) => {
-  return async (dispatch: AppDispatch) => {
+
+/**
+ * Sets the currently active postcard for detailed view
+ */
+export const setActiveCard = (
+  card: Postcard | null
+): ThunkAction<void, RootState, unknown, UnknownAction> => {
+  return async (dispatch) => {
     dispatch(setActive(card));
   };
 };

@@ -1,4 +1,20 @@
-import { colors_new } from "@/colors";
+/**
+ * Stamp Modal Component
+ *
+ * A modal dialog that displays stamp details with animations, including
+ * unlock status and stamp information.
+ *
+ * Features:
+ * - Fade in/out animations
+ * - Conditional new stamp notification
+ * - Redux integration for stamp state
+ * - Localized content display
+ * - Custom styled container
+ * - Responsive modal layout
+ *
+ * @component
+ */
+import { colors } from "@/colors";
 import { Stamp } from "@/types";
 import { View, StyleSheet, Text } from "react-native";
 import { useMemo } from "react";
@@ -50,7 +66,7 @@ const style = StyleSheet.create({
     aspectRatio: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors_new.beige,
+    backgroundColor: colors.beige,
     borderWidth: 1,
     borderRadius: 6,
     shadowOffset: { width: 1, height: 3 },
@@ -66,7 +82,7 @@ const style = StyleSheet.create({
   heading: {
     fontSize: 18,
     fontFamily: "SpecialElite-Regular",
-    color: colors_new.black,
+    color: colors.black,
     position: "absolute",
     top: "5%",
   },

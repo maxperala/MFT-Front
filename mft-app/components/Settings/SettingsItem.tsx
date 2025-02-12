@@ -1,3 +1,19 @@
+/**
+ * Settings Item Component
+ *
+ * A reusable settings menu item that displays a title, description, and
+ * navigation arrow in a styled container with custom background color.
+ *
+ * Features:
+ * - Custom background color support
+ * - Title and description display
+ * - Navigation arrow icon
+ * - Redux integration for routing
+ * - Consistent styling and layout
+ * - Touch interaction handling
+ *
+ * @component
+ */
 import { setSettingsRoute } from "@/state/settingsReducer";
 import { AppDispatch } from "@/state/store";
 import { SettingsRoute } from "@/types";

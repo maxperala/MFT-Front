@@ -1,5 +1,21 @@
-import { View, Text, StyleSheet } from "react-native";
-import MapContainer from "@/components/MapContainer";
+/**
+ * Map Screen Component
+ *
+ * Main map view of the application that displays postcards on a map interface.
+ *
+ * Features:
+ * - Fetches postcard data when user token is available
+ * - Displays loading state when postcards are not yet loaded
+ * - Renders MapContainer component with postcard data
+ *
+ * State Management:
+ * - Uses Redux for postcards and user token management
+ * - Dispatches getCards action when token becomes available
+ *
+ * @component
+ */
+import { View, StyleSheet } from "react-native";
+import MapContainer from "@/components/views/map/MapContainer";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import { useEffect } from "react";

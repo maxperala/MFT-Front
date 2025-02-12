@@ -1,0 +1,156 @@
+/**
+ * Register Form Component
+ *
+ * Handles new user registration with a two-step form process including
+ * username input and location permissions.
+ *
+ * Features:
+ * - Two-step registration flow
+ * - Animated transitions between steps
+ * - Username validation
+ * - Location permission handling
+ * - Custom styled inputs and buttons
+ * - Localized content
+ *
+ * @component
+ */
+import { YStack, Button, Input, Text } from "tamagui";
+import { colors } from "@/colors";
+import { useMemo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/state/store";
+import { createUser } from "@/state/userReducer";
+import { configureLocationPerms } from "@/utils/location/locationUtils";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
+import { useTranslation } from "react-i18next";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
+import { createToast } from "@/state/toastReducer";
+import { TouchableOpacity } from "react-native";
+
+const RegisterForm = ({
+  setFormVisible,
+  username,
+  setUsername,
+}: {
+  setFormVisible: Function;
+  username: string;
+  setUsername: Function;
+}) => {
+  const { t } = useTranslation();
+
+  const dispatch: AppDispatch = useDispatch();
+
+  const AnimatedYStack = useMemo(
+    () => Animated.createAnimatedComponent(YStack),
+    []
+  );
+  const AnimatedButton = useMemo(
+    () => Animated.createAnimatedComponent(Button),
+    []
+  );
+
+  const [locationAsked, setLocationAsked] = useState(false);
+
+  const registerUser = () => {
+    try {
+      if (username.length < 4) {
+        dispatch(createToast(t("username_short"), "notification"));
+        return;
+      }
+
+      if (username.length > 15) {
+        dispatch(createToast(t("username_long"), "notification"));
+        return;
+      }
+      dispatch(createUser({ username, secret_code: uuidv4() }));
+    } catch (e) {
+      if (e instanceof Error) {
+        console.log(e);
+      }
+      console.log(e);
+    }
+  };
+
+  return (
+    <AnimatedYStack
+      flex={1}
+      gap="$5"
+      padding="$4"
+      entering={FadeIn}
+      exiting={FadeOut}
+    >
+      <YStack width="100%">
+        <Text fontFamily="SpecialElite-Regular" color={colors.gold}>
+          {t("username")}:
+        </Text>
+        <Input
+          color={colors.dirty_white}
+          value={username ? username : ""}
+          fontFamily="SpecialElite-Regular"
+          backgroundColor={colors.red}
+          width="100%"
+          borderWidth="$0"
+          borderBottomWidth="$1"
+          borderColor={colors.dirty_white}
+          onChangeText={(v) => (v != username ? setUsername(v) : null)}
+        />
+      </YStack>
+
+      <Animated.View layout={LinearTransition}>
+        {locationAsked ? (
+          <YStack justifyContent="center" alignItems="center" gap="$4">
+            <AnimatedButton
+              backgroundColor={colors.gold}
+              fontFamily="SpecialElite-Regular"
+              onPress={registerUser}
+              width="100%"
+              borderRadius={20}
+              entering={FadeIn.duration(500)}
+              exiting={FadeOut.duration(500)}
+            >
+              <Text
+                color={colors.dirty_white}
+                fontFamily="SpecialElite-Regular"
+              >
+                {t("register")}
+              </Text>
+            </AnimatedButton>
+            <TouchableOpacity onPress={() => setFormVisible(false)}>
+              <Text
+                fontFamily={"Roboto"}
+                fontSize={15}
+                textDecorationLine="underline"
+                color={colors.gold}
+              >
+                {t("login_with_token")}
+              </Text>
+            </TouchableOpacity>
+          </YStack>
+        ) : (
+          <AnimatedButton
+            width="100%"
+            backgroundColor={colors.dirty_white}
+            onPress={() => {
+              configureLocationPerms(dispatch);
+              setLocationAsked(true);
+            }}
+            borderRadius={20}
+            entering={FadeIn.duration(500)}
+            exiting={FadeOut.duration(500)}
+          >
+            <Text color={colors.black} fontFamily="SpecialElite-Regular">
+              {t("continue")}
+            </Text>
+          </AnimatedButton>
+        )}
+      </Animated.View>
+    </AnimatedYStack>
+  );
+};
+
+export default RegisterForm;

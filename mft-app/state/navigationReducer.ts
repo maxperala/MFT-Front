@@ -1,4 +1,6 @@
-// There is a expo package with a type of the same name, so WATCH OUT if IDE tries to auto-import that
+/**
+ * Manages navigation state and district information
+ */
 import { Coords, NavigationState, PostCodeInfo } from "@/types";
 import {
   Action,
@@ -25,6 +27,9 @@ const navigationReducer = createSlice({
 
 export const { setDistrict } = navigationReducer.actions;
 
+/**
+ * Updates the header district based on current coordinates
+ */
 export const setHeaderDistrict = (
   c: Coords
 ): ThunkAction<void, RootState, unknown, Action<string>> => {

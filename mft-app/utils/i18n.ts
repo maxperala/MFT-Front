@@ -1,3 +1,15 @@
+/**
+ * Internationalization configuration using i18next
+ *
+ * Sets up language support with Finnish and English translations,
+ * using device locale for initial language selection.
+ *
+ * Features:
+ * - Multi-language support (fi/en)
+ * - Device locale detection
+ * - Fallback language handling
+ * - Interpolation settings
+ */
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { getLocales } from "expo-localization";

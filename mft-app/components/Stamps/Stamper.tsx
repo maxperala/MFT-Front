@@ -1,3 +1,19 @@
+/**
+ * Stamper Component
+ *
+ * A button component that displays a stamp image and handles stamp selection
+ * with debounced state updates.
+ *
+ * Features:
+ * - Stamp image display
+ * - Touch interaction handling
+ * - Redux integration for stamp state
+ * - Debounced selection updates
+ * - Responsive image sizing
+ * - Centered layout positioning
+ *
+ * @component
+ */
 import { setActiveStampDebounced } from "@/state/stampsReducer";
 import { AppDispatch } from "@/state/store";
 import { Stamp } from "@/types";

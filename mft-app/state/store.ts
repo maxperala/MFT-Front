@@ -1,3 +1,6 @@
+/**
+ * Redux store configuration with combined reducers for managing application state
+ */
 import { configureStore } from "@reduxjs/toolkit";
 import locationReducer from "./locationReducer";
 import userReducer from "./userReducer";

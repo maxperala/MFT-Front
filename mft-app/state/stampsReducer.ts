@@ -1,3 +1,6 @@
+/**
+ * Manages stamp collection state including active stamps and viewing history
+ */
 import { Stamp, StampID, StampState } from "@/types";
 import {
   createSlice,
@@ -42,6 +45,9 @@ const stampReducer = createSlice({
 export const { setStamps, setActiveStamp, setVisibility, setViewedStamps } =
   stampReducer.actions;
 
+/**
+ * Fetches all stamps from the backend
+ */
 export const getAllStamps = (): ThunkAction<
   void,
   RootState,
@@ -77,6 +83,9 @@ export const getAllStamps = (): ThunkAction<
   };
 };
 
+/**
+ * Clears the active stamp with debounced timing
+ */
 export const clearActiveStamp = (
   id: StampID
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
@@ -102,6 +111,9 @@ const debouncedSetActiveStamp = debounce(
   { leading: true, trailing: false }
 );
 
+/**
+ * Sets the active stamp with debounced timing
+ */
 export const setActiveStampDebounced = (
   stamp: Stamp | null,
   id: StampID
@@ -111,6 +123,9 @@ export const setActiveStampDebounced = (
   };
 };
 
+/**
+ * Updates and saves viewed stamps history
+ */
 export const setViewedStampsAndSave = (
   id: StampID
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {

@@ -1,0 +1,108 @@
+/**
+ * Login Form Component
+ *
+ * Handles user authentication with username and token inputs in a styled,
+ * animated form container.
+ *
+ * Features:
+ * - Animated form transitions
+ * - Username and token input fields
+ * - Localized text content
+ * - Custom styled inputs and buttons
+ * - Back navigation option
+ * - Redux integration for auth state
+ *
+ * @component
+ */
+import { colors } from "@/colors";
+import { AppDispatch } from "@/state/store";
+import { loginUserFromPage } from "@/state/userReducer";
+import { Ionicons } from "@expo/vector-icons";
+import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { TouchableOpacity } from "react-native";
+import Animated, { FadeInLeft, FadeOutLeft } from "react-native-reanimated";
+import { useDispatch } from "react-redux";
+import { YStack, Text, Button, Input } from "tamagui";
+
+const LoginForm = ({
+  setFormVisible,
+  existingUsername,
+}: {
+  setFormVisible: Function;
+  existingUsername: string;
+}) => {
+  const { t } = useTranslation();
+  const [username, setUsername] = useState(t(existingUsername));
+  const [token, setToken] = useState(t(""));
+  const dispatch: AppDispatch = useDispatch();
+
+  const AnimatedYStack = useMemo(
+    () => Animated.createAnimatedComponent(YStack),
+    []
+  );
+
+  const login = () => {
+    dispatch(loginUserFromPage({ username, secret_code: token }));
+  };
+
+  return (
+    <AnimatedYStack
+      flex={1}
+      gap="$5"
+      entering={FadeInLeft}
+      exiting={FadeOutLeft}
+    >
+      <YStack width="100%">
+        <Text fontFamily="SpecialElite-Regular" color={colors.gold}>
+          {t("username")}:
+        </Text>
+        <Input
+          color={colors.dirty_white}
+          value={username ? username : ""}
+          fontFamily="SpecialElite-Regular"
+          backgroundColor={colors.red}
+          width="100%"
+          borderWidth="$0"
+          borderBottomWidth="$1"
+          borderColor={colors.dirty_white}
+          onChangeText={(v) => (v != username ? setUsername(v) : null)}
+        />
+      </YStack>
+      <YStack width="100%">
+        <Text fontFamily="SpecialElite-Regular" color={colors.gold}>
+          {t("login_token")}:
+        </Text>
+        <Input
+          color={colors.dirty_white}
+          value={token ? token : ""}
+          fontFamily="SpecialElite-Regular"
+          backgroundColor={colors.red}
+          width="100%"
+          borderWidth="$0"
+          borderBottomWidth="$1"
+          borderColor={colors.dirty_white}
+          onChangeText={(v) => (v != token ? setToken(v) : null)}
+        />
+      </YStack>
+      <Button
+        width="100%"
+        backgroundColor={colors.gold}
+        onPress={login}
+        borderRadius={20}
+      >
+        <Text color={colors.dirty_white} fontFamily="SpecialElite-Regular">
+          {t("login")}
+        </Text>
+      </Button>
+      <TouchableOpacity
+        style={{ paddingLeft: 10, alignSelf: "center", paddingTop: "1%" }}
+        onPress={() => setFormVisible(false)}
+      >
+        <Ionicons name="arrow-back" size={40} color={colors.dirty_white} />
+      </TouchableOpacity>
+    </AnimatedYStack>
+  );
+};
+
+export default LoginForm;

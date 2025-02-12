@@ -1,3 +1,19 @@
+/**
+ * Modal Stamp Image and Description Component
+ *
+ * Displays a stamp image with its description in a modal view, featuring
+ * animated transitions for both text and image.
+ *
+ * Features:
+ * - Animated text and image transitions
+ * - Localized description content
+ * - Custom font styling
+ * - Responsive image sizing
+ * - Redux integration for visibility state
+ * - Centered layout positioning
+ *
+ * @component
+ */
 import { RootState } from "@/state/store";
 import { Stamp } from "@/types";
 import { View, StyleSheet, Image } from "react-native";
@@ -11,7 +27,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import { colors_new } from "@/colors";
+import { colors } from "@/colors";
 
 const AnimatedImage = Animated.createAnimatedComponent(Image);
 const AnimatedText = Animated.createAnimatedComponent(Text);
@@ -79,7 +95,7 @@ const style = StyleSheet.create({
   text: {
     fontFamily: "MarckScript-Regular",
     textAlign: "center",
-    color: colors_new.black,
+    color: colors.black,
   },
   image: {
     width: "40%",

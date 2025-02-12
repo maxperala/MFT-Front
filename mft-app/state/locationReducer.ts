@@ -1,3 +1,6 @@
+/**
+ * Manages user location state and map interaction settings
+ */
 import {
   createSlice,
   PayloadAction,
@@ -78,12 +81,18 @@ export const {
   setAllowedLoading,
 } = locationSlice.actions;
 
+/**
+ * Updates location permission status
+ */
 export const setLocationAccess = (status: boolean) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setAllowed(status));
   };
 };
 
+/**
+ * Updates user location and checks if user is in valid area
+ */
 export const setUserLocation = (
   location: Location
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
@@ -109,6 +118,9 @@ export const setUserLocation = (
   };
 };
 
+/**
+ * Sets map focus on user location with zoom
+ */
 export const setFocusedOnUser = (status: boolean) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setFocused(status));
@@ -116,6 +128,9 @@ export const setFocusedOnUser = (status: boolean) => {
   };
 };
 
+/**
+ * Updates map compass heading
+ */
 export const setMapHeading = (heading: number) => {
   return async (dispatch: AppDispatch) => {
     dispatch(setHeading(heading));

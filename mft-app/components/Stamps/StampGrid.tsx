@@ -1,3 +1,19 @@
+/**
+ * Stamp Grid Component
+ *
+ * Displays a grid of collected stamps and empty placeholders in a structured
+ * two-row layout with dynamic content rendering.
+ *
+ * Features:
+ * - Dynamic stamp rendering
+ * - Empty slot placeholders
+ * - Two-row grid layout
+ * - Redux integration for stamps data
+ * - Memoized row calculations
+ * - Responsive positioning
+ *
+ * @component
+ */
 import { RootState } from "@/state/store";
 import { useMemo } from "react";
 import { View, StyleSheet } from "react-native";

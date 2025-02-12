@@ -1,3 +1,19 @@
+/**
+ * Stamp Animation Component
+ *
+ * Handles the stamping animation sequence using Lottie, with a two-stage
+ * animation process and visibility control.
+ *
+ * Features:
+ * - Two-stage animation sequence
+ * - Lottie animation integration
+ * - Redux integration for visibility
+ * - Automatic animation triggering
+ * - Configurable animation timing
+ * - Animation completion handling
+ *
+ * @component
+ */
 import { StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 import { useEffect, useRef, useState } from "react";

@@ -1,4 +1,16 @@
-import StoreView from "@/components/StoreView";
+/**
+ * Store Screen Component
+ *
+ * Marketplace screen that displays purchasable items and offers.
+ *
+ * Features:
+ * - Full-screen view container
+ * - Renders StoreView component for item display
+ * - Maintains consistent layout with other main screens
+ *
+ * @component
+ */
+import StoreView from "@/components/views/StoreView";
 import { View } from "tamagui";
 
 const Store = () => {

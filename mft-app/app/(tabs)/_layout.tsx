@@ -1,9 +1,27 @@
+/**
+ * Tab Navigation Layout Component
+ *
+ * Defines the main tab navigation structure for the app with four primary sections:
+ * - Map: Main exploration view
+ * - Collection: User's collected items
+ * - Store: In-app marketplace
+ * - Passport: User profile and settings
+ *
+ * Features:
+ * - Custom styled tab bar with red background
+ * - Gold color for active tabs, off-white for inactive
+ * - Custom icons for each tab using Ionicons
+ * - Internationalized tab labels
+ * - Custom headers for each screen
+ *
+ * @component
+ */
 import { Tabs } from "expo-router";
-import colors, { colors_new } from "@/colors";
+import { colors } from "@/colors";
 import { Ionicons } from "@expo/vector-icons";
-import Header from "@/components/Header";
+import Header from "@/components/header/Header";
 import { useTranslation } from "react-i18next";
-import GenericHeader from "@/components/GenericHeader";
+import GenericHeader from "@/components/header/GenericHeader";
 
 const naviLayout = () => {
   const { t } = useTranslation();
@@ -11,15 +29,15 @@ const naviLayout = () => {
     <Tabs
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: colors.main_red,
+          backgroundColor: colors.red,
           height: 80,
           shadowOffset: { width: 1, height: -3 },
           shadowRadius: 3,
           shadowOpacity: 0.3,
           elevation: 8,
         },
-        tabBarActiveTintColor: colors_new.gold,
-        tabBarInactiveTintColor: colors_new.dirty_white,
+        tabBarActiveTintColor: colors.gold,
+        tabBarInactiveTintColor: colors.dirty_white,
       }}
     >
       <Tabs.Screen

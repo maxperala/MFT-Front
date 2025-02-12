@@ -1,4 +1,20 @@
-import { colors_new } from "@/colors";
+/**
+ * Stamp Card Component
+ *
+ * A container component that displays a stamp collection grid within a styled
+ * frame with background effects.
+ *
+ * Features:
+ * - Styled frame background
+ * - Integrated stamp grid display
+ * - Custom opacity and shadow effects
+ * - Responsive aspect ratio
+ * - Subtle rotation transform
+ * - Flexible container layout
+ *
+ * @component
+ */
+import { colors } from "@/colors";
 import { View, StyleSheet, Image } from "react-native";
 import StampGrid from "./StampGrid";
 
@@ -35,7 +51,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: colors_new.light_grey,
+    backgroundColor: colors.light_grey,
     opacity: 0.8,
     borderRadius: 4,
     shadowOffset: { width: 1, height: 1 },

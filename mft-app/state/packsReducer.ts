@@ -1,3 +1,6 @@
+/**
+ * Manages the state of card packs and unlocking functionality
+ */
 import { Pack, PackState } from "@/types";
 import {
   createSlice,
@@ -28,6 +31,9 @@ const packsReducer = createSlice({
 
 export const { setPacks } = packsReducer.actions;
 
+/**
+ * Fetches all available card packs from the backend
+ */
 export const getAllPacks = (): ThunkAction<
   void,
   RootState,
@@ -56,6 +62,9 @@ export const getAllPacks = (): ThunkAction<
   };
 };
 
+/**
+ * Unlocks a card pack and updates user's unlocked packs
+ */
 export const unlockPack = (
   id: string
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {

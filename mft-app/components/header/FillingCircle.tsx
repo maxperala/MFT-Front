@@ -1,0 +1,96 @@
+/**
+ * Filling Circle Component
+ *
+ * A circular progress indicator that animates to show user level progress
+ * with a gradient stroke and centered level number.
+ *
+ * Features:
+ * - Animated progress fill
+ * - Gradient color stroke
+ * - Centered level display
+ * - Custom spring animation
+ * - SVG-based circular design
+ * - Responsive sizing and positioning
+ *
+ * @component
+ */
+import Svg, { Circle, Defs, LinearGradient, Stop } from "react-native-svg";
+import { colors } from "@/colors";
+import Animated, {
+  useSharedValue,
+  withSpring,
+  useAnimatedProps,
+} from "react-native-reanimated";
+import { useEffect } from "react";
+import { View, StyleSheet, Text } from "react-native";
+// The circle fills according to the users progress on the current level
+const FillingCircle = ({
+  percentage,
+  lvl,
+}: {
+  percentage: number;
+  lvl: number;
+}) => {
+  const wh = 40;
+  const cxcy = wh / 2;
+  const strokeWidth = 2;
+  const radius = 13;
+  const circumference = 2 * Math.PI * radius;
+
+  const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+  const animatedStrokeOffset = useSharedValue(
+    circumference - (circumference * percentage) / 100
+  );
+  useEffect(() => {
+    animatedStrokeOffset.value = withSpring(
+      circumference - (circumference * percentage) / 100,
+      { duration: 500 }
+    );
+  }, [percentage]);
+
+  const animatedProps = useAnimatedProps(() => ({
+    strokeDashoffset: animatedStrokeOffset.value,
+  }));
+  return (
+    <View style={style.container}>
+      <Svg width={wh} height={wh}>
+        <Defs>
+          <LinearGradient id="gradient" x1="0" y1="0" x2="1" y2="1">
+            <Stop offset="0%" stopColor={colors.gold} />
+            <Stop offset="100%" stopColor={colors.red} />
+          </LinearGradient>
+        </Defs>
+
+        <AnimatedCircle
+          cx={cxcy}
+          cy={cxcy}
+          r={radius}
+          stroke="url(#gradient)"
+          strokeWidth={strokeWidth}
+          fill="transparent"
+          strokeDasharray={circumference}
+          animatedProps={animatedProps}
+          strokeLinecap="round"
+        />
+      </Svg>
+      <Text style={style.text}>{lvl}</Text>
+    </View>
+  );
+};
+
+const style = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontFamily: "Fair-Prosper",
+    position: "absolute",
+    lineHeight: 40,
+    paddingTop: 4,
+    fontSize: 18,
+    color: colors.dirty_white,
+  },
+});
+
+export default FillingCircle;

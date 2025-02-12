@@ -1,0 +1,59 @@
+/**
+ * Card View Component
+ *
+ * Displays detailed postcard information including title, image, and description
+ * in a styled container with custom typography.
+ *
+ * Features:
+ * - Localized title display
+ * - Custom font styling
+ * - Shadow and opacity effects
+ * - Responsive layout
+ * - Image integration
+ * - Description section
+ *
+ * @component
+ */
+import { YStack, Text } from "tamagui";
+import { colors } from "@/colors";
+import { Postcard } from "@/types";
+import Description from "../cards/Description";
+import { useTranslation } from "react-i18next";
+import ImageView from "./ImageView";
+
+const CardView = ({ card }: { card: Postcard }) => {
+  const { i18n } = useTranslation();
+  return (
+    <YStack
+      flex={1}
+      padding="$2"
+      paddingTop="$2"
+      backgroundColor={colors.beige}
+      alignItems="center"
+      gap="$3"
+    >
+      <Text
+        fontSize="$8"
+        fontFamily="MarckScript-Regular"
+        textDecorationLine="underline"
+        paddingTop="$1"
+        color={colors.black}
+        opacity={0.8}
+        zIndex={10}
+        textShadowOffset={{ width: 3, height: 1 }}
+        textShadowRadius={5}
+        shadowColor={colors.black}
+        shadowOffset={{ width: 3, height: 1 }}
+        shadowRadius={5}
+        shadowOpacity={0.7}
+      >
+        {i18n.language === "fi" ? card.title_fi : card.title_en}
+      </Text>
+      <ImageView card={card} />
+
+      <Description card={card} />
+    </YStack>
+  );
+};
+
+export default CardView;

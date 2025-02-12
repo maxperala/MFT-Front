@@ -1,3 +1,22 @@
+/**
+ * Root Application Component
+ *
+ * Manages the core application structure and initialization, including:
+ * - Authentication state management
+ * - Navigation stack configuration
+ * - Location services setup
+ * - Language initialization
+ * - Pack and stamp data fetching
+ *
+ * Features:
+ * - Conditional rendering based on authentication
+ * - Safe area insets handling
+ * - App state monitoring for location updates
+ * - Modal components for cards and full-screen images
+ * - Stack navigation with custom headers
+ *
+ * @component
+ */
 import { Stack } from "expo-router";
 import { useEffect } from "react";
 import { View, AppState, StyleSheet } from "react-native";
@@ -6,14 +25,13 @@ import { RootState, AppDispatch } from "@/state/store";
 import RegisterScreen from "./register";
 import { getUser } from "@/state/userReducer";
 import { getLocationStatus } from "@/utils/location/locationUtils";
-import CardSheet from "@/components/CardSheet";
+import CardSheet from "@/components/cards/CardSheet";
 import LoadingScreen from "./loading-screen";
-
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import colors from "@/colors";
+import { colors } from "@/colors";
 import { getAllPacks } from "@/state/packsReducer";
-import FullScreenImage from "@/components/FullScreenImage";
-import BackNavigator from "@/components/BackNavigator";
+import FullScreenImage from "@/components/misc/FullScreenImage";
+import BackNavigator from "@/components/cards/BackNavigator";
 import { getAllStamps } from "@/state/stampsReducer";
 import { checkIntroSeen, initSavedLanguage } from "@/state/settingsReducer";
 
@@ -80,7 +98,7 @@ const style = StyleSheet.create({
   app: {
     width: "100%",
     height: "100%",
-    backgroundColor: colors.main_red,
+    backgroundColor: colors.red,
   },
 });
 

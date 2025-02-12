@@ -1,3 +1,6 @@
+/**
+ * Manages toast notification state for displaying user feedback messages
+ */
 import { ToastState, ToastType } from "@/types";
 import {
   createSlice,
@@ -28,6 +31,9 @@ const toastReducer = createSlice({
 
 export const { setToast, setActive } = toastReducer.actions;
 
+/**
+ * Creates a toast notification with specified message and type
+ */
 export const createToast = (
   msg: string,
   type: ToastType

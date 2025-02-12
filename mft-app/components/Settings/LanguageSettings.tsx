@@ -1,9 +1,25 @@
+/**
+ * Language Settings Component
+ *
+ * Manages language selection interface with radio buttons and localized content,
+ * allowing users to switch between available languages.
+ *
+ * Features:
+ * - Radio button language selection
+ * - Animated transitions
+ * - Localized content display
+ * - Redux integration for language state
+ * - Done button with confirmation
+ * - Responsive layout with custom styling
+ *
+ * @component
+ */
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import Animated, { FadeInRight } from "react-native-reanimated";
 import RadioGroup from "react-native-radio-buttons-group";
 import { useMemo, useState } from "react";
-import { colors_new } from "@/colors";
+import { colors } from "@/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { AppDispatch } from "@/state/store";
 import { useDispatch } from "react-redux";
@@ -65,7 +81,7 @@ const style = StyleSheet.create({
     padding: 10,
     paddingTop: "20%",
     borderRadius: 6,
-    backgroundColor: colors_new.gold,
+    backgroundColor: colors.gold,
   },
   text: {
     fontFamily: "MarckScript-Regular",

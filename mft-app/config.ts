@@ -1,3 +1,9 @@
+/**
+ * Application configuration constants
+ *
+ * Defines global configuration values for the application including
+ * backend URLs, map settings, and localization options.
+ */
 import postal_data from "@/assets/mapping/postal_data.json";
 import { PostCodeInfo } from "./types";
 import wellknown from "wellknown";
@@ -8,6 +14,9 @@ import { Alert } from "react-native";
 import { AppDispatch } from "./state/store";
 import { ActionCreator } from "@reduxjs/toolkit";
 
+/**
+ * Processed postal code data with GeoJSON polygons
+ */
 export const POST_CODE_DATA: PostCodeInfo[] = postal_data.codes
   .map((info) => {
     const p = wellknown.parse(info.poly);
@@ -30,8 +39,9 @@ export const CDN_URL = BACKEND_BASE;
 // At what level the markers are revealed
 export const REVEAL_ZOOM_LEVEL = 13;
 
-// These are the bounds for the mappack and the mapview. Point is to force the user to use locally available tiles to limit the api requests. UPDATE: local not possible :(
-// Pretty good box. When zoomed fully out it's about the centrum of Tampere.
+/**
+ * Map bounds for Tampere region
+ */
 export const BOUNDS: [GeoJSON.Position, GeoJSON.Position] = [
   [24.246317, 61.78],
   [23.311911, 61.25],
@@ -53,7 +63,9 @@ export const INFO_URL = {
   en: `${BACKEND_BASE}/documents/info_en.html`,
 };
 
-// Thsese should really be their own file.
+/**
+ * Alert handlers for clipboard operations
+ */
 const finnishClipboardAlert = () => {
   Alert.alert("Kopioitu", "Kirjautumiskoodi kopioitu leikepöydälle");
 };
@@ -62,6 +74,9 @@ const englishClipboardAlert = () => {
   Alert.alert("Copied", "Login token copied to clipboard");
 };
 
+/**
+ * Alert handlers for account deletion
+ */
 export const finnishDeleteAlert = (
   dispatch: AppDispatch,
   fn: ActionCreator<any, any>

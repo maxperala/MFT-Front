@@ -1,3 +1,6 @@
+/**
+ * Manages application settings state including language, routes and intro screens
+ */
 import { introSavedObject, SettingsRoute, SettingsState } from "@/types";
 import {
   createSlice,
@@ -42,6 +45,9 @@ const settingsReducer = createSlice({
 export const { setRoute, setStateLanguage, setIntroSeen, setTestMode } =
   settingsReducer.actions;
 
+/**
+ * Updates application language if different from current
+ */
 export const changeLanguage = (
   lng: string
 ): ThunkAction<void, RootState, unknown, UnknownAction> => {
@@ -53,6 +59,9 @@ export const changeLanguage = (
   };
 };
 
+/**
+ * Initializes language from saved preferences
+ */
 export const initSavedLanguage = (): ThunkAction<
   void,
   RootState,
@@ -67,6 +76,9 @@ export const initSavedLanguage = (): ThunkAction<
   };
 };
 
+/**
+ * Sets current settings route and handles special routes
+ */
 export const setSettingsRoute = (
   route: SettingsRoute,
   router: Router
@@ -90,6 +102,9 @@ export const setSettingsRoute = (
   };
 };
 
+/**
+ * Checks if intro screens have been viewed
+ */
 export const checkIntroSeen = (): ThunkAction<
   void,
   RootState,
@@ -115,6 +130,9 @@ export const checkIntroSeen = (): ThunkAction<
   };
 };
 
+/**
+ * Marks intro screens as viewed
+ */
 export const setIntroToSeen = (): ThunkAction<
   void,
   RootState,

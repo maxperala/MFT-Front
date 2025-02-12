@@ -1,7 +1,23 @@
+/**
+ * Stamp Modal Close Button Component
+ *
+ * A button component that handles closing the stamp modal with fade animation
+ * and delayed interaction.
+ *
+ * Features:
+ * - Fade in animation
+ * - Delayed interaction timer
+ * - Redux integration for state
+ * - Custom icon styling
+ * - Absolute positioning
+ * - Touch interaction handling
+ *
+ * @component
+ */
 import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { colors_new } from "@/colors";
+import { colors } from "@/colors";
 import { clearActiveStamp } from "@/state/stampsReducer";
 import { AppDispatch, RootState } from "@/state/store";
 import Animated, {
@@ -48,7 +64,7 @@ const StampModalCloseButton = ({ id }: { id: StampID }) => {
         <Ionicons
           size={40}
           name="close-circle"
-          color={colors_new.red}
+          color={colors.red}
           style={{ flex: 1 }}
         />
       </TouchableOpacity>

@@ -1,12 +1,30 @@
-import { colors_new } from "@/colors";
+/**
+ * Register Screen Component
+ *
+ * Main authentication screen that handles both registration and login flows.
+ * Features:
+ * - Toggles between registration and login forms
+ * - Displays privacy policy when needed
+ * - Shows onboarding for new users
+ * - Includes branding and logo
+ * - Supports internationalization
+ *
+ * Flow:
+ * 1. Checks if onboarding is complete
+ * 2. Shows privacy policy if requested
+ * 3. Toggles between registration/login forms
+ *
+ * @component
+ */
+import { colors } from "@/colors";
 import { View, YStack, Text } from "tamagui";
 import { Image } from "expo-image";
-import RegisterForm from "@/components/RegisterForm";
+import RegisterForm from "@/components/forms/RegisterForm";
 import { useState } from "react";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/forms/LoginForm";
 import { ScrollView, TouchableOpacity } from "react-native";
 import { useTranslation } from "react-i18next";
-import PrivacyPolicyView from "@/components/PrivacyPolicyView";
+import PrivacyPolicyView from "@/components/views/PrivacyPolicyView";
 import { useSelector } from "react-redux";
 import { RootState } from "@/state/store";
 import OnboardingViewer from "./onboarding";
@@ -26,7 +44,7 @@ const Register = () => {
       contentContainerStyle={{
         width: "100%",
         height: "100%",
-        backgroundColor: colors_new.red,
+        backgroundColor: colors.red,
         paddingTop: "20%",
         justifyContent: "center",
       }}
@@ -56,7 +74,7 @@ const Register = () => {
       </YStack>
       <TouchableOpacity onPress={() => setPolicyVisible(true)}>
         <Text
-          color={colors_new.light_grey}
+          color={colors.light_grey}
           fontSize="$1"
           position="absolute"
           bottom="$3"
