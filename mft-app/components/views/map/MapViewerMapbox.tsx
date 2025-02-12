@@ -21,7 +21,6 @@ import { BOUNDS, REVEAL_ZOOM_LEVEL } from "@/config";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/state/store";
 import Mapbox from "@rnmapbox/maps";
-import { useLocation } from "@/utils/hooks";
 import { setMapHeading, setMapLoading } from "@/state/locationReducer";
 import { Platform } from "react-native";
 import { debounce } from "lodash";
@@ -35,6 +34,7 @@ import { debounce } from "lodash";
 import { MAPBOX_STYLE_URL, centerCoordinate } from "@/config";
 import { colors } from "@/colors";
 import { Postcard } from "@/types";
+import { useLocation } from "@/utils/hooks";
 
 const MapViewerMapbox = () => {
   const dispatch: AppDispatch = useDispatch();
