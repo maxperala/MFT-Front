@@ -58,4 +58,3 @@ Using the app requires for the user to be in a specific location. You can find s
 The app is preconfigured to point to the backend running at ```service.tampere.app```. You are free to use that but if you host your own backend you need to change ```BACKEND_BASE```under ```config.ts```.
 
 This repository used to contain a Mapbox public key, which is supposed to be safe to expose. In the current version of the app the key is provided by the backend and the key found in this repo is no longer active.
-
